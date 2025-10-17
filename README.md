@@ -45,20 +45,21 @@ claude
 /ctxk:proj:init
 ```
 
-### 3. Build your first feature systematically
+### 3. Choose your workflow
 
+**For major features** (multi-file changes, new architecture, research needed):
 ```bash
-# Step 1: Define what you're building (business requirements)
-/ctxk:plan:1-spec
+# Full systematic workflow with detailed planning
+/ctxk:plan:1-spec          # Business requirements
+/ctxk:plan:2-research-tech # Technical architecture
+/ctxk:plan:3-steps         # Implementation breakdown
+/ctxk:impl:start-working   # Start development
+```
 
-# Step 2: Plan the technical architecture
-/ctxk:plan:2-research-tech
-
-# Step 3: Break down into executable tasks
-/ctxk:plan:3-steps
-
-# Step 4: Start development with full context
-/ctxk:impl:start-working
+**For smaller tasks** (bug fixes, improvements, refactoring):
+```bash
+# Quick workflow with interactive validation
+/ctxk:plan:quick           # All-in-one: understanding → plan → work
 ```
 
 ContextKit creates structured feature directories, maintains context between sessions, and guides you through quality checkpoints that prevent common AI development pitfalls.
@@ -118,6 +119,40 @@ Execute with supervised autonomy and specialized quality agents (requires featur
 - Automatic cleanup of AI artifacts (leftover comments, temporary code)
 - You maintain strategic oversight while AI handles tactical execution
 
+### Quick Workflow (`/ctxk:plan:quick`)
+Streamlined single-file planning for smaller tasks (no feature branches required):
+- **Interactive validation** - AI presents understanding of your task for confirmation
+- **Scope clarity** - Clear In Scope/Out of Scope boundaries prevent scope creep
+- **Edge case identification** - Surface potential issues upfront
+- **Fast execution** - Single command, single file, ready to work
+
+**When to use Quick vs Full:**
+
+| Use Quick Workflow | Use Full Workflow |
+|-------------------|-------------------|
+| Bug fixes | New major features |
+| Smaller improvements | Multi-component changes |
+| Refactoring | Unclear requirements needing research |
+| Focused changes | Complex architectural decisions |
+| Experiments | Team review required |
+
+**File structure difference:**
+```
+Context/Features/
+├── 001-UserAuthentication/     ← Full feature (folder)
+│   ├── Spec.md
+│   ├── Tech.md
+│   └── Steps.md
+├── 002-FixLoginButton.md       ← Quick task (single file)
+├── 003-OfflineSync/            ← Full feature (folder)
+│   ├── Spec.md
+│   ├── Tech.md
+│   └── Steps.md
+└── 004-AddDarkMode.md          ← Quick task (single file)
+```
+
+Both workflows maintain chronological order with sequential numbering, making it easy to track development history.
+
 
 ## 📋 Commands overview
 
@@ -125,7 +160,8 @@ Execute with supervised autonomy and specialized quality agents (requires featur
 - **`/ctxk:proj:init`** - One-command project initialization with auto-detection
 
 ### Systematic Feature Development
-- **Planning workflow**: `/ctxk:plan:1-spec` → `/ctxk:plan:2-research-tech` → `/ctxk:plan:3-steps`
+- **Full planning workflow**: `/ctxk:plan:1-spec` → `/ctxk:plan:2-research-tech` → `/ctxk:plan:3-steps`
+- **Quick planning workflow**: `/ctxk:plan:quick` (single-file, interactive validation)
 - **Development**: `/ctxk:impl:start-working` with autonomous quality checks
 - **Release**: `/ctxk:impl:release-app` for iOS/macOS, `/ctxk:impl:release-package` for Swift packages
 
@@ -148,9 +184,10 @@ Execute with supervised autonomy and specialized quality agents (requires featur
 - `/ctxk:proj:migrate` - Upgrade to latest ContextKit versions
 
 ### Systematic Feature Planning
-- `/ctxk:plan:1-spec` - Define requirements with business specifications and user stories (prompts interactively)
-- `/ctxk:plan:2-research-tech` - Design architecture with technical planning and constitutional compliance
-- `/ctxk:plan:3-steps` - Create numbered, trackable implementation tasks
+- `/ctxk:plan:1-spec` - Define requirements with business specifications and user stories (full workflow)
+- `/ctxk:plan:2-research-tech` - Design architecture with technical planning and constitutional compliance (full workflow)
+- `/ctxk:plan:3-steps` - Create numbered, trackable implementation tasks (full workflow)
+- `/ctxk:plan:quick` - Quick planning with interactive validation for smaller tasks (single file)
 
 ### Quality-Driven Implementation
 - `/ctxk:impl:start-working` - Begin development with context-aware guidance

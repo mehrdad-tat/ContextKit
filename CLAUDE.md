@@ -64,10 +64,11 @@ ContextKit/
     │   ├── check-code-debt.md       # [INCOMPLETE] Technical debt cleanup and code consolidation
     │   ├── run-test-suite.md        # [READY] Execute complete test suite with build validation and structured failure reporting
     │   └── run-specific-test.md     # [READY] Execute specific test with build validation and focused failure analysis
-    ├── Features/                    # → FEATURE TEMPLATES (used by /ctxk:plan:1-spec, etc.)
+    ├── Features/                    # → FEATURE TEMPLATES (used by /ctxk:plan:1-spec, /ctxk:plan:quick, etc.)
     │   ├── Spec.md                  # Business requirements and user stories (spec-kit methodology)
     │   ├── Tech.md                  # Technical architecture and constitutional compliance
-    │   └── Steps.md                 # Implementation task breakdown with parallel markers [P]
+    │   ├── Steps.md                 # Implementation task breakdown with parallel markers [P]
+    │   └── Quick.md                 # Quick task planning template with interactive validation
     ├── Contexts/                    # → CONTEXT TEMPLATES (used by /ctxk:proj:init and /ctxk:proj:init-workspace)
     │   ├── Project.md               # Project-level Context.md with ContextKit configuration
     │   └── Workspace.md             # Workspace-level Context.md with client/company overrides
@@ -110,6 +111,7 @@ cp -R ~/.ContextKit/Templates/Commands/* ~/.claude/commands/ctxk/
 - `/ctxk:plan:1-spec` - Create feature specification (prompts for description interactively)
 - `/ctxk:plan:2-research-tech` - Create technical research and architecture plan
 - `/ctxk:plan:3-steps` - Break down implementation steps
+- `/ctxk:plan:quick` - Quick planning for smaller tasks with interactive validation
 - `/ctxk:impl:start-working` - Begin development with context
 - `/ctxk:impl:commit-changes` - Commit with proper message formatting
 - `/ctxk:impl:release-app` - iOS/macOS app release workflow
@@ -156,22 +158,57 @@ All `/ctxk:*` commands listed above are already installed and work in any direct
 
 ### Phase 3: Feature Development (Commands Use Templates)
 
-**When users run**: `/ctxk:plan:1-spec`
+**FULL WORKFLOW - When users run**: `/ctxk:plan:1-spec`
 
 **What the command does**:
 ```bash
 # 1. Read project Context.md to understand project type
-# 2. Generate feature name: "UserAuthentication"  
-# 3. Create feature directory: Context/Features/UserAuthentication/
+# 2. Generate feature name: "UserAuthentication"
+# 3. Create feature directory: Context/Features/001-UserAuthentication/
 # 4. Copy & customize feature templates:
-cp ~/.ContextKit/Templates/Features/Spec.md Context/Features/UserAuthentication/Spec.md
-cp ~/.ContextKit/Templates/Features/Tech.md Context/Features/UserAuthentication/Tech.md
-cp ~/.ContextKit/Templates/Features/Steps.md Context/Features/UserAuthentication/Steps.md
+cp ~/.ContextKit/Templates/Features/Spec.md Context/Features/001-UserAuthentication/Spec.md
+cp ~/.ContextKit/Templates/Features/Tech.md Context/Features/001-UserAuthentication/Tech.md
+cp ~/.ContextKit/Templates/Features/Steps.md Context/Features/001-UserAuthentication/Steps.md
 
 # 5. The templates are NOT variable-substituted - they contain dynamic logic
-# 6. Create git branch: "feature/user-authentication" 
+# 6. Create git branch: "feature/001-user-authentication"
 # 7. Result: Ready-to-use feature development structure with active templates
 ```
+
+**QUICK WORKFLOW - When users run**: `/ctxk:plan:quick`
+
+**What the command does**:
+```bash
+# 1. Read project Context.md to understand project type
+# 2. Codebase analysis and optional research
+# 3. Interactive validation in chat:
+#    - Present understanding summary
+#    - Show In Scope / Out of Scope / Edge Cases
+#    - Wait for user confirmation or corrections
+# 4. After confirmation, create single file:
+cp ~/.ContextKit/Templates/Features/Quick.md Context/Features/002-FixLoginButton.md
+
+# 5. Populate file with confirmed understanding
+# 6. NO git branch creation (work on current branch)
+# 7. Result: Single-file plan ready for immediate work
+```
+
+**File structure comparison**:
+```
+Context/Features/
+├── 001-UserAuthentication/     ← Full workflow (folder with 3 files)
+│   ├── Spec.md
+│   ├── Tech.md
+│   └── Steps.md
+├── 002-FixLoginButton.md       ← Quick workflow (single file)
+├── 003-OfflineSync/            ← Full workflow (folder with 3 files)
+│   ├── Spec.md
+│   ├── Tech.md
+│   └── Steps.md
+└── 004-AddDarkMode.md          ← Quick workflow (single file)
+```
+
+Both workflows share sequential numbering to maintain chronological development history.
 
 ---
 
@@ -222,13 +259,13 @@ tools: Read, Edit, Grep
 - **Parsing Command**: `sed -n '2p' file | grep "Template Version"`
 - **Migration Usage**: `/ctxk:proj:migrate` command uses this for version detection
 
-### Files Requiring Versioning (38 files)
+### Files Requiring Versioning (40 files)
 
 **All .md template files**:
 - `Templates/Guidelines/*.md` (2 files)
-- `Templates/Commands/**/*.md` (16 files)
+- `Templates/Commands/**/*.md` (17 files)
 - `Templates/Agents/*.md` (8 files)
-- `Templates/Features/*.md` (3 files)
+- `Templates/Features/*.md` (4 files)
 - `Templates/Backlog/*.md` (4 files)
 
 **All .sh template files**:
@@ -313,7 +350,7 @@ AGENT_LATEST_VERSION=$(sed -n '2p' ~/.ContextKit/Templates/Agents/check-modern-c
 
 **Directory Structure in Templates/Commands/**:
 - `proj/` - Project management (init, init-workspace, migrate)
-- `plan/` - Feature planning (1-spec, 2-research-tech, 3-steps) 
+- `plan/` - Feature planning (1-spec, 2-research-tech, 3-steps, quick)
 - `impl/` - Implementation (start-working, commit-changes, release-app, release-package)
 - `bckl/` - Backlog management (add-idea, add-bug, prioritize-ideas, prioritize-bugs, remove-idea, remove-bug)
 
@@ -370,15 +407,28 @@ AGENT_LATEST_VERSION=$(sed -n '2p' ~/.ContextKit/Templates/Agents/check-modern-c
 - Clear actionable guidance for each issue type
 
 ### 📝 **Templates/Features/** - Feature Development Templates
-**Purpose**: Templates copied during feature planning commands  
-**Copy Destination**: `Context/Features/[FeatureName]/` during `/ctxk:plan:1-spec`  
-**Format**: Markdown with spec-kit execution flows  
+**Purpose**: Templates copied during feature planning commands
+**Copy Destination**:
+- Full workflow: `Context/Features/XXX-[FeatureName]/` (folder) during `/ctxk:plan:1-spec`
+- Quick workflow: `Context/Features/XXX-[TaskName].md` (file) during `/ctxk:plan:quick`
+**Format**: Markdown with spec-kit execution flows
 **Variables**: **NONE** - Templates contain dynamic logic, no static substitution
 
 **Templates & AI Implementation Focus**:
+
+**Full Workflow Templates** (3 files per feature):
 - `Spec.md` - Business requirements with forced uncertainty marking `🚨 [NEEDS CLARIFICATION: X]`
-- `Tech.md` - Technical architecture with constitutional compliance gates  
+- `Tech.md` - Technical architecture with constitutional compliance gates
 - `Steps.md` - Implementation breakdown with parallel markers `[P]` and S001-S999 numbering
+
+**Quick Workflow Template** (1 file per task):
+- `Quick.md` - Single-file plan with:
+  - Input section (verbatim user description)
+  - Understanding section (In Scope/Out of Scope/Edge Cases - validated interactively)
+  - Code Context section (relevant files and patterns, may include research findings)
+  - Implementation Approach (detailed technical decisions and rationale)
+  - Tasks checklist (as many as needed)
+  - NO git branch creation, NO quality gates, designed for efficiency
 
 ### 🏗️ **Templates/Contexts/** - Configuration Templates
 **Purpose**: Context.md templates for project and workspace configuration  
@@ -497,10 +547,14 @@ claude  # Start Claude Code
 /ctxk:proj:init  # Initialize with ContextKit
 
 # 4. Test workflow commands function properly
+# Full workflow:
 /ctxk:plan:1-spec
 /ctxk:plan:2-research-tech
 /ctxk:plan:3-steps
 /ctxk:impl:start-working
+
+# Quick workflow:
+/ctxk:plan:quick
 ```
 
 ### Common Development Pitfalls
@@ -557,7 +611,9 @@ These files become completely user-managed after initial setup:
 
 - **`Templates/Contexts/Project.md`** → becomes `Context.md` in project root
 - **`Templates/Contexts/Workspace.md`** → becomes `Context.md` in workspace directory
-- **`Templates/Features/*.md`** → copied to `Context/Features/[FeatureName]/` during planning
+- **`Templates/Features/*.md`** → copied to `Context/Features/[FeatureName]/` or `Context/Features/XXX-[TaskName].md` during planning
+  - Full workflow: creates folder with Spec.md, Tech.md, Steps.md
+  - Quick workflow: creates single Quick.md file
 - **`Templates/Formatters/.*`** → formatter config files copied to project root (`.swift-format`, `.swiftformat`)
 
 **Key Characteristics**:
@@ -632,7 +688,7 @@ Used only for user-managed files that combine template structure with AI generat
 ```
 
 **Files using this pattern**:
-- `Templates/Features/*.md` - Feature templates with AI generation logic
+- `Templates/Features/*.md` - Feature templates with AI generation logic (Spec.md, Tech.md, Steps.md, Quick.md)
 - `Templates/Contexts/*.md` - Context generation templates
 - `Templates/Backlog/*.md` - Backlog management templates
 

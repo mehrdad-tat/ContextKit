@@ -1,5 +1,5 @@
 # Implementation Steps: [Feature from Tech.md]
-<!-- Template Version: 11 | ContextKit: 0.1.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 12 | ContextKit: 0.1.0 | Updated: 2025-10-17 -->
 
 ## Description
 Implementation task breakdown template providing systematic S001-S999 task enumeration with parallel execution markers and dependency analysis for iOS/macOS development workflows.
@@ -29,36 +29,24 @@ Implementation task breakdown template providing systematic S001-S999 task enume
 ════════════════════════════════════════════════════════════════════════════════
 ║
 ║ ## Execution Flow (main)
-║ 
-║ ### Phase 0: Check Customization
-║ 
-║ 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
-║    - Use `Grep` tool to find the start of the section
-║    - Read everything below that line contained in this document til the end of the file
-║    - Make sure to consider what was said there with high priority
-║    - If anything conflicts with the rest of the workflow, prioritize the "developer customizations"
 ║
 ║ ### Phase 1: Prerequisites & Planning Analysis
 ║
-║ 1. **Load Technical Research Results**
-║    - Use `Read` tool to read current feature directory Research.md: `Read Context/Features/[FeatureName]/Research.md`
-║    - If missing: ERROR "Technical research required - run /ctxk:plan:2-research-tech first (includes research phase)"
-║    - Extract: technology decisions, API constraints, integration patterns, version requirements
+║ 1. **Load Technical Planning**
+║    - Use `Read` tool to read current feature directory Tech.md: `Read Context/Features/[FeatureName]/Tech.md`
+║    - If missing: ERROR "Technical planning required - run /ctxk:plan:2-research-tech first"
+║    - If 🚨 [NEEDS CLARIFICATION] markers exist: ERROR "Resolve technical uncertainties first"
+║    - Extract from Research & Analysis section: technology decisions, API constraints, integration patterns, version requirements
+║    - Extract from Technical Architecture section: architecture decisions, component structure, dependencies
+║    - Cross-reference research findings with architecture for implementation constraints
 ║    - Document technology limitations and best practices for implementation guidance
 ║
-║ 2. **Load Technical Architecture Plan**
-║    - Use `Read` tool to read current feature directory Tech.md: `Read Context/Features/[FeatureName]/Tech.md`
-║    - If missing: ERROR "Technical plan required - run /ctxk:plan:2-research-tech first"
-║    - Extract: architecture decisions, component structure, dependencies
-║    - Cross-reference with research findings for implementation constraints
-║    - If 🚨 [NEEDS CLARIFICATION] markers exist: ERROR "Resolve technical uncertainties first"
-║
-║ 3. **Load Feature Specification**
+║ 2. **Load Feature Specification**
 ║    - Use `Read` tool to read current feature directory Spec.md: `Read Context/Features/[FeatureName]/Spec.md`
 ║    - Extract: user stories, functional requirements, acceptance criteria
 ║    - Map requirements to implementation tasks with research-informed constraints
 ║
-║ 4. **Analyze Implementation Complexity and Scope**
+║ 3. **Analyze Implementation Complexity and Scope**
 ║    - Count: new files, modified files, new APIs, tests needed
 ║    - If scope > 25 tasks: WARN "Consider breaking into smaller features"
 ║    - **Knowledge Gap Assessment**: Evaluate API documentation quality and newness
@@ -69,7 +57,7 @@ Implementation task breakdown template providing systematic S001-S999 task enume
 ║
 ║ ### Phase 2: Task Generation & Organization
 ║
-║ 5. **Apply Task Generation Rules with Research-Informed Constraints**
+║ 4. **Apply Task Generation Rules with Research-Informed Constraints**
 ║    - Apply technology limitations from research (version requirements, rate limits, API constraints)
 ║    - Include integration patterns discovered in codebase analysis
 ║    - Consider performance implications documented in architectural pattern research
@@ -85,7 +73,7 @@ Implementation task breakdown template providing systematic S001-S999 task enume
 ║      - Simple Info.plist updates = Automated task (allowed)
 ║      - Build setting changes = Automated task when straightforward
 ║
-║ 6. **Generate Tasks with S### Enumeration (S001, S002...)**
+║ 5. **Generate Tasks with S### Enumeration (S001, S002...)**
 ║    - Setup tasks: Project structure, dependencies, configuration (S001-S010)
 ║    - Model tasks: Data layer implementation with TDD approach (S011-S020)
 ║    - Service tasks: Business logic and API integration (S021-S030)
@@ -94,7 +82,7 @@ Implementation task breakdown template providing systematic S001-S999 task enume
 ║    - Manual validation tasks: **User testing required** - running apps, interactions (S051-S060)
 ║    - Polish tasks: Performance, compliance, release prep (S061-S070)
 ║
-║ 7. **Apply Parallel Execution Markers [P]**
+║ 6. **Apply Parallel Execution Markers [P]**
 ║    - Different files = [P] parallel safe
 ║    - Same file = sequential only
 ║    - Independent components = [P] parallel safe
@@ -103,7 +91,7 @@ Implementation task breakdown template providing systematic S001-S999 task enume
 ║
 ║ ### Phase 3: Dependency Analysis & Validation
 ║
-║ 8. **Validate Dependency Chains with Research Constraints**
+║ 7. **Validate Dependency Chains with Research Constraints**
 ║    - Apply external service dependencies and rate limiting from research
 ║    - Include technology integration requirements from research findings
 ║    - Models before Services before UI
@@ -112,7 +100,7 @@ Implementation task breakdown template providing systematic S001-S999 task enume
 ║    - Critical path identified and documented
 ║    - No circular dependencies
 ║
-║ 9. **Run iOS-Specific Task Validation with Research Integration**
+║ 8. **Run iOS-Specific Task Validation with Research Integration**
 ║    - Include Apple-specific best practices identified in research
 ║    - Apply version compatibility requirements from technology research
 ║    - Privacy manifest updates included?
@@ -122,14 +110,14 @@ Implementation task breakdown template providing systematic S001-S999 task enume
 ║
 ║ ### Phase 4: Implementation Plan Generation
 ║
-║ 10. **Generate Implementation Steps Content with Research Integration**
+║ 9. **Generate Implementation Steps Content with Research Integration**
 ║    - Use `Edit` tool to replace template header with specific feature information:
 ║      - Title: "# Implementation Steps: [Feature Name]"
 ║      - Created: [Current Date]
 ║      - Status: Implementation Plan
 ║      - Prerequisites: Reference to completed Spec.md and Tech.md
 ║
-║ 11. **Fill Task Breakdown Sections with Research-Informed Constraints**
+║ 10. **Fill Task Breakdown Sections with Research-Informed Constraints**
 ║     - Include technology version requirements from research in setup tasks
 ║     - Apply API integration patterns discovered in research to service tasks
 ║     - Include codebase integration requirements from research analysis
@@ -144,14 +132,14 @@ Implementation task breakdown template providing systematic S001-S999 task enume
 ║     - **Milestone Commits**: ALL milestones MUST specify "Use Task tool with commit-changes agent to commit"
 ║     - Polish & Release Preparation with compliance tasks and external process guidance
 ║
-║ 12. **Generate Dependency Analysis with External Constraints**
+║ 11. **Generate Dependency Analysis with External Constraints**
 ║     - Include external service dependencies and rate limits from research
 ║     - Apply technology integration timing requirements from research findings
 ║     - Critical path analysis with longest dependency chain
 ║     - Parallel execution opportunities documentation
 ║     - Platform-specific dependencies mapping
 ║
-║ 13. **Create Completion Verification Checklist with Research Validation**
+║ 12. **Create Completion Verification Checklist with Research Validation**
 ║     - Include technology implementation validation based on research best practices
 ║     - Add performance verification criteria from architectural pattern research
 ║     - **AI-Assisted Time Estimation**: Generate realistic review and testing time estimates based on:
@@ -165,24 +153,55 @@ Implementation task breakdown template providing systematic S001-S999 task enume
 ║
 ║ ### Phase 5: Validation & Completion
 ║
-║ 14. **Run Implementation Validation Gates with Research Compliance**
+║ 13. **Validate Task Generation Quality**
+║     - All requirements have corresponding implementation tasks?
+║     - All architecture components have creation tasks?
+║     - Context/Guidelines compliance tasks included for relevant features?
+║     - Parallel tasks truly independent (different files)?
+║     - Each task specifies exact file path and dependencies?
+║     - Task descriptions specific enough for execution without ambiguity?
 ║     - All research findings integrated into implementation tasks?
 ║     - Technology constraints from research reflected in task dependencies?
 ║     - API limitations and best practices incorporated into service tasks?
-║     - All requirements have corresponding implementation tasks?
-║     - All architecture components have creation tasks?
-║     - Context/Guidelines compliance tasks included?
-║     - Parallel tasks truly independent (different files)?
-║     - Each task specifies exact file path?
+║
+║ 14. **Validate Dependency Management**
 ║     - Dependency graph shows clear execution order?
+║     - No circular dependencies in task chain?
+║     - Critical path identified and realistic?
+║     - Parallel execution opportunities properly marked with [P]?
+║     - Platform-specific dependencies documented?
+║     - External service dependencies and rate limits from research included?
+║     - Technology integration timing requirements applied?
 ║
-║ 15. **Update Implementation Plan Status**
-║     - Check off all completed implementation planning items
-║     - Mark any remaining 🚨 [NEEDS CLARIFICATION] areas
-║     - Validate all mandatory sections completed
+║ 15. **Validate iOS/macOS Implementation Coverage**
+║     - SwiftUI implementation tasks cover all UI requirements?
+║     - Data layer tasks address all storage needs from tech plan?
+║     - Service layer tasks handle all business logic requirements?
+║     - Testing tasks provide adequate coverage for all components?
+║     - Platform compliance tasks address App Store and guideline requirements?
+║     - Apple-specific best practices from research integrated?
+║     - Version compatibility requirements applied?
 ║
-║ 16. **COMPLETION**
-║     - Use `Edit` tool to remove this entire boxed system instructions section
+║ 16. **Validate Automated vs Manual Task Separation**
+║     - Phase 5 tasks are truly automated (builds, tests, agents only)?
+║     - Phase 6 tasks requiring app interaction use standardized manual testing format?
+║     - No manual testing tasks marked as automated AI execution?
+║     - Manual testing tasks include clear success/failure response instructions?
+║     - External processes (App Store) clearly marked as manual user actions?
+║     - Build tasks explicitly specify "Use Task tool with build-project agent"?
+║     - Test tasks explicitly specify "Use Task tool with run-test-* agent"?
+║     - Milestone commits specify "Use Task tool with commit-changes agent to commit"?
+║
+║ 17. **Validate Implementation Completeness**
+║     - All user scenarios from specification have implementation tasks?
+║     - Error handling tasks address all failure modes?
+║     - Performance tasks address all technical plan requirements?
+║     - Quality assurance tasks validate all Context/Guidelines standards?
+║     - Technology implementation validation based on research best practices?
+║     - Performance verification criteria from architectural pattern research included?
+║
+║ 18. **COMPLETION**
+║     - Use `Edit` tool to remove this entire boxed system instructions section from the start of the file
 ║     - Leave only the clean implementation steps content for team use
 ║     - Final document focused on executable task breakdown with clear dependencies
 ║
@@ -202,7 +221,7 @@ Implementation task breakdown template providing systematic S001-S999 task enume
 
 **Created**: [AI Generated Current Date]
 **Status**: Implementation Plan
-**Prerequisites**: Completed business specification (Spec.md), technical research (Research.md), and technical architecture (Tech.md)
+**Prerequisites**: Completed business specification (Spec.md) and technical planning (Tech.md with research and architecture)
 
 ## Implementation Phases *(mandatory)*
 
@@ -526,86 +545,3 @@ For complex Xcode operations (target creation, scheme setup), use standardized f
 **Next Phase**: After implementation steps are completed, proceed to `/ctxk:impl:start-working` to begin systematic development execution.
 
 ---
-
-════════════════════════════════════════════════════════════════════════════════
-║ 🤖 VALIDATION & EXECUTION STATUS - AI WORKFLOW INSTRUCTIONS
-════════════════════════════════════════════════════════════════════════════════
-║
-║ ## Implementation Validation Gates
-║
-║ ### Task Generation Quality
-║ - [ ] All requirements have corresponding implementation tasks?
-║ - [ ] All architecture components have creation tasks?
-║ - [ ] Context/Guidelines compliance tasks included for relevant features?
-║ - [ ] Parallel tasks truly independent (different files)?
-║ - [ ] Each task specifies exact file path and dependencies?
-║ - [ ] Task descriptions specific enough for execution without ambiguity?
-║
-║ ### Dependency Management
-║ - [ ] Dependency graph shows clear execution order?
-║ - [ ] No circular dependencies in task chain?
-║ - [ ] Critical path identified and realistic?
-║ - [ ] Parallel execution opportunities properly marked with [P]?
-║ - [ ] Platform-specific dependencies documented?
-║
-║ ### iOS/macOS Implementation Coverage
-║ - [ ] SwiftUI implementation tasks cover all UI requirements?
-║ - [ ] Data layer tasks address all storage needs from tech plan?
-║ - [ ] Service layer tasks handle all business logic requirements?
-║ - [ ] Testing tasks provide adequate coverage for all components?
-║ - [ ] Platform compliance tasks address App Store and guideline requirements?
-║
-║ ### Automated vs Manual Task Validation
-║ - [ ] **Phase 5 tasks** are truly automated (builds, tests, agents only)?
-║ - [ ] **Phase 6 tasks** requiring app interaction use standardized manual testing format?
-║ - [ ] No manual testing tasks marked as automated AI execution?
-║ - [ ] Manual testing tasks include clear success/failure response instructions?
-║ - [ ] External processes (App Store) clearly marked as manual user actions?
-║
-║ ### Implementation Completeness
-║ - [ ] All user scenarios from specification have implementation tasks?
-║ - [ ] Error handling tasks address all failure modes?
-║ - [ ] Performance tasks address all technical plan requirements?
-║ - [ ] Quality assurance tasks validate all Context/Guidelines standards?
-║
-║ ## Execution Status
-║ *Updated by main() during processing*
-║
-║ ### Phase 1: Prerequisites & Planning Analysis
-║ - [ ] Technical research results loaded from Research.md
-║ - [ ] Technical architecture plan loaded and cross-referenced with research
-║ - [ ] Feature specification loaded for requirement mapping
-║ - [ ] Implementation complexity and scope assessed with research constraints
-║ - [ ] Critical path and parallel opportunities identified with external dependencies
-║
-║ ### Phase 2: Task Generation & Organization
-║ - [ ] Task generation rules applied with research-informed constraints
-║ - [ ] S### enumeration generated with research-based dependencies
-║ - [ ] Parallel execution markers [P] applied correctly
-║ - [ ] Task dependencies mapped with external service constraints from research
-║ - [ ] Technology limitations integrated into task definitions
-║
-║ ### Phase 3: Dependency Analysis & Validation
-║ - [ ] Dependency chains validated with research constraints and no circular references
-║ - [ ] iOS-specific task validation completed with Apple best practices from research
-║ - [ ] Platform-specific dependencies documented with version requirements
-║ - [ ] Critical path analysis completed with external service timing considerations
-║ - [ ] API rate limits and pricing considerations integrated into task planning
-║
-║ ### Phase 4: Implementation Plan Generation
-║ - [ ] Implementation steps content generated with research integration
-║ - [ ] Task breakdown sections completed with research-informed constraints
-║ - [ ] Dependency analysis documented with external service dependencies
-║ - [ ] Completion verification checklists created with research validation criteria
-║ - [ ] Technology best practices from research integrated throughout task definitions
-║
-║ ### Phase 5: Validation & Completion
-║ - [ ] Implementation validation gates executed with research compliance checking
-║ - [ ] All research findings properly integrated into implementation tasks
-║ - [ ] Implementation plan status updated
-║ - [ ] All mandatory sections completed
-║ - [ ] System instructions removed from final document
-║
-║ **Next Phase**: After implementation steps are completed, proceed to `/ctxk:impl:start-working` to begin systematic development execution.
-║
-════════════════════════════════════════════════════════════════════════════════

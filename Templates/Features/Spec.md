@@ -1,5 +1,5 @@
 # Feature Specification Template
-<!-- Template Version: 5 | ContextKit: 0.1.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 6 | ContextKit: 0.1.0 | Updated: 2025-10-17 -->
 
 ## Description
 Feature specification template providing systematic business requirements generation with progress tracking and quality validation.
@@ -9,14 +9,6 @@ Feature specification template providing systematic business requirements genera
 ════════════════════════════════════════════════════════════════════════════════
 ║
 ║ ## Execution Flow (main)
-║ 
-║ ### Phase 0: Check Customization
-║ 
-║ 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
-║    - Use `Grep` tool to find the start of the section
-║    - Read everything below that line contained in this document til the end of the file
-║    - Make sure to consider what was said there with high priority
-║    - If anything conflicts with the rest of the workflow, prioritize the "developer customizations"
 ║
 ║ ### Phase 1: Context Analysis & Guidelines Loading
 ║
@@ -91,40 +83,41 @@ Feature specification template providing systematic business requirements genera
 ║
 ║ ### Phase 4: Validation & Completion
 ║
-║ 11. **Execute Business Validation Gates**
-║     - User Value: Clear user problems solved, measurable success criteria
-║     - Scope Clarity: Well-defined boundaries, no feature creep
-║     - Testability: Requirements can be validated with clear pass/fail criteria
-║     - Quality Assurance: Complete user flows, edge cases, measurable criteria
+║ 11. **Validate Value & Business Focus**
+║     - Feature solves specific user problem (not "might be useful")?
+║     - Success metrics defined and measurable?
+║     - Implementation cost estimated and approved?
+║     - Maintenance burden considered and acceptable?
+║     - No speculative or "future-proofing" features included?
+║     - Each feature tied to current user needs, not hypothetical scenarios?
+║     - Feature set focused on core value proposition?
 ║
-║ 12. **Template Quality Validation**
-║     - Content Quality: No implementation details, focused on user value, stakeholder-appropriate
-║     - Requirement Completeness: Testable requirements, clear scope, identified dependencies
-║     - Business Focus: Requirements focused on what users need, not how to build it
-║     - Check all boxes in template validation section
+║ 12. **Validate Requirements Quality**
+║     - All user flows have Happy Path + Error Path scenarios?
+║     - Edge cases documented with expected behaviors?
+║     - Success criteria are measurable with specific metrics?
+║     - Requirements are testable and unambiguous?
+║     - No 🚨 [NEEDS CLARIFICATION] markers remain unresolved?
+║     - Clear user problems identified and documented?
 ║
-║ 13. **Update Execution Status**
-║     - Check off all completed execution status items:
-║       - User description parsed
-║       - Development guidelines applied
-║       - Key concepts extracted
-║       - Ambiguities marked with 🚨 [NEEDS CLARIFICATION]
-║       - Platform-specific user scenarios defined
-║       - Platform-specific requirements generated
-║       - Anti-speculation enforcement applied
-║       - Validation gates executed
-║       - Template self-validation completed
-║       - Review checklist passed
+║ 13. **Validate Content Quality**
+║     - No implementation details (languages, frameworks, APIs)?
+║     - Focused on user value and business needs?
+║     - Written for non-technical stakeholders?
+║     - All mandatory sections completed?
+║     - Platform-specific considerations integrated throughout?
+║     - Requirements focused on what users need, not how to build it?
+║     - Clear boundaries between business requirements and implementation details?
 ║
-║ 14. **Internal Validation Framework (DO NOT INCLUDE IN FINAL SPEC)**
-║     - Value Validation: Feature solves specific user problem? Success metrics defined?
-║     - Scope Boundaries: Clear IN SCOPE/OUT OF SCOPE/FUTURE CONSIDERATIONS?
-║     - Anti-Speculation Enforcement: No speculative features? Tied to current needs?
-║     - Implementation cost estimated? Maintenance burden acceptable?
+║ 14. **Validate Scope & Completeness**
+║     - Testable requirements, clear scope, identified dependencies?
+║     - Feature scope properly bounded (IN SCOPE/OUT OF SCOPE)?
+║     - Complexity intentionally constrained to essential functionality?
+║     - Anti-speculation enforcement applied?
+║     - Platform differences considered if relevant to user experience?
 ║
 ║ 15. **COMPLETION**
-║     - Use `Edit` tool to remove this entire boxed system instructions section
-║     - Use `Edit` tool to remove the validation framework instructions box at the end of the file
+║     - Use `Edit` tool to remove this entire boxed system instructions section from the start of the file
 ║     - Leave only the clean feature specification content for team use
 ║     - Final document should end after the Scope Boundaries section
 ║     - Final document focused on business requirements, not generation process
@@ -137,7 +130,7 @@ Feature specification template providing systematic business requirements genera
 ║ - User value clearly articulated without technical implementation details
 ║ - All validation gates passed and checkboxes marked appropriately
 ║ - 🚨 [NEEDS CLARIFICATION] markers used for genuine ambiguities only
-║ - System instructions AND validation framework completely removed from final specification
+║ - System instructions completely removed from final specification
 ║
 ════════════════════════════════════════════════════════════════════════════════
 
@@ -200,122 +193,3 @@ Feature specification template providing systematic business requirements genera
 - **OUT OF SCOPE**: [AI Generated explicitly excluded tempting but unnecessary features]
 
 ---
-
-════════════════════════════════════════════════════════════════════════════════
-║ 🤖 VALIDATION FRAMEWORK & EXECUTION STATUS - AI WORKFLOW INSTRUCTIONS
-════════════════════════════════════════════════════════════════════════════════
-║
-║ ## Feature Validation Framework (Internal Use Only)
-║ *Apply these criteria during generation - do not include in final specification*
-║
-║ ### Value Validation
-║ - [ ] Feature solves specific user problem (not "might be useful")?
-║ - [ ] Success metrics defined and measurable?
-║ - [ ] User research or feedback validates need?
-║ - [ ] Implementation cost estimated and approved?
-║ - [ ] Maintenance burden considered and acceptable?
-║
-║ ### Future Considerations (For Validation Only - Do Not Include in Final)
-║ - **FUTURE CONSIDERATIONS**: [AI Generated ideas for later that shouldn't be implemented now]
-║ - Use this internally to avoid scope creep, but do not include in final specification
-║
-║ ### Anti-Speculation Enforcement
-║ - [ ] No speculative or "future-proofing" features included?
-║ - [ ] Each feature tied to current user needs, not hypothetical scenarios?
-║ - [ ] Feature set focused on core value proposition?
-║ - [ ] Complexity intentionally constrained to essential functionality?
-║
-║
-║ ## Business Validation Gates (Auto-executed)
-║ *Checked by execution flow before returning SUCCESS*
-║
-║ ### Requirements Quality
-║ - [ ] All user flows have Happy Path + Error Path scenarios?
-║ - [ ] Edge cases documented with expected behaviors?
-║ - [ ] Success criteria are measurable with specific metrics?
-║ - [ ] No 🚨 [NEEDS CLARIFICATION] markers remain unresolved?
-║
-║ ### Business Value
-║ - [ ] Clear user problems identified and documented?
-║ - [ ] Success metrics defined and measurable?
-║ - [ ] Feature scope properly bounded (IN/OUT/FUTURE)?
-║ - [ ] Requirements focused on user needs, not technical implementation?
-║
-║ ## Template Validation (Auto-executed)
-║ *Checked by execution flow before returning SUCCESS*
-║
-║ ### Content Quality
-║ - [ ] No implementation details (languages, frameworks, APIs)
-║ - [ ] Focused on user value and business needs
-║ - [ ] Written for non-technical stakeholders
-║ - [ ] All mandatory sections completed
-║ - [ ] Platform-specific considerations integrated throughout
-║
-║ ### Requirement Completeness
-║ - [ ] No 🚨 [NEEDS CLARIFICATION] markers remain
-║ - [ ] Requirements are testable and unambiguous
-║ - [ ] Success criteria are measurable
-║ - [ ] Scope is clearly bounded with IN/OUT/FUTURE sections
-║ - [ ] Dependencies and assumptions identified
-║
-║ ### Business Focus
-║ - [ ] Requirements focused on user value, not technical implementation
-║ - [ ] Anti-speculation enforcement applied
-║ - [ ] Quality gates embedded throughout specification
-║
-║ ### Scope Clarity
-║ - [ ] Platform differences considered if relevant to user experience
-║ - [ ] Clear boundaries between business requirements and implementation details
-║
-║ ## Execution Status
-║ *Updated by main() during processing*
-║
-║ - [ ] User description parsed
-║ - [ ] Development guidelines applied
-║ - [ ] Key concepts extracted
-║ - [ ] Ambiguities marked with 🚨 [NEEDS CLARIFICATION]
-║ - [ ] iOS/macOS user scenarios defined
-║ - [ ] Platform-specific requirements generated
-║ - [ ] Anti-speculation enforcement applied
-║ - [ ] Validation gates executed
-║ - [ ] Template self-validation completed
-║ - [ ] Review checklist passed
-║
-║ **IMPORTANT**: This specification should remain high-level and readable. Any detailed technical implementations, code samples, or extensive technical specifications must be placed in separate implementation detail files in the Context/Features/[feature-name]/TechDetails/ directory during the technical planning phase.
-║
-║ **Command Arguments Used**:
-║ - `$ARGUMENTS` - Original user input (e.g., "Add user authentication with Apple ID")
-║ - AI generates feature name from `$ARGUMENTS` (e.g., "UserAuthentication")
-║ - AI creates kebab-case branch name (e.g., "user-authentication")
-║ - AI fills in current date and extracts user story components
-║
-║ ## Execution Status *(Progress Tracking)*
-║ *Updated by AI during specification generation - check off completed steps*
-║
-║ ### Phase 1: Context Analysis & Guidelines Loading
-║ - [ ] Project Context.md loaded and analyzed
-║ - [ ] Development guidelines loaded based on project type
-║ - [ ] Development patterns extracted from loaded guidelines
-║ - [ ] User requirements extracted from original input
-║
-║ ### Phase 2: Specification Content Generation
-║ - [ ] Feature information header generated
-║ - [ ] Primary user story created with platform context
-║ - [ ] Comprehensive acceptance scenarios generated
-║ - [ ] Functional requirements defined with clear user value
-║
-║ ### Phase 3: Business Validation & Scope Definition
-║ - [ ] Business value and user problems clearly documented
-║ - [ ] Feature justification and scope boundaries defined
-║ - [ ] Clarification needs marked with 🚨 [NEEDS CLARIFICATION] format
-║ - [ ] All validation gates executed and boxes checked
-║
-║ ### Phase 4: Final Validation & Completion
-║ - [ ] All validation sections completed with appropriate checks
-║ - [ ] Template quality validation completed
-║ - [ ] Execution status fully updated
-║ - [ ] System instructions removed from final document
-║
-║ **Next Phase**: After this specification is approved, proceed to `/ctxk:plan:2-research-tech` for technical research, architecture planning and implementation design.
-║
-════════════════════════════════════════════════════════════════════════════════

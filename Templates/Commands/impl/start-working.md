@@ -35,18 +35,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
 ### Phase 1: Prerequisites & Feature Detection
 
-1. **Check Project Setup**
-   - Use `Glob` tool to verify Context.md exists: `Glob . Context.md`
-   - If Context.md missing:
-     ```
-     ❌ ContextKit not initialized in this project!
-
-     Run /ctxk:proj:init first to setup ContextKit in this project.
-     This command requires project context for systematic development.
-     ```
-     → END (exit with error)
-
-2. **Detect Current Feature from Git Branch**
+1. **Detect Current Feature from Git Branch**
    ```bash
    git branch --show-current || echo "⚠️ Not in git repository or no current branch"
    ```
@@ -68,7 +57,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
      - If "N" or no response: EXIT
      - If "y": Ask user to specify feature name manually
 
-3. **Validate Feature Planning Completion**
+2. **Validate Feature Planning Completion**
    - Use `Bash` tool to find numbered feature directory with flexible matching:
      ```bash
      # Try exact full name match first
@@ -84,7 +73,6 @@ Begin systematic development with context-aware setup, task analysis, and guided
    - Use `Read` tool to check each required file exists and has content:
      ```bash
      ls -la [numbered-feature-directory]/Spec.md && echo "✅ Spec.md exists"
-     ls -la [numbered-feature-directory]/Research.md && echo "✅ Research.md exists"
      ls -la [numbered-feature-directory]/Tech.md && echo "✅ Tech.md exists"
      ls -la [numbered-feature-directory]/Steps.md && echo "✅ Steps.md exists"
      ```
@@ -98,7 +86,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
      Complete the planning phases first:
      1. /ctxk:plan:1-spec - Business requirements (creates Spec.md)
-     2. /ctxk:plan:2-research-tech - Technical research and architecture (creates Research.md and Tech.md)
+     2. /ctxk:plan:2-research-tech - Technical planning: research and architecture (creates Tech.md)
      3. /ctxk:plan:3-steps - Implementation tasks (creates Steps.md)
 
      Cannot proceed with development until planning is complete.
@@ -107,7 +95,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
 ### Phase 2: Context Loading & Environment Setup
 
-4. **Load Development Context**
+3. **Load Development Context**
    - Use `Read` tool to read project Context.md: `Read Context.md`
    - **DEEP ANALYSIS REQUIRED**: Understand project type, architecture patterns, coding standards, and constitutional principles
    - Use `Bash` tool to check for workspace context:
@@ -117,7 +105,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
    - If workspace Context.md found: Use `Read` tool to load workspace-specific overrides
    - **CRITICAL**: This context forms the foundation for understanding how to execute all Steps.md tasks
 
-5. **Verify Development Environment**
+4. **Verify Development Environment**
    ```bash
    git status --porcelain || echo "⚠️ Git not available"
    ```
@@ -137,18 +125,16 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
 ### Phase 3: Steps.md-Driven Development Execution
 
-6. **Load Complete Feature Context - DEEP UNDERSTANDING REQUIRED**
+5. **Load Complete Feature Context - DEEP UNDERSTANDING REQUIRED**
    - Use `Read` tool to read all planning files for complete understanding:
      ```
      Read [numbered-feature-directory]/Spec.md       # Business requirements and user stories
-     Read [numbered-feature-directory]/Research.md   # Technical research findings and decisions
-     Read [numbered-feature-directory]/Tech.md       # Technical architecture and decisions
+     Read [numbered-feature-directory]/Tech.md       # Technical planning: research findings and architecture decisions
      Read [numbered-feature-directory]/Steps.md      # PRIMARY TASK LIST - Implementation breakdown
      ```
    - **CRITICAL - DEEP ANALYSIS REQUIRED**:
      - **From Spec.md**: Fully understand feature purpose, ALL user stories, ALL acceptance criteria, user experience requirements
-     - **From Research.md**: Completely understand technology research findings, API constraints, integration patterns, external dependencies
-     - **From Tech.md**: Thoroughly understand architecture decisions, technology choices, ALL constraints, design patterns
+     - **From Tech.md**: Thoroughly understand research findings (technologies, APIs, patterns), architecture decisions, technology choices, ALL constraints, design patterns
      - **From Steps.md**: **THIS IS THE PRIMARY TASK LIST** - Parse ALL S001-S999 numbered tasks, [P] parallel markers, dependencies, file paths, acceptance criteria
    - **Parse Steps.md as Primary Task List**:
      - Identify ALL tasks with their exact S### numbers
@@ -157,7 +143,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
      - Note which tasks have [P] parallel markers
      - Extract file paths and specific requirements for each task
 
-7. **Execute Steps.md Tasks Sequentially - NO SHORTCUTS ALLOWED**
+6. **Execute Steps.md Tasks Sequentially - NO SHORTCUTS ALLOWED**
    - **PRIMARY OBJECTIVE**: Follow Steps.md step-by-step as the definitive task list
    - Find the **first uncompleted task** in S001, S002, S003... sequence from Steps.md
    - **ABSOLUTE REQUIREMENT**: Do NOT skip tasks, do NOT choose "easier" tasks, do NOT take shortcuts
@@ -183,7 +169,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
    - The entire workflow is designed to be resumable across multiple sessions
    - **Each step deserves proper attention** - never sacrifice quality for speed
 
-8. **Execute Current Task from Steps.md - Follow the Plan Exactly**
+7. **Execute Current Task from Steps.md - Follow the Plan Exactly**
 
    **CRITICAL**: The current task comes directly from Steps.md - execute exactly as specified, no shortcuts
 
@@ -233,8 +219,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
    ║
    ║ 📝 FULL CONTEXT FOR IMPLEMENTATION:
    ║ • Feature specification: [Complete understanding from Spec.md]
-   ║ • Technical architecture: [Complete understanding from Tech.md]
-   ║ • Research findings: [Complete understanding from Research.md]
+   ║ • Technical planning: [Research and architecture from Tech.md]
    ║ • Current progress: [completed_tasks]/[total_tasks] tasks done in Steps.md
    ║
    ║ 🔧 IMPLEMENTATION APPROACH:
@@ -245,17 +230,17 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
    **IMPORTANT**:
    - Task details come DIRECTLY from Steps.md - never modify or interpret
-   - Use complete context from Spec.md, Tech.md, Research.md for implementation
+   - Use complete context from Spec.md and Tech.md (which contains research + architecture) for implementation
    - Do NOT skip steps or take shortcuts - follow Steps.md exactly
    - Wait for user confirmation before proceeding
    - If "n": Ask for clarification but emphasize Steps.md must be followed
 
 ### Phase 4: Task Execution with Steps.md as Central Progress Tracker
 
-9. **Execute Task Implementation with Complete Context**
+8. **Execute Task Implementation with Complete Context**
    - **For Manual Tasks**: User delegation complete, immediately mark as done in Steps.md
    - **For Automated Tasks**: Implement using complete context understanding:
-     - **Use ALL context from planning files**: Apply complete understanding from Spec.md, Tech.md, Research.md
+     - **Use ALL context from planning files**: Apply complete understanding from Spec.md and Tech.md (research + architecture)
      - Extract detailed task information from Steps.md: file paths, acceptance criteria, dependencies
      - Use `Read` tool to examine target files if they exist
      - Use `Glob` tool to discover available guidelines: `Glob Context/Guidelines *.md`
@@ -264,7 +249,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
      - **Execute exactly as planned in Steps.md** - no shortcuts, no assumptions
      - Ensure implementation meets all criteria specified in Steps.md
 
-10. **Update Steps.md Progress Tracking - CENTRAL TO WORKFLOW**
+9. **Update Steps.md Progress Tracking - CENTRAL TO WORKFLOW**
     - **IMMEDIATELY after task completion**: Use `Edit` tool to mark completed task as checked in Steps.md:
       ```
       OLD: - [ ] **S001** [task description]
@@ -277,7 +262,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
     - Verify the checkbox update was successful before proceeding
     - **This enables session continuity**: Any new session can resume by reading Steps.md
 
-11. **Continue Sequential Execution - No Exit Until All Done**
+10. **Continue Sequential Execution - No Exit Until All Done**
     - **IMMEDIATELY after updating Steps.md**: Check for next sequential task
     - **Do NOT exit** - continue with next task in sequence according to Steps.md
     - Display progress update based on Steps.md status:
@@ -287,14 +272,14 @@ Begin systematic development with context-aware setup, task analysis, and guided
     📊 Progress: [completed_tasks+1]/[total_tasks] tasks done per Steps.md
     🔄 Loading next task from Steps.md...
     ```
-    - Return to Phase 3, Step 7 to determine next task from Steps.md
+    - Return to Phase 3, Step 6 to determine next task from Steps.md
     - **Only exit when**:
       - ALL Steps.md tasks completed (all checkboxes checked)
       - Dependency blocking prevents any task execution
       - User explicitly requests to stop
     - **The goal**: Complete the entire Steps.md task list systematically
 
-12. **Quality Assurance Integration with Primary Agents**
+11. **Quality Assurance Integration with Primary Agents**
     - **PRIMARY AGENTS FOR IMPLEMENTATION**: Use these agents throughout development as specified in Steps.md
       - `build-project` - **Use whenever Steps.md mentions "build" or "compile"**
       - `commit-changes` - **Use at ALL milestone markers in Steps.md** (🏁 MILESTONE)
@@ -351,41 +336,17 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
 ## Error Conditions
 
-- **"Context.md not found"** → User must run `/ctxk:proj:init` to initialize ContextKit
 - **"Not on feature branch"** → Create feature branch with `/ctxk:plan:1-spec` or switch to existing one
-- **"Planning phases incomplete"** → Complete `/ctxk:plan:1-spec` (creates Spec.md), `/ctxk:plan:2-research-tech` (creates Research.md + Tech.md), `/ctxk:plan:3-steps` (creates Steps.md) sequence
+- **"Planning phases incomplete"** → Complete `/ctxk:plan:1-spec` (creates Spec.md), `/ctxk:plan:2-research-tech` (creates Tech.md), `/ctxk:plan:3-steps` (creates Steps.md) sequence
 - **"No feature directory found"** → Feature name detection failed, verify branch name format
 - **"Steps.md empty"** → Run `/ctxk:plan:3-steps` to create implementation breakdown
 - **"Build environment broken"** → Resolve dependency issues before starting development
 - **"All tasks complete"** → No pending work, consider `/ctxk:impl:commit-changes` or new feature
 
-## Validation Gates
-
-**Prerequisites:**
-- ContextKit project setup complete?
-- Git repository with feature branch active?
-- All planning phases completed (Spec.md, Research.md, Tech.md, Steps.md)?
-- Development environment verified and functional?
-
-**Context Loading:**
-- Project and workspace context loaded successfully?
-- Constitutional principles identified for project type?
-- Development patterns and standards accessible?
-
-**Task Selection:**
-- Implementation plan parsed successfully?
-- Valid task selected with clear acceptance criteria?
-- Task dependencies satisfied and ready for execution?
-
-**Development Ready:**
-- Quality assurance hooks enabled?
-- Relevant guidelines referenced for task type?
-- Development guidance displayed and ready to proceed?
-- User confirmation received for selected task and approach?
 
 ## Integration Points
 
-- **Planning Commands**: Requires completed `/ctxk:plan:1-spec` (Spec.md), `/ctxk:plan:2-research-tech` (Research.md + Tech.md), `/ctxk:plan:3-steps` (Steps.md) workflow
+- **Planning Commands**: Requires completed `/ctxk:plan:1-spec` (Spec.md), `/ctxk:plan:2-research-tech` (Tech.md with research + architecture), `/ctxk:plan:3-steps` (Steps.md) workflow
 - **Project Setup**: Uses Context.md from `/ctxk:proj:init` for project type detection and standards
 - **Quality Agents**: Integrates with `build-project`, `run-test-*` agents (ready). `/run check-*` agents incomplete - pending rework
 - **Workspace Context**: Inherits client-specific requirements from workspace-level Context.md files

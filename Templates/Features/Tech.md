@@ -1,147 +1,349 @@
-# Technical Architecture: [Feature from Spec.md]
-<!-- Template Version: 5 | ContextKit: 0.1.0 | Updated: 2025-10-02 -->
+# Technical Planning: [Feature from Spec.md]
+<!-- Template Version: 7 | ContextKit: 0.1.0 | Updated: 2025-10-17 -->
 
 ## Description
-Technical architecture template providing systematic iOS/macOS implementation planning with Context/Guidelines compliance validation and architectural decision documentation.
+Technical planning template combining research and architecture phases into single workflow. Executes systematic knowledge acquisition followed by technical architecture design in one continuous flow.
 
 ════════════════════════════════════════════════════════════════════════════════
-║ 🤖 EXECUTION FLOW - TECHNICAL ARCHITECTURE GENERATION
+║ 🤖 EXECUTION FLOW - RESEARCH & TECHNICAL PLANNING
 ════════════════════════════════════════════════════════════════════════════════
 ║
 ║ ## Execution Flow (main)
-║ 
-║ ### Phase 0: Check Customization
-║ 
-║ 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
-║    - Use `Grep` tool to find the start of the section
-║    - Read everything below that line contained in this document til the end of the file
-║    - Make sure to consider what was said there with high priority
-║    - If anything conflicts with the rest of the workflow, prioritize the "developer customizations"
 ║
-║ ### Phase 1: Prerequisites & Context Loading
+║ ### Phase 1: Research & Knowledge Acquisition
 ║
-║ 1. **Load Technical Research Results**
-║    - Use `Read` tool to read current feature directory Research.md: `Read Context/Features/[FeatureName]/Research.md`
-║    - If missing: ERROR "Technical research required before architecture planning - run research phase first"
-║    - Extract: researched technology decisions, API constraints, architectural patterns
-║    - Document research findings for informed architecture decisions
-║
-║ 2. **Load Feature Specification**
+║ 1. **Load Feature Specification**
 ║    - Use `Read` tool to read current feature directory Spec.md: `Read Context/Features/[FeatureName]/Spec.md`
-║    - If missing: ERROR "Feature specification required for architecture planning"
-║    - Extract: user flows, functional requirements, business constraints
-║    - Cross-reference with research findings for technology alignment
+║    - If missing: ERROR "Feature specification required for technical planning"
+║    - Extract: functional requirements, mentioned technologies, integrations
 ║
-║ 3. **Load Project Context**
+║ 2. **Load Project Context**
 ║    - Use `Read` tool to read project Context.md: `Read Context.md`
-║    - Extract project type, existing architecture, tech stack preferences
-║    - For workspace projects: Use `Read` tool on workspace Context.md for overrides
+║    - Extract: current tech stack, existing dependencies, architecture patterns
+║    - For workspace projects: Use `Read` tool on workspace Context.md for tech preferences
 ║
-║ 4. **Load All Available Development Guidelines**
+║ 3. **Identify Research Targets**
+║    - Scan specification for mentioned technologies (frameworks, libraries, APIs)
+║    - Identify external services and integration requirements
+║    - Mark unfamiliar patterns, architectural approaches, or constraints
+║    - List technologies requiring best practice research
+║
+║ 4. **Launch Comprehensive Codebase Integration Agent**
+║    - Create single comprehensive codebase integration agent task:
+║      - Agent: "analyze-codebase-integration" with context: "Complete codebase analysis for [feature] integration"
+║      - Agent scope: Discovery, pattern analysis, integration planning, complexity assessment
+║      - Agent tasks:
+║        - Use Glob/Grep to find existing models, views, services related to [feature domain]
+║        - Analyze existing architectural patterns, naming conventions, error handling approaches
+║        - Determine integration requirements: files to modify vs. new files to create
+║        - Assess implementation complexity, potential conflicts, refactoring needs
+║        - Map data flow between [feature] and existing components
+║      - Agent returns: comprehensive integration strategy with patterns, requirements, complexity analysis
+║    - Single agent execution provides complete codebase integration analysis
+║    - Result: Unified codebase integration plan without redundant analysis phases
+║
+║ 5. **Launch Technology Research Agents**
+║    - Create focused research agent tasks for each mentioned technology:
+║      - Agent: "research-errorkit" with context: "ErrorKit error handling patterns for iOS apps"
+║      - Agent: "research-cloudkit" with context: "CloudKit sync capabilities and limitations for feature"
+║      - Agent: "research-swiftui" with context: "SwiftUI patterns and best practices for [feature area]"
+║      - Each agent receives technology context and feature requirements
+║      - **CRITICAL**: Instruct agents to RETURN findings as text response, NOT create markdown files
+║      - **Apple Platform Priority Domains**: For iOS/macOS technologies, agents MUST prioritize these domains:
+║        - **developer.apple.com** - Official Apple documentation, HIG, sample code
+║        - **wwdcnotes.com** - Community WWDC session summaries and best practices
+║        - **Active iOS/Swift Community**: swiftbysundell.com, avanderlee.com, hackingwithswift.com, natasharobot.com, swiftwithmajid.com, fatbobman.com, swiftwithvincent.com, donnywals.com, kodeco.com, elkraneo.com
+║        - **Indie Developer Insights**: fline.dev and other established Swift developer blogs
+║        - **Domain-Limited Searches**: Use `site:developer.apple.com` or `site:wwdcnotes.com` when researching specific topics
+║      - **Apple Technology Search Strategy**: For iOS/macOS/Swift technologies, agents use BOTH WebSearch AND iosfeeds.com/archive search for community articles
+║      - **iosfeeds.com Usage**: ONLY for Apple platform technologies - Search iosfeeds.com/archive?query=[AppleTechnologyName] to find recent iOS/Swift blog posts
+║      - **Non-Apple Technologies**: Use only WebSearch and official documentation for Android, Web, Backend, or other non-Apple technologies
+║      - Agents use WebFetch for official docs, return: versions, capabilities, limitations, integration approaches WITH SPECIFIC URLs of key sources that informed findings
+║    - Launch technology agents concurrently for parallel research execution
+║    - Consolidate agent findings into technology decision matrix with version compatibility and source documentation
+║
+║ 6. **Launch API Research Agents**
+║    - Create API research agent tasks for each external service:
+║      - Agent: "research-api-service" with context: "[Service Name] API documentation, rate limits, pricing analysis"
+║      - Agent: "research-auth-methods" with context: "[Service] authentication, data formats, iOS SDK analysis"
+║      - Each agent receives service context and integration requirements
+║      - **CRITICAL**: Instruct agents to RETURN findings as text response, NOT create markdown files
+║      - Agents use WebFetch for API docs, return: capabilities, constraints, costs, integration complexity WITH SPECIFIC URLs of key documentation that informed findings
+║      - **CRITICAL**: All agents must document SPECIFIC ARTICLES/DOCS that informed findings with exact URLs, version numbers, and last-updated dates
+║      - **Key Source Focus**: Document only the most relevant sources that directly informed the documented findings
+║    - Execute API research agents concurrently for parallel service evaluation
+║    - Consolidate findings into service integration assessment with cost and complexity analysis and complete source documentation
+║
+║ 7. **Launch Architecture Pattern Research Agents**
+║    - Create pattern research agent tasks for complex architectural needs:
+║      - Agent: "research-offline-sync" with context: "Offline-first architecture patterns for iOS apps"
+║      - Agent: "research-error-patterns" with context: "Modern Swift error handling integration patterns"
+║      - Agent: "research-state-management" with context: "SwiftUI state management patterns for [feature complexity]"
+║      - Each agent receives pattern context and feature complexity requirements
+║      - **CRITICAL**: Instruct agents to RETURN findings as text response, NOT create markdown files
+║      - **Source Documentation Requirement**: Agents use WebSearch for best practices and MUST return: implementation approaches, benefits, drawbacks, case studies WITH SPECIFIC URLs of articles that informed findings
+║      - **Apple Pattern Priority**: For iOS/macOS patterns, prioritize official Apple guidance and use iosfeeds.com for community articles
+║      - **Non-Apple Patterns**: Use WebSearch and official documentation for non-Apple architectural patterns
+║      - **Key Source Documentation**: Document SPECIFIC ARTICLES that informed architectural decisions with exact URLs
+║      - **iosfeeds.com Article Discovery**: Use iosfeeds.com/archive?query=[PatternName] to find recent iOS community articles on architectural patterns
+║      - **Comprehensive Coverage**: Combine WebSearch results with iosfeeds.com findings for complete community perspective
+║    - Launch pattern research agents in parallel for concurrent architectural evaluation
+║    - Consolidate architectural insights into implementation strategy recommendations with comprehensive source documentation
+║
+║ 8. **Document Research Findings in Research & Analysis Section**
+║    - Use `Edit` tool to update template header with specific feature information:
+║      - Title: "# Technical Planning: [Feature Name]"
+║      - Created: [Current Date]
+║      - Status: Planning Complete
+║      - Prerequisites: Reference to completed Spec.md
+║    - **Document Technology Research Results**:
+║      - For each researched technology: Decision, rationale, alternatives, limitations
+║      - Include version information and compatibility requirements
+║      - Note integration approaches and potential issues
+║      - **MANDATORY**: Document SPECIFIC ARTICLES/DOCS that informed findings with exact URLs, dates, and version numbers
+║    - **Document API & Service Research Results**:
+║      - For each external service: capabilities, limitations, costs, alternatives
+║      - Include authentication requirements and rate limiting information
+║      - Document data formats and SDK availability
+║      - **MANDATORY**: Include SPECIFIC DOCUMENTATION URLs that informed findings, with version numbers and last-updated dates
+║    - **Document Codebase Integration Analysis**:
+║      - Document existing code patterns and architecture that feature will follow
+║      - List existing files that need modification vs. new files to create
+║      - Map integration points and data flow with existing components
+║      - Note consistency requirements and existing patterns to maintain
+║    - **Document Architectural Pattern Research**:
+║      - For each pattern researched: approach, benefits, drawbacks, complexity
+║      - Include performance implications and maintenance considerations
+║      - Note proven implementations and case studies
+║      - **MANDATORY**: Document SPECIFIC ARTICLES, documentation pages, WWDC sessions, and case studies that informed findings with exact URLs and dates
+║
+║ ### Phase 2: Technical Architecture Design
+║
+║ 9. **Load Development Guidelines**
 ║    - Use `Glob` tool to discover available guidelines: `Glob Context/Guidelines *.md`
 ║    - For each found guideline file:
 ║      - Use `Read` tool: `Read Context/Guidelines/[GuidelineName].md`
 ║      - Extract architectural patterns, framework preferences, compliance requirements
 ║    - Document all loaded guidelines for comprehensive architectural compliance validation
 ║
-║ ### Phase 2: Architecture Design & Validation
+║ 10. **Apply Context/Guidelines Compliance Gates**
+║     - Package-first principle: Can this be architected as Swift package?
+║     - ErrorKit integration: How will errors be handled with typed throws?
+║     - Code quality: Does architecture meet Context/Guidelines/Swift.md standards?
+║     - Platform compliance: Does design follow Context/Guidelines/SwiftUI.md patterns?
+║     - If any gate fails: DOCUMENT justification or ERROR "Simplify approach"
 ║
-║ 5. **Apply Context/Guidelines Compliance Gates**
-║    - Package-first principle: Can this be architected as Swift package?
-║    - ErrorKit integration: How will errors be handled with typed throws?
-║    - Code quality: Does architecture meet Context/Guidelines/Swift.md standards?
-║    - Platform compliance: Does design follow Context/Guidelines/SwiftUI.md patterns?
-║    - If any gate fails: DOCUMENT justification or ERROR "Simplify approach"
+║ 11. **Design iOS/macOS Architecture with Research-Informed Decisions**
+║     - Reference research findings from Phase 1 (documented above)
+║     - SwiftUI structure: Views, ViewModels, navigation patterns
+║     - Data layer: SwiftData, CoreData, CloudKit, or package-based storage
+║     - Service layer: API integration, business logic separation
+║     - For each decision: DOCUMENT rationale and alternatives considered
+║     - **Reference research section** instead of duplicating details (e.g., "Using technologies researched above...")
 ║
-║ 6. **Design iOS/macOS Architecture with Research-Informed Decisions**
-║    - SwiftUI structure: Views, ViewModels, navigation patterns
-║    - Data layer: SwiftData, CoreData, CloudKit, or package-based storage
-║    - Service layer: API integration, business logic separation
-║    - For each decision: DOCUMENT rationale and alternatives considered
+║ 12. **Generate Implementation Complexity Assessment**
+║     - Assess technical complexity and implementation challenges based on research findings
+║     - Identify potential risks and mitigation strategies
+║     - Mark uncertain areas with 🚨 [NEEDS CLARIFICATION: specific technical question]
 ║
-║ 7. **Generate Implementation Complexity Assessment"
-║    - Assess technical complexity and implementation challenges
-║    - Identify potential risks and mitigation strategies
-║    - Mark uncertain areas with 🚨 [NEEDS CLARIFICATION: specific technical question]
+║ 13. **Fill Technical Architecture Section**
+║     - **System Overview**: High-level architecture description and component relationships
+║     - **iOS/macOS Implementation Details**: SwiftUI structure, data layer, service layer (referencing research)
+║     - **Platform-Specific Considerations**: iOS/macOS requirements, App Store compliance
+║     - **Implementation Complexity Assessment**: Technical complexity, risks, dependencies
+║     - **Keep architecture section concise** by referencing detailed research section above
 ║
-║ ### Phase 3: Technical Plan Generation
+║ ### Phase 3: Validation
 ║
-║ 8. **Generate Technical Architecture Content"
-║    - Use `Edit` tool to replace template header with specific feature information:
-║      - Title: "# Technical Architecture: [Feature Name]"
-║      - Created: [Current Date]
-║      - Status: Technical Plan
-║      - Prerequisites: Reference to completed Spec.md
+║ 14. **Validate Research Completeness**
+║     - All technologies mentioned in specification thoroughly researched?
+║     - External service capabilities and limitations documented?
+║     - Current best practices identified with version information?
+║     - Codebase integration analysis completed?
+║     - Source URLs documented for all research findings?
 ║
-║ 9. **Fill System Overview Section"
-║    - High-level architecture description and component relationships
-║    - Core components with clear responsibilities
-║    - Data flow documentation
-║
-║ 10. **Complete Implementation Details Sections"
-║    - SwiftUI structure with view hierarchy and state management
-║    - Data layer design with storage strategy and model architecture
-║    - Service layer with integration patterns and dependency management
-║    - Platform-specific considerations (iOS/macOS requirements)
-║
-║ 11. **Generate Complexity Assessment"
-║     - Technical complexity analysis and implementation challenges
-║     - Risk assessment and mitigation strategies
-║     - Dependency analysis (external and internal)
-║
-║ ### Phase 4: Validation & Completion
-║
-║ 12. **Run Technical Validation Gates"
-║     - Architecture supports all user scenarios from specification?
-║     - Context/Guidelines standards maintained throughout?
+║ 15. **Validate Architecture Quality**
+║     - Technical architecture designed with research-informed decisions?
+║     - Context/Guidelines compliance validated throughout architecture?
+║     - Architecture section appropriately references research (no unnecessary duplication)?
+║     - Technical complexity realistically assessed?
+║     - All user scenarios from specification have technical solutions?
 ║     - Dependencies reasonable and well-justified?
-║     - Performance implications assessed and acceptable?
-║     - If validation fails: ERROR with specific remediation guidance
 ║
-║ 13. **Update Technical Plan Status"
-║     - Check off all completed technical planning items
-║     - Mark any remaining 🚨 [NEEDS CLARIFICATION] areas
-║     - Validate all mandatory sections completed
+║ 16. **Validate Completeness**
+║     - Both Research & Analysis section and Technical Architecture section fully populated?
+║     - No remaining 🚨 [NEEDS CLARIFICATION] markers (or all resolved)?
+║     - All mandatory sections completed?
 ║
-║ 14. **COMPLETION"
-║     - Use `Edit` tool to remove this entire boxed system instructions section
-║     - Leave only the clean technical architecture content for team use
-║     - Final document focused on architectural decisions and implementation guidance
+║ ### Phase 4: Completion
+║
+║ 17. **COMPLETION**
+║     - Use `Edit` tool to remove this entire boxed system instructions section from the start of the file
+║     - Leave only the clean technical planning content for team use
+║     - Final document contains both research findings AND architecture decisions in single file
 ║
 ║ ## Success Criteria
-║ - All technical sections completed with specific architectural decisions
+║ - All technologies mentioned in specification thoroughly researched
+║ - External service capabilities and limitations documented
+║ - Current best practices identified with version information
+║ - Codebase integration analysis completed
+║ - Technical architecture designed with research-informed decisions
 ║ - Context/Guidelines compliance validated throughout architecture
-║ - Technical complexity realistically assessed with implementation challenges
-║ - Platform considerations (iOS/macOS) integrated throughout plan
-║ - Technical decisions clearly documented with rationale
-║ - All validation gates passed and dependencies identified
-║ - 🚨 [NEEDS CLARIFICATION] markers used for genuine technical uncertainties only
-║ - System instructions completely removed from final technical plan document
+║ - Technical complexity realistically assessed
+║ - Architecture section references research to avoid duplication
+║ - System instructions completely removed from final document
 ║
 ════════════════════════════════════════════════════════════════════════════════
 
-# Technical Architecture: [AI Generated Feature Name]
+# Technical Planning: [AI Generated Feature Name]
 
 **Created**: [AI Generated Current Date]
-**Status**: Technical Plan
-**Prerequisites**: Completed business specification (Spec.md) and technical research (Research.md)
+**Status**: Planning Complete
+**Prerequisites**: Completed business specification (Spec.md)
 
-## System Overview
+---
 
-### High-Level Architecture
-[AI Generated: Brief description of component relationships and overall system design]
+## Research & Analysis
 
-### Core Components
-- **[Component Name]**: [AI Generated responsibility and purpose]
-- **[Component Name]**: [AI Generated responsibility and purpose]
-- **[Component Name]**: [AI Generated responsibility and purpose]
+### Research Scope
+[AI Generated: Summary of external technologies, internal codebase analysis, and integration patterns researched]
 
-### Data Flow
-[AI Generated: Description of how data moves through the system and key interaction patterns]
+### Key Findings Summary
+[AI Generated: High-level summary of research that will inform architecture decisions]
 
-## iOS/macOS Implementation Details
+### Codebase Integration Analysis
 
-### SwiftUI Structure
+**Existing Architecture Patterns**:
+[AI Generated: Current architectural approaches, naming conventions, and code organization patterns discovered]
+
+**Related Existing Components**:
+- **Models**: [AI Generated: Existing data models that feature will interact with or extend]
+- **Views**: [AI Generated: Existing UI components that feature will integrate with or modify]
+- **Services**: [AI Generated: Existing business logic and API layers that feature will connect to]
+- **Navigation**: [AI Generated: Current navigation patterns and user flows that feature will extend]
+
+**Integration Requirements**:
+- **Files to Modify**: [AI Generated: Existing files that need updates]
+- **New Files to Create**: [AI Generated: New files required]
+- **API Integration Points**: [AI Generated: Existing methods/APIs that feature will call or extend]
+- **Data Flow**: [AI Generated: How feature data will flow through existing system components]
+
+**Implementation Considerations**:
+- **Consistency Requirements**: [AI Generated: Existing patterns that feature must follow]
+- **Potential Conflicts**: [AI Generated: Areas where feature might conflict with existing code]
+- **Refactoring Needs**: [AI Generated: Existing code that may need modification]
+
+### Technology Research
+
+#### [Technology Name]
+**Version**: [AI Generated current version]
+**Documentation**: [AI Generated primary documentation URLs]
+**Research Date**: [AI Generated date]
+**Community Sources**: [AI Generated: Trusted domains consulted]
+
+**Key Capabilities**:
+- [AI Generated: Core features and capabilities]
+- [AI Generated: Integration patterns available]
+- [AI Generated: Performance characteristics]
+
+**Limitations**:
+- [AI Generated: Known constraints or issues]
+- [AI Generated: Platform compatibility limits]
+
+**Best Practices**:
+- [AI Generated: Recommended usage patterns]
+- [AI Generated: Common integration approaches]
+
+**Decision Rationale**: [AI Generated: Why this technology is suitable]
+
+#### [Additional Technologies]
+[AI Generated: Repeat above structure for each researched technology]
+
+### API & Service Research
+
+#### [Service/API Name]
+**Documentation**: [AI Generated primary documentation URLs]
+**API Version**: [AI Generated current version]
+**Research Date**: [AI Generated date]
+
+**Capabilities**:
+- [AI Generated: Available endpoints/features]
+- [AI Generated: Data formats supported]
+- [AI Generated: Authentication methods]
+
+**Constraints**:
+- **Rate Limits**: [AI Generated: requests per minute/hour/day]
+- **Pricing**: [AI Generated: cost structure if applicable]
+- **Data Limits**: [AI Generated: payload sizes, storage limits]
+
+**Integration Requirements**:
+- **SDK Availability**: [AI Generated: official SDKs for iOS/macOS]
+- **Authentication**: [AI Generated: API keys, OAuth, etc.]
+- **Error Handling**: [AI Generated: error codes and handling patterns]
+
+**Decision Rationale**: [AI Generated: Why this service meets requirements]
+
+#### [Additional Services]
+[AI Generated: Repeat above structure for each researched service]
+
+### Architecture Pattern Research
+
+#### [Pattern Name] (e.g., Offline-First Architecture)
+**Research Sources**: [AI Generated: authoritative domains consulted with URLs]
+**Research Date**: [AI Generated date]
+
+**Approach**:
+- [AI Generated: How this pattern works]
+- [AI Generated: Key implementation components]
+
+**Benefits**:
+- [AI Generated: Advantages for this use case]
+- [AI Generated: User experience improvements]
+
+**Drawbacks**:
+- [AI Generated: Implementation complexity]
+- [AI Generated: Performance trade-offs]
+
+**Implementation Considerations**:
+- [AI Generated: Key technical challenges]
+- [AI Generated: Required infrastructure]
+
+**Decision Rationale**: [AI Generated: Why this pattern fits requirements]
+
+#### [Additional Patterns]
+[AI Generated: Repeat above structure for each researched pattern]
+
+### Research-Informed Recommendations
+
+**Primary Technology Choices**:
+- [AI Generated: Recommended technology with rationale]
+- [AI Generated: Additional technology recommendations]
+
+**Architecture Approach**: [AI Generated: Overall architectural approach based on research]
+
+**Key Constraints Identified**:
+- [AI Generated: Important limitations that will influence design]
+- [AI Generated: Performance bottlenecks to design around]
+
+---
+
+## Technical Architecture
+
+> **Note**: This section references the detailed research findings above to avoid duplication.
+
+### System Overview
+
+**High-Level Architecture**: [AI Generated: Brief description of component relationships, referencing researched technologies]
+
+**Core Components**:
+- **[Component Name]**: [AI Generated: Responsibility using technologies researched above]
+- **[Component Name]**: [AI Generated: Responsibility and purpose]
+
+**Data Flow**: [AI Generated: Description of how data moves through system, referencing patterns researched above]
+
+### iOS/macOS Implementation Details
+
+#### SwiftUI Structure
 
 **View Hierarchy**:
 ```
@@ -152,18 +354,18 @@ Technical architecture template providing systematic iOS/macOS implementation pl
 ```
 
 **State Management**:
-- **ViewModels**: [AI Generated strategy and patterns]
-- **Data Binding**: [AI Generated binding approach]
-- **Navigation**: [AI Generated navigation pattern]
+- **ViewModels**: [AI Generated: Strategy using patterns researched above]
+- **Data Binding**: [AI Generated: Binding approach]
+- **Navigation**: [AI Generated: Navigation pattern]
 
 **Architectural Decision Rationale**:
-- **Why this structure**: [AI Generated reasoning for chosen structure]
-- **Alternatives considered**: [AI Generated alternative options evaluated]
-- **Trade-offs**: [AI Generated analysis of benefits vs costs]
+- **Why this structure**: [AI Generated: Reasoning based on research findings]
+- **Alternatives considered**: [AI Generated: Options from research phase]
+- **Trade-offs**: [AI Generated: Benefits vs costs based on pattern research]
 
-### Data Layer Design
+#### Data Layer Design
 
-**Storage Strategy**: [AI Generated choice] (SwiftData | CoreData | CloudKit | Package-based | File-based)
+**Storage Strategy**: [AI Generated: Choice from researched technologies] (SwiftData | CoreData | CloudKit | Package-based | File-based)
 
 **Model Architecture**:
 ```swift
@@ -177,191 +379,82 @@ struct [Secondary Model] {
 }
 ```
 
-**Data Access Pattern**: [AI Generated data access strategy]
-**Synchronization Strategy**: [AI Generated sync approach] (if applicable)
+**Data Access Pattern**: [AI Generated: Strategy based on researched best practices]
+**Synchronization Strategy**: [AI Generated: Approach if applicable, referencing pattern research]
 
 **Decision Rationale**:
-- **Why this storage approach**: [AI Generated storage reasoning]
-- **Performance characteristics**: [AI Generated performance analysis]
-- **Scalability considerations**: [AI Generated scalability assessment]
+- **Why this storage approach**: [AI Generated: Based on technology research]
+- **Performance characteristics**: [AI Generated: From research findings]
+- **Scalability considerations**: [AI Generated: Based on researched patterns]
 
-### Service Layer Architecture
+#### Service Layer Architecture
 
 **Service Organization**:
-- **[Service Name]**: [AI Generated service responsibility]
-- **[Service Name]**: [AI Generated service responsibility]
+- **[Service Name]**: [AI Generated: Responsibility using researched APIs]
+- **[Service Name]**: [AI Generated: Responsibility]
 
 **External Integration Strategy**:
-- **APIs**: [AI Generated API integration approach]
-- **Authentication**: [AI Generated auth strategy]
-- **Error Handling**: [AI Generated error handling strategy using Context/Guidelines/Swift.md ErrorKit patterns]
+- **APIs**: [AI Generated: Integration approach for researched services]
+- **Authentication**: [AI Generated: Auth strategy based on API research]
+- **Error Handling**: [AI Generated: Strategy using Context/Guidelines ErrorKit patterns]
 
 **Dependency Management**:
-- **Package Dependencies**: [AI Generated required packages]
-- **Version Requirements**: [AI Generated version constraints]
-- **Integration Points**: [AI Generated integration strategy]
+- **Package Dependencies**: [AI Generated: Required packages from research]
+- **Version Requirements**: [AI Generated: Version constraints from research]
+- **Integration Points**: [AI Generated: Integration strategy]
 
-### Platform-Specific Considerations
+#### Platform-Specific Considerations
 
-#### iOS Implementation
-- **Minimum iOS Version**: [AI Generated version] (justified by feature requirements)
-- **Device Support**: [AI Generated devices] (iPhone, iPad, Mac Catalyst)
+**iOS Implementation**:
+- **Minimum iOS Version**: [AI Generated: Version justified by researched technology requirements]
+- **Device Support**: [AI Generated: iPhone, iPad, Mac Catalyst]
 - **Performance Targets**:
-  - App launch impact: [AI Generated impact assessment]
-  - Memory usage: [AI Generated memory analysis]
-  - UI responsiveness: 60fps maintained during [AI Generated critical operations]
+  - App launch impact: [AI Generated: Assessment]
+  - Memory usage: [AI Generated: Analysis]
+  - UI responsiveness: 60fps maintained during [AI Generated: Critical operations]
 
-#### macOS Implementation (if applicable)
-- **Minimum macOS Version**: [AI Generated version]
-- **Mac-Specific Features**: [AI Generated Mac features]
-- **Menu Integration**: [AI Generated menu strategy]
+**macOS Implementation** (if applicable):
+- **Minimum macOS Version**: [AI Generated: Version]
+- **Mac-Specific Features**: [AI Generated: Mac features]
+- **Menu Integration**: [AI Generated: Menu strategy]
 
-#### App Store Compliance
-- **Privacy Manifest Updates**: [AI Generated privacy impact]
-- **New Permissions Required**: [AI Generated permissions needed]
-- **Review Guidelines Considerations**: [AI Generated review considerations]
+**App Store Compliance**:
+- **Privacy Manifest Updates**: [AI Generated: Privacy impact]
+- **New Permissions Required**: [AI Generated: Permissions needed]
+- **Review Guidelines Considerations**: [AI Generated: Review considerations]
 
-## Implementation Complexity Assessment
+### Implementation Complexity Assessment
 
-### Technical Complexity Assessment
-**Complexity Level**: [AI Generated Level] (Simple | Moderate | Complex | Very Complex)
+**Complexity Level**: [AI Generated] (Simple | Moderate | Complex | Very Complex)
 
 **Implementation Challenges**:
-- **Setup and Infrastructure**: [AI Generated complexity factors and challenges]
-- **Core Implementation**: [AI Generated technical challenges and considerations]
-- **Integration Points**: [AI Generated integration complexity and potential issues]
-- **Testing Requirements**: [AI Generated testing complexity and coverage needs]
+- **Setup and Infrastructure**: [AI Generated: Complexity factors based on research]
+- **Core Implementation**: [AI Generated: Technical challenges]
+- **Integration Points**: [AI Generated: Integration complexity based on codebase analysis]
+- **Testing Requirements**: [AI Generated: Testing complexity]
 
 **Risk Assessment**:
-- **High Risk Areas**: [AI Generated high risks identified]
-- **Mitigation Strategies**: [AI Generated risk mitigation approaches]
-- **Unknowns Requiring Research**: [AI Generated research needs]
+- **High Risk Areas**: [AI Generated: Risks identified from research]
+- **Mitigation Strategies**: [AI Generated: Risk mitigation approaches]
+- **Unknowns**: [AI Generated: Remaining uncertainties]
 
-### Dependency Analysis
-
-**External Dependencies**:
-- **Swift Packages**: [AI Generated required packages]
-- **iOS Frameworks**: [AI Generated iOS frameworks needed]
-- **Third-Party Services**: [AI Generated external services]
-
-**Internal Dependencies**:
-- **Existing Code Modifications**: [AI Generated existing code changes]
-- **New Shared Components**: [AI Generated new shared components]
-- **Breaking Changes**: [AI Generated breaking changes] (if any)
-
-### Quality Assurance Requirements
+**Dependency Analysis**:
+- **External Dependencies**: [AI Generated: Packages, frameworks, services from research]
+- **Internal Dependencies**: [AI Generated: Existing code changes from codebase analysis]
+- **Breaking Changes**: [AI Generated: Breaking changes if any]
 
 **Testing Strategy**:
-- **Unit Tests**: [AI Generated unit test approach]
-- **Integration Tests**: [AI Generated integration test approach]
-- **UI Tests**: [AI Generated UI test approach]
+- **Unit Tests**: [AI Generated: Unit test approach]
+- **Integration Tests**: [AI Generated: Integration test approach]
+- **UI Tests**: [AI Generated: UI test approach]
 
-**Validation Requirements**:
-- **Context/Guidelines Validation**: Per Swift.md and SwiftUI.md compliance standards
-- **Performance Testing**: [AI Generated performance test strategy]
-- **Platform Testing**: [AI Generated platform-specific testing needs]
+### Technical Clarifications
 
-## Technical Clarifications
-
-### Areas Requiring Resolution
+**Areas Requiring Resolution**:
 [AI Generated: Mark any uncertain technical aspects requiring resolution before implementation]
 
 - 🚨 [NEEDS CLARIFICATION: [AI Generated specific technical question]]
-- 🚨 [NEEDS CLARIFICATION: [AI Generated specific technical question]]
-
-### Research Requirements
-**Technology Investigations**:
-- [AI Generated research topic]: [AI Generated research reason]
-- [AI Generated research topic]: [AI Generated research reason]
-
-**Proof of Concept Needs**:
-- [AI Generated POC need]: [AI Generated POC justification]
-- [AI Generated POC need]: [AI Generated POC justification]
 
 ---
 
-**Next Phase**: After this technical architecture is approved, proceed to `/ctxk:plan:3-steps` for implementation task breakdown and development planning.
-
----
-
-════════════════════════════════════════════════════════════════════════════════
-║ 🤖 VALIDATION & EXECUTION STATUS - AI WORKFLOW INSTRUCTIONS
-════════════════════════════════════════════════════════════════════════════════
-║
-║ ## Architecture Validation Gates
-║
-║ ### Technical Completeness
-║ - [ ] All user scenarios from specification have technical solutions?
-║ - [ ] Data models support all required operations?
-║ - [ ] Service layer handles all business logic requirements?
-║ - [ ] Error scenarios have appropriate handling strategies?
-║
-║ ### iOS/macOS Standards Compliance
-║ - [ ] SwiftUI patterns follow current best practices?
-║ - [ ] Navigation structure appropriate for platform?
-║ - [ ] State management scalable and maintainable?
-║ - [ ] Performance implications assessed and acceptable?
-║
-║ ### Context/Guidelines Standards Adherence
-║ - [ ] Swift.md principles applied or justified exceptions documented?
-║ - [ ] SwiftUI.md standards incorporated throughout design?
-║ - [ ] All guidelines referenced appropriately in architectural decisions?
-║
-║ ### Implementation Readiness
-║ - [ ] Architecture sufficiently detailed for task breakdown?
-║ - [ ] Dependencies identified and availability confirmed?
-║ - [ ] Risk areas identified with mitigation plans?
-║ - [ ] No blocking 🚨 [NEEDS CLARIFICATION] items remain?
-║
-║ ## Project Type Specific Validation
-║ *Applied automatically based on detected project type*
-║
-║ **For iOS App Projects**:
-║ - [ ] App Store Guidelines compliance reviewed?
-║ - [ ] Privacy manifest impact assessed?
-║ - [ ] Platform accessibility requirements planned?
-║ - [ ] Device compatibility confirmed?
-║
-║ **For Swift Package Projects**:
-║ - [ ] Public API design follows package conventions?
-║ - [ ] DocC documentation strategy defined?
-║ - [ ] Linux compatibility considered?
-║ - [ ] Semantic versioning impact assessed?
-║
-║ **For Vapor Server Projects**:
-║ - [ ] Security implications reviewed?
-║ - [ ] Performance benchmarks defined?
-║ - [ ] Database migration strategy planned?
-║ - [ ] Docker deployment considerations included?
-║
-║ ## Execution Status
-║ *Updated by main() during processing*
-║
-║ ### Phase 1: Prerequisites & Context Loading
-║ - [ ] Technical research results loaded from Research.md
-║ - [ ] Feature specification loaded and cross-referenced with research
-║ - [ ] Project Context.md loaded for tech stack preferences
-║ - [ ] Development guidelines loaded based on project type
-║ - [ ] Workspace Context.md loaded for overrides (if applicable)
-║
-║ ### Phase 2: Architecture Design & Validation
-║ - [ ] Context/Guidelines compliance gates validated
-║ - [ ] iOS/macOS architecture designed with rationale
-║ - [ ] Implementation complexity assessed
-║ - [ ] Technical uncertainties marked with 🚨 [NEEDS CLARIFICATION]
-║
-║ ### Phase 3: Technical Plan Generation
-║ - [ ] Technical architecture content generated
-║ - [ ] System overview section completed
-║ - [ ] Implementation details sections filled
-║ - [ ] Complexity assessment completed
-║
-║ ### Phase 4: Validation & Completion
-║ - [ ] Technical validation gates executed
-║ - [ ] Technical plan status updated
-║ - [ ] All mandatory sections completed
-║ - [ ] System instructions removed from final document
-║
-║ **Next Phase**: After this technical architecture is approved, proceed to `/ctxk:plan:3-steps` for implementation task breakdown and development planning.
-║
-════════════════════════════════════════════════════════════════════════════════
+**Next Phase**: After this technical planning is approved, proceed to `/ctxk:plan:3-steps` for implementation task breakdown.
