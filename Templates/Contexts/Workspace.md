@@ -1,5 +1,5 @@
 # Workspace Context Template
-<!-- Template Version: 2 | ContextKit: 0.1.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 2 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
 
 ## Description
 Workspace-level Context.md template providing workspace-specific configuration, client/company requirements, technology standards, and team workflow overrides for multi-project environments.

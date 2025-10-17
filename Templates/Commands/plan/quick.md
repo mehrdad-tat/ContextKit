@@ -1,5 +1,5 @@
 Quick planning for smaller tasks, bug fixes, and improvements (single-file workflow)
-<!-- Template Version: 3 | ContextKit: 0.1.0 | Updated: 2025-01-17 -->
+<!-- Template Version: 3 | ContextKit: 0.2.0 | Updated: 2025-01-17 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.

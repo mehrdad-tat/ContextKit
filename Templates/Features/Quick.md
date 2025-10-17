@@ -1,5 +1,5 @@
 # Quick Task Template
-<!-- Template Version: 3 | ContextKit: 0.1.0 | Updated: 2025-01-17 -->
+<!-- Template Version: 3 | ContextKit: 0.2.0 | Updated: 2025-01-17 -->
 
 ## Description
 Quick task planning template for smaller tasks, bug fixes, and focused improvements that need planning but don't require the full multi-file workflow (Spec/Tech/Steps). Includes interactive validation, codebase analysis, and may include online research.

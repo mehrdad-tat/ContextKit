@@ -1,5 +1,5 @@
 # Remove Fixed Bugs from Backlog
-<!-- Template Version: 2 | ContextKit: 0.1.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 2 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.

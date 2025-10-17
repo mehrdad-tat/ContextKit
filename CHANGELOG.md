@@ -1,5 +1,5 @@
 # ContextKit Changelog
-<!-- ContextKit: 0.1.0 | Updated: 2025-09-13 -->
+<!-- ContextKit: 0.2.0 | Updated: 2025-10-17 -->
 
 Maintains accurate changelog following [Keep a Changelog](https://keepachangelog.com/) format. 
 Used by `/ctxk:proj:migrate` command to track file changes and preserve user customizations.
@@ -103,3 +103,25 @@ N/A
 
 ### Security
 N/A
+
+## [0.2.0] - 2025-10-17
+
+### Added
+- Quick planning workflow for smaller tasks (`/ctxk:plan:quick`)
+- Developer customization sections in all command and agent templates
+
+### Changed
+- `[M] Templates/Commands/plan/2-research-tech.md` - Streamlined to single-run workflow integrating research into Tech.md
+- `[M] Templates/Features/Tech.md` - Combined research and architecture phases into single template
+- `[M] Templates/Commands/impl/start-working.md` - Updated to work with integrated Tech.md
+- `[M] Templates/Commands/proj/init.md` - Improved submodule handling and guideline detection
+- `[M] Templates/Guidelines/Swift.md` - Added logger and String-Data conversion preferences
+- `[M] Templates/Commands/plan/1-spec.md` - Enhanced clarification requirement validation
+- `[M] Templates/Commands/plan/3-steps.md` - Better agent usage documentation
+
+### Removed
+- `Templates/Features/Research.md` - Merged into Tech.md for streamlined workflow
+
+## [0.1.0] - 2025-09-17
+
+Initial release with complete ContextKit workflow system.
