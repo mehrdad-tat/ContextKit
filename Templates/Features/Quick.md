@@ -1,5 +1,5 @@
 # Quick Task Template
-<!-- Template Version: 2 | ContextKit: 0.1.0 | Updated: 2025-01-17 -->
+<!-- Template Version: 3 | ContextKit: 0.1.0 | Updated: 2025-01-17 -->
 
 ## Description
 Quick task planning template for smaller tasks, bug fixes, and focused improvements that need planning but don't require the full multi-file workflow (Spec/Tech/Steps). Includes interactive validation, codebase analysis, and may include online research.
@@ -42,7 +42,10 @@ Quick task planning template for smaller tasks, bug fixes, and focused improveme
 ║    - Document current patterns found in codebase
 ║    - Note integration points and dependencies
 ║    - Include as much context as needed for understanding
-║    - May include online research findings if applicable
+║    - **If online research was conducted**: Populate Research Sources subsection with:
+║      - Technology/framework names with URLs and versions
+║      - Documentation or article URLs with access dates
+║    - **If NO online research was needed**: Remove Research Sources subsection entirely
 ║
 ║ 5. Populate Implementation Approach section
 ║    - Use Edit to add detailed technical approach
@@ -134,6 +137,11 @@ Quick task planning template for smaller tasks, bug fixes, and focused improveme
 **Integration Points:**
 - [Where this change connects to other parts of the codebase]
 - [Dependencies or impacts to be aware of]
+
+**Research Sources** (if online research was conducted):
+- [Technology/Framework Name]: [URL] - [Version/Date if applicable]
+- [Documentation/Article]: [URL] - [Date accessed]
+(Remove this subsection entirely if no online research was needed)
 
 ---
 

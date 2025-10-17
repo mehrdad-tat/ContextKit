@@ -1,5 +1,5 @@
 Quick planning for smaller tasks, bug fixes, and improvements (single-file workflow)
-<!-- Template Version: 2 | ContextKit: 0.1.0 | Updated: 2025-01-17 -->
+<!-- Template Version: 3 | ContextKit: 0.1.0 | Updated: 2025-01-17 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -165,7 +165,9 @@ This command creates a condensed, single-file plan for:
      - **In Scope**: Items from validated understanding (as many as needed for clarity)
      - **Out of Scope**: Items from validated understanding (clearly define boundaries)
      - **Edge Cases**: Items from validated understanding (all relevant considerations)
-     - **Code Context**: File paths, patterns, integration points, research findings
+     - **Code Context**: File paths, patterns, integration points
+       - **If online research WAS conducted**: Populate Research Sources subsection with URLs, versions, dates
+       - **If NO online research was needed**: Remove Research Sources subsection entirely
      - **Implementation Approach**: Detailed technical approach with rationale and research
      - **Tasks**: Generate specific actionable tasks (as many as needed)
    - Use Edit to remove entire boxed system instructions section

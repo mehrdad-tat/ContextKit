@@ -1,5 +1,5 @@
 # Create Feature Specification
-<!-- Template Version: 12 | ContextKit: 0.1.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 13 | ContextKit: 0.1.0 | Updated: 2025-01-17 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -130,9 +130,46 @@ Initialize feature specification by validating setup, confirming feature naming,
    - Continue only after user approval
    - Store confirmed names for subsequent steps
 
+7. **Present Understanding Summary & Get Confirmation**
+   - Based on user's original description, generate CONCISE understanding summary in chat
+   - Display to user using this format:
+     ```
+     ═══════════════════════════════════════════════════
+     ║ ❓ UNDERSTANDING CONFIRMATION
+     ═══════════════════════════════════════════════════
+     ║
+     ║ Before creating the specification, let me confirm my understanding:
+     ║
+     ║ [1-2 paragraph summary of what the feature does and why]
+     ║
+     ║ IN SCOPE ✅
+     ║ • [Key item 1 that will be addressed]
+     ║ • [Key item 2 that will be addressed]
+     ║ • [Key item 3 that will be addressed]
+     ║ (3-5 items maximum - keep concise for quick review)
+     ║
+     ║ OUT OF SCOPE ❌
+     ║ • [Related item 1 that won't be included]
+     ║ • [Related item 2 that won't be included]
+     ║ • [Related item 3 that won't be included]
+     ║ (3-5 items maximum - clear boundaries)
+     ║
+     ║ KEY EDGE CASES 🔍
+     ║ • [Important edge case 1 to consider]
+     ║ • [Important edge case 2 to consider]
+     ║ (2-3 items maximum - most critical ones)
+     ║
+     ║ Does this match your intent? (y/N) or describe corrections:
+     ```
+   - **CRITICAL**: Keep this concise for quick developer review
+   - **WAIT for user response** (execution MUST stop until user answers)
+   - If user provides corrections: update understanding and present again
+   - Continue only after user confirms with "y" or "yes"
+   - **Store confirmed understanding** for Spec.md generation (full detailed spec will be created from this)
+
 ### Phase 3: Template Setup & Execution
 
-7. **Generate Sequential Feature Number & Create Workspace**
+8. **Generate Sequential Feature Number & Create Workspace**
    ```bash
    # Find next sequential number by counting existing feature directories
    NEXT_NUM=$(printf "%03d" $(($(ls -1d Context/Features/???-* 2>/dev/null | wc -l) + 1)))
@@ -142,19 +179,19 @@ Initialize feature specification by validating setup, confirming feature naming,
    ```
    - Store the numbered directory name for use in subsequent steps and success message
 
-8. **Copy Feature Template**
+9. **Copy Feature Template**
    ```bash
    cp ~/.ContextKit/Templates/Features/Spec.md Context/Features/[numbered-feature-directory]/Spec.md
    echo "✅ Copied specification template"
    ```
 
-9. **Create Git Branch in Current Directory**
+10. **Create Git Branch in Current Directory**
     ```bash
     git checkout -b feature/${NEXT_NUM}-[confirmed-kebab-case-name] || echo "⚠️ Git branch creation failed - continuing without branch"
     echo "✅ Created git branch: feature/${NEXT_NUM}-[confirmed-kebab-case-name]"
     ```
 
-10. **Create Branches in Additional Components (AI Manual Step)**
+11. **Create Branches in Additional Components (AI Manual Step)**
     - **For each additional component selected by user in Step 5** (if any beyond "root"):
       - Use `Bash` tool to change to component directory and create branch:
         ```bash
@@ -164,15 +201,16 @@ Initialize feature specification by validating setup, confirming feature naming,
     - **If user selected "all" in Step 5**: Execute above for every discovered component
     - **If user selected "root" only in Step 5**: Skip this step entirely
 
-11. **Execute Specification Template**
+12. **Execute Specification Template**
     - Use `Read` tool to read the copied Spec.md: `Read Context/Features/[numbered-feature-directory]/Spec.md`
     - Follow the **system instructions** section (boxed area) step by step
     - The template contains specification generation logic and progress tracking
     - Use tools (`Read`, `Edit`) as directed by the template instructions
     - **Template execution**: The copied Spec.md handles all context reading, guidelines loading, constitutional validation, and content generation
+    - **IMPORTANT**: Use confirmed understanding from Step 7 to inform spec generation
     - **Progress tracking**: User can see checkboxes being completed in the copied file
 
-12. **Extract and Resolve Clarification Points Interactively**
+13. **Extract and Resolve Clarification Points Interactively**
     - Use `Grep` tool to find clarification markers in final Spec.md: `Grep "🚨 \\[NEEDS CLARIFICATION:" [numbered-feature-directory]/Spec.md`
     - If clarification points found:
       - Parse each clarification point to extract the specific question and line context
@@ -192,7 +230,7 @@ Initialize feature specification by validating setup, confirming feature naming,
         - Continue to next clarification point only after current one is resolved
       - After all clarifications resolved: confirm all markers removed from Spec.md
 
-13. **Display Success Message** (see Success Messages section)
+14. **Display Success Message** (see Success Messages section)
 
 ## Error Conditions
 
@@ -206,9 +244,11 @@ Initialize feature specification by validating setup, confirming feature naming,
 
 - Project Context.md exists (ContextKit project setup complete)?
 - User confirmation obtained for feature naming?
+- Understanding summary presented in chat and confirmed by user?
 - Feature workspace directory created successfully?
 - Specification template copied to feature directory?
 - Template system instructions executed successfully?
+- Confirmed understanding used to inform spec generation?
 - System instructions section removed from final Spec.md?
 - Clarification points resolved interactively one at a time?
 - User informed to review and commit specification before proceeding?
