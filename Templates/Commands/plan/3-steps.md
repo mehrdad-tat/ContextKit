@@ -1,5 +1,5 @@
 # Create Task List
-<!-- Template Version: 6 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 7 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -10,18 +10,6 @@
 
 ## Description
 Generate implementation task breakdown by detecting current feature, validating prerequisites, copying steps template, and executing template workflow with S### task enumeration and parallel execution planning.
-
-## User Input Format
-
-```
-═══════════════════════════════════════════════════
-║ ❓ USER INPUT REQUIRED - [Topic]
-═══════════════════════════════════════════════════
-║
-║ [Question and context]
-║
-║ [Response instruction]
-```
 
 ## Execution Flow (main)
 
@@ -38,7 +26,7 @@ Generate implementation task breakdown by detecting current feature, validating 
 1. **Detect Current Feature**
    - Use `Bash` tool to check current git branch: `git branch --show-current`
    - If on feature/[prefix]-[name] branch: Extract feature name from branch
-   - If not on feature branch: Ask user which feature to work on using consistent format
+   - If not on feature branch: Use text input to ask user which feature to work on
    - Use `Glob` tool to find numbered feature directory: `Glob Context/Features/???-[FeatureName]`
 
 2. **Validate Prerequisites**
@@ -79,20 +67,43 @@ Generate implementation task breakdown by detecting current feature, validating 
    - If clarification points found:
      - Parse each clarification point to extract the specific question and line context
      - **FOR EACH CLARIFICATION (one at a time)**:
-       - Present the specific question to user using User Input Format:
+       - Analyze the extracted clarification question and generate 2-4 reasonable answer suggestions based on context
+       - Use AskUserQuestion tool with these parameters:
+         ```json
+         {
+           "questions": [
+             {
+               "question": "[Extracted clarification question from 🚨 marker]",
+               "header": "Answer?",
+               "options": [
+                 {
+                   "label": "[Suggested answer 1]",
+                   "description": "[Why this answer makes sense based on context]"
+                 },
+                 {
+                   "label": "[Suggested answer 2]",
+                   "description": "[Why this answer makes sense based on context]"
+                 },
+                 {
+                   "label": "[Suggested answer 3 if applicable]",
+                   "description": "[Why this answer makes sense based on context]"
+                 },
+                 {
+                   "label": "Skip for now",
+                   "description": "Leave this clarification marker for later resolution"
+                 }
+               ],
+               "multiSelect": false
+             }
+           ]
+         }
          ```
-         ═══════════════════════════════════════════════════
-         ║ ❓ IMPLEMENTATION CLARIFICATION NEEDED
-         ═══════════════════════════════════════════════════
-         ║
-         ║ [Specific extracted question from 🚨 [NEEDS CLARIFICATION: ...]]
-         ║
-         ║ Please provide your answer to resolve this implementation detail:
-         ```
-       - **WAIT for user response** (execution MUST stop until user answers)
-       - Use `Edit` tool to replace the 🚨 [NEEDS CLARIFICATION: ...] marker with the user's answer
-       - Continue to next clarification point only after current one is resolved
-     - After all clarifications resolved: confirm all markers removed from Steps.md
+       - Wait for user response
+       - If user selects a suggested answer: Use that answer and replace 🚨 marker in Steps.md
+       - If user provides custom answer via "Other": Use that answer and replace 🚨 marker in Steps.md
+       - If user selects "Skip for now": Leave marker in place and continue to next
+       - Continue to next clarification point
+     - After all clarifications processed: confirm how many markers were resolved vs remaining
 
 6. **Display Success Message** (see Success Messages section)
 

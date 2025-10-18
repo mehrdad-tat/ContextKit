@@ -1,5 +1,5 @@
 # Initialize Workspace Context
-<!-- Template Version: 3 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 4 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -12,18 +12,6 @@
 Initialize workspace-level context configuration. Copies workspace template and executes interactive setup for multi-project workspace standards.
 
 ## Execution Flow (main)
-
-**User Question Format**: When asking user questions, use this consistent format:
-```
-═══════════════════════════════════════════════════
-║ ❓ [DESCRIPTIVE HEADER]
-═══════════════════════════════════════════════════
-║
-║ [Question text and context]
-║ [Options if applicable]
-║
-║ [Clear response instruction]
-```
 
 ### Phase 0: Check Customization
 
@@ -68,22 +56,85 @@ Initialize workspace-level context configuration. Copies workspace template and 
    ```
 
 4. **Collect User Preferences for Workspace Configuration**
-   - **Workspace Type Selection**: Ask user: "What type of workspace is this?"
-     1. Personal/Indie Development
-     2. Client/Contract Work
-     3. Enterprise/Company
-     4. Open Source Project
-   - **Follow-up Details**: Based on selection, ask follow-up questions:
-     - Client/Enterprise: Ask for company name
-     - All types: Ask for brief workspace description
-   - **Coding Standards**: Ask user: "Override indentation preference for this workspace?"
-     1. Keep current/detected patterns
-     2. Standardize on 3 spaces
-     3. Standardize on 2 spaces
-     4. Standardize on 4 spaces
-     5. Standardize on tabs
-   - **Development Principles**: For Client/Enterprise workspaces, ask: "Any client requirements that override default principles (accessibility, privacy, localizability, maintainability, platform UX)?"
-   - **Configuration Summary**: Display all collected preferences to user for confirmation
+
+   **A. Workspace Type Selection**:
+   - Use AskUserQuestion tool with these parameters:
+     ```json
+     {
+       "questions": [
+         {
+           "question": "What type of workspace is this?",
+           "header": "Workspace",
+           "options": [
+             {
+               "label": "Personal/Indie Dev",
+               "description": "Individual developer projects and indie development"
+             },
+             {
+               "label": "Client/Contract",
+               "description": "Client work or contract development projects"
+             },
+             {
+               "label": "Enterprise/Company",
+               "description": "Corporate or company development environment"
+             },
+             {
+               "label": "Open Source",
+               "description": "Public open source project workspace"
+             }
+           ],
+           "multiSelect": false
+         }
+       ]
+     }
+     ```
+   - Wait for user response
+
+   **B. Follow-up Details**:
+   - If user selected "Client/Contract" or "Enterprise/Company":
+     - Ask for company name using "Other" option or text input
+   - For all workspace types:
+     - Ask for brief workspace description using text input
+
+   **C. Coding Standards**:
+   - Use AskUserQuestion tool with these parameters:
+     ```json
+     {
+       "questions": [
+         {
+           "question": "Override indentation preference for this workspace?",
+           "header": "Indentation",
+           "options": [
+             {
+               "label": "Keep detected",
+               "description": "Keep current/detected patterns from existing code"
+             },
+             {
+               "label": "3 spaces",
+               "description": "Standardize on 3-space indentation (ContextKit default)"
+             },
+             {
+               "label": "2 spaces",
+               "description": "Standardize on 2-space indentation"
+             },
+             {
+               "label": "4 spaces",
+               "description": "Standardize on 4-space indentation"
+             }
+           ],
+           "multiSelect": false
+         }
+       ]
+     }
+     ```
+   - Wait for user response
+   - Note: "Tabs" option available via "Other" selection
+
+   **D. Development Principles**:
+   - For Client/Enterprise workspaces, ask about principle overrides using text input or "Other" option
+
+   **E. Configuration Summary**:
+   - Display all collected preferences to user for confirmation
 
 5. **Execute Context.md Template Instructions with User Preferences**
    - Use `Read` tool to read the copied `Context.md` file

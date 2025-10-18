@@ -1,5 +1,5 @@
 # Upgrade to Latest
-<!-- Template Version: 13 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 14 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -22,20 +22,6 @@ Updates both:
 - **Local project templates** (plan/, impl/, bckl/, agents, scripts, etc.) in current project
 
 All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATIONS" sections.
-
-## Reference
-
-**User Question Format**: When asking user questions, use this consistent format:
-```
-═══════════════════════════════════════════════════
-║ ❓ [DESCRIPTIVE HEADER]
-═══════════════════════════════════════════════════
-║
-║ [Question text and context]
-║ [Options if applicable]
-║
-║ [Clear response instruction]
-```
 
 ## Execution Flow (main)
 
@@ -84,7 +70,7 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
    - If user has statusLine setting with path containing "CustomStatusline.sh":
      - Check if path is correct (should be "./Context/Scripts/CustomStatusline.sh")
      - Check if command includes plan parameter (should have "--plan Pro|Max5|Max20")
-     - If missing plan parameter: Ask user for their Claude plan and update command
+     - If missing plan parameter: Use AskUserQuestion tool to ask user for their Claude plan and update command
      - If path incorrect: Update path to correct location using Edit tool
      - If both correct: No change needed
    - If user has no statusLine setting or different script: Skip (user opted out)

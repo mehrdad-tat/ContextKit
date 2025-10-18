@@ -1,5 +1,5 @@
 # Triage Bugs with Severity-Based Prioritization
-<!-- Template Version: 3 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 4 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -10,20 +10,6 @@
 
 ## Description
 Process bugs from inbox through systematic 5-step triage with severity-based binary search positioning. Orchestrates user interaction and calls database operations defined in Bugs-Backlog.md.
-
-## User Input Format
-
-```
-────────────────────────────────────────────────────────────────
-**💬 [Insert the specific question here]**
-────────────────────────────────────────────────────────────────
-
-**Bug:** [Bug name or description]
-
-[Additional context fields]
-
-────────────────────────────────────────────────────────────────
-```
 
 ## Execution Flow (main)
 

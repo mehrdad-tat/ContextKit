@@ -1,5 +1,5 @@
 # Release App to App Store
-<!-- Template Version: 2 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 3 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -13,18 +13,6 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
 
 ## Parameters
 - `version` (required): Semantic version for release (e.g., "1.2.0")
-
-## User Input Format
-
-```
-═══════════════════════════════════════════════════
-║ ❓ USER INPUT REQUIRED - [Topic]
-═══════════════════════════════════════════════════
-║
-║ [Question and context]
-║
-║ [Response instruction]
-```
 
 ## Execution Flow (main)
 
@@ -60,9 +48,24 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
    - **PATCH**: Bug fixes, minor improvements, performance optimizations
 
 4. **Get version confirmation from user**
-   - Use User Input Format to ask for version confirmation
-   - Show current version, changes found, and suggested version with reasoning
-   - Accept specific version (e.g., "1.2.0") or Enter for suggestion
+   - Display version context in chat:
+     ```
+     ════════════════════════════════════════════════════════════════
+     📦 VERSION CONFIRMATION - Please Review
+     ════════════════════════════════════════════════════════════════
+
+     Current Version: [current version from project]
+
+     Changes Found:
+     [Summary of changes since last release]
+
+     Suggested Version: [suggested version] ([MAJOR/MINOR/PATCH])
+     Reasoning: [why this version bump is recommended]
+
+     ════════════════════════════════════════════════════════════════
+     ```
+   - Use AskUserQuestion tool to ask for version confirmation
+   - Accept specific version (e.g., "1.2.0") or suggestion via options
    - Validate semantic version format
 
 5. **Generate release notes as simple prioritized list**
@@ -82,11 +85,20 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
    - Code formatting, documentation, comments
 
 6. **Iterate on release notes with user feedback**
-   - Display generated release notes as simple bullet list
-   - Use User Input Format to ask: "Use these release notes? (Y/n/r to revise - tell me what to change)"
+   - Display generated release notes in chat:
+     ```
+     ════════════════════════════════════════════════════════════════
+     📝 GENERATED RELEASE NOTES - Please Review
+     ════════════════════════════════════════════════════════════════
+
+     [Generated release notes as simple bullet list organized by category]
+
+     ════════════════════════════════════════════════════════════════
+     ```
+   - Use AskUserQuestion tool to ask: "Use these release notes? (Y/n/r to revise - tell me what to change)"
    - **Y**: Continue with generated notes
    - **n**: Skip release notes (empty What's New)
-   - **r**: Revise - ask user for specific improvement requests, then regenerate
+   - **r**: Revise - use text input to ask user for specific improvement requests, then regenerate
 
    **If user chooses "r" (revise):**
    - Prompt: "How should I improve these release notes? Examples:"

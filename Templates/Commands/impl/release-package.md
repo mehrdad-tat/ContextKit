@@ -1,5 +1,5 @@
 # Release Swift Package
-<!-- Template Version: 2 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 3 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -96,8 +96,23 @@ Execute Swift Package release workflow with version management, release notes ge
      - **MINOR**: If new features added (new public APIs, significant functionality)
      - **PATCH**: If only bug fixes, documentation, internal improvements, performance optimizations
 
-   - Use User Input Format to ask for version selection
-   - Show package name, repository, current version, commit count, and suggested bump type with reasoning
+   - Display version context in chat:
+     ```
+     ════════════════════════════════════════════════════════════════
+     📦 VERSION SELECTION - Please Review
+     ════════════════════════════════════════════════════════════════
+
+     Package: [package name]
+     Repository: [repository URL]
+     Current Version: [current version]
+     Commits Since Last Release: [count]
+
+     Suggested Bump: [MAJOR/MINOR/PATCH]
+     Reasoning: [why this version bump is recommended based on changes]
+
+     ════════════════════════════════════════════════════════════════
+     ```
+   - Use AskUserQuestion tool to ask for version selection
    - Accept specific version (e.g., "1.2.0") or bump type ("major"/"minor"/"patch")
    - Parse and validate version format
    - If bump type provided: calculate from current version
@@ -142,11 +157,20 @@ Execute Swift Package release workflow with version management, release notes ge
    - If no meaningful user-facing changes found: Ask "Create maintenance release anyway?"
 
 10. **Iterate on Release Notes with User Feedback**
-    - Display generated release notes as simple bullet list
-    - Use User Input Format to ask: "Use these release notes? (Y/n/r to revise - tell me what to change)"
+    - Display generated release notes in chat:
+      ```
+      ════════════════════════════════════════════════════════════════
+      📝 GENERATED RELEASE NOTES - Please Review
+      ════════════════════════════════════════════════════════════════
+
+      [Generated release notes as simple bullet list organized by category]
+
+      ════════════════════════════════════════════════════════════════
+      ```
+    - Use AskUserQuestion tool to ask: "Use these release notes? (Y/n/r to revise - tell me what to change)"
     - **Y**: Continue with generated notes
     - **n**: Skip release notes (create release without notes)
-    - **r**: Revise - ask user for specific improvement requests, then regenerate
+    - **r**: Revise - use text input to ask user for specific improvement requests, then regenerate
 
     **If user chooses "r" (revise):**
     - Prompt: "How should I improve these release notes? Examples:"

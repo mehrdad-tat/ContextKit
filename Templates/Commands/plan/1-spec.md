@@ -1,5 +1,5 @@
 # Create Feature Specification
-<!-- Template Version: 13 | ContextKit: 0.2.0 | Updated: 2025-01-17 -->
+<!-- Template Version: 14 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -10,18 +10,6 @@
 
 ## Description
 Initialize feature specification by validating setup, confirming feature naming, copying specification template, and executing template workflow with progress tracking.
-
-## User Input Format
-
-```
-═══════════════════════════════════════════════════
-║ ❓ USER INPUT REQUIRED - [Topic]
-═══════════════════════════════════════════════════
-║
-║ [Question and context]
-║
-║ [Response instruction]
-```
 
 ## Execution Flow (main)
 
@@ -54,22 +42,47 @@ Initialize feature specification by validating setup, confirming feature naming,
    git status --porcelain || echo "⚠️ Git not available - continuing without version control"
    ```
    - If uncommitted changes exist:
-     ```
-     ⚠️  Uncommitted changes detected!
+     - Display warning in chat:
+       ```
+       ═══════════════════════════════════════════════════
+       ⚠️ WARNING - Uncommitted Changes Detected
+       ═══════════════════════════════════════════════════
 
-     You have uncommitted changes in your working directory.
-     It's recommended to commit these changes before creating a new feature branch.
+       You have uncommitted changes in your working directory.
+       It's recommended to commit these changes before creating a new feature branch.
 
-     Run: git add . && git commit -m "Your commit message"
+       Run: git add . && git commit -m "Your commit message"
 
-     Continue anyway? (y/N):
-     ```
-     - Wait for user confirmation
-     - If "N" or no response: EXIT (recommend committing first)
-     - If "y": Continue with warning logged
+       ═══════════════════════════════════════════════════
+       ```
+     - Use AskUserQuestion tool with these parameters:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Continue creating feature branch with uncommitted changes?",
+             "header": "Git Status",
+             "options": [
+               {
+                 "label": "No, commit first",
+                 "description": "Exit and commit changes before creating feature branch (recommended)"
+               },
+               {
+                 "label": "Yes, continue",
+                 "description": "Proceed with feature branch creation despite uncommitted changes"
+               }
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - Wait for user response
+     - If user selects "No, commit first": EXIT with recommendation
+     - If user selects "Yes, continue": Continue with warning logged
 
 3. **Get Feature or App Description from User**
-   - Ask user for feature/app description using consistent format (see User Input Format section)
+   - Ask user for feature/app description via text input
    - Wait for user input
    - **CRITICAL**: Store description exactly verbatim for specification Input field - do NOT summarize or paraphrase
    - Continue with description-based processing
@@ -83,27 +96,40 @@ Initialize feature specification by validating setup, confirming feature naming,
      ```bash
      ls -la .gitmodules 2>/dev/null || echo "No .gitmodules file found"
      ```
-   - **If multiple components found**: List all discovered repositories/components and ask user:
-     ```
-     ═══════════════════════════════════════════════════
-     ║ ❓ AFFECTED COMPONENTS SELECTION
-     ═══════════════════════════════════════════════════
-     ║
-     ║ Which components will be affected by this feature?
-     ║
-     ║ Available components:
-     ║ • Root workspace: [current directory name]
-     ║ • [List discovered submodules/components]
-     ║
-     ║ Options:
-     ║ • "root" - Root workspace repository only
-     ║ • "all" - All discovered components
-     ║ • Specific names - Space-separated (e.g., "root MyApp-iOS")
-     ║
-     ║ Response: Enter your selection
-     ```
-     - **WAIT for user response before proceeding**
-     - Parse user response and store affected components list for later use
+   - **If multiple components found**:
+     - List all discovered repositories/components
+     - Use AskUserQuestion tool with these parameters (dynamically populate options based on discovered components):
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Which components will be affected by this feature?",
+             "header": "Components",
+             "options": [
+               {
+                 "label": "Root only",
+                 "description": "Root workspace repository only"
+               },
+               {
+                 "label": "All components",
+                 "description": "All discovered repositories and submodules"
+               },
+               {
+                 "label": "[Component1]",
+                 "description": "[Component1 description or path]"
+               },
+               {
+                 "label": "[Component2]",
+                 "description": "[Component2 description or path]"
+               }
+             ],
+             "multiSelect": true
+           }
+         ]
+       }
+       ```
+     - Wait for user response
+     - Parse user selections and store affected components list for later use
    - **If single repository**: Automatically set affected components to "root" only
 
 5. **Generate Names**
@@ -113,58 +139,91 @@ Initialize feature specification by validating setup, confirming feature naming,
    - Focus on user value, not implementation details
 
 6. **Interactive Name Confirmation**
-   - Display generated names to user for confirmation:
+   - Display generated names to user in a summary
+   - Use AskUserQuestion tool with these parameters:
+     ```json
+     {
+       "questions": [
+         {
+           "question": "Are these generated names correct? (Feature folder: [XXX]-[PascalCaseName], Git branch: feature/[XXX]-[kebab-case-name])",
+           "header": "Names OK?",
+           "options": [
+             {
+               "label": "Yes, looks good",
+               "description": "Approve these names and proceed with feature creation"
+             },
+             {
+               "label": "No, revise names",
+               "description": "Provide alternative description to regenerate names"
+             }
+           ],
+           "multiSelect": false
+         }
+       ]
+     }
      ```
-     ═══════════════════════════════════════════════════
-     ║ ❓ FEATURE NAMING CONFIRMATION
-     ═══════════════════════════════════════════════════
-     ║
-     ║ Generated names based on your description:
-     ║ • Feature folder: [XXX]-[PascalCaseName] (XXX = next sequential number)
-     ║ • Git branch: feature/[XXX]-[kebab-case-name]
-     ║
-     ║ Are these names correct? (y/N) or provide alternative description:
-     ```
-   - Wait for user confirmation or alternative description
-   - If alternative provided: regenerate names and ask again
-   - Continue only after user approval
+   - Wait for user response
+   - If user selects "No, revise names": Use text input to ask for alternative description, regenerate names, and ask again
+   - Continue only after user selects "Yes, looks good"
    - Store confirmed names for subsequent steps
 
 7. **Present Understanding Summary & Get Confirmation**
-   - Based on user's original description, generate CONCISE understanding summary in chat
-   - Display to user using this format:
+   - Based on user's original description, generate CONCISE understanding summary
+   - Display summary in chat:
      ```
      ═══════════════════════════════════════════════════
-     ║ ❓ UNDERSTANDING CONFIRMATION
+     📋 UNDERSTANDING CONFIRMATION
      ═══════════════════════════════════════════════════
-     ║
-     ║ Before creating the specification, let me confirm my understanding:
-     ║
-     ║ [1-2 paragraph summary of what the feature does and why]
-     ║
-     ║ IN SCOPE ✅
-     ║ • [Key item 1 that will be addressed]
-     ║ • [Key item 2 that will be addressed]
-     ║ • [Key item 3 that will be addressed]
-     ║ (3-5 items maximum - keep concise for quick review)
-     ║
-     ║ OUT OF SCOPE ❌
-     ║ • [Related item 1 that won't be included]
-     ║ • [Related item 2 that won't be included]
-     ║ • [Related item 3 that won't be included]
-     ║ (3-5 items maximum - clear boundaries)
-     ║
-     ║ KEY EDGE CASES 🔍
-     ║ • [Important edge case 1 to consider]
-     ║ • [Important edge case 2 to consider]
-     ║ (2-3 items maximum - most critical ones)
-     ║
-     ║ Does this match your intent? (y/N) or describe corrections:
+
+     Before creating the specification, let me confirm my understanding:
+
+     [1-2 paragraph summary of what the feature does and why]
+
+     IN SCOPE ✅
+     • [Key item 1 that will be addressed]
+     • [Key item 2 that will be addressed]
+     • [Key item 3 that will be addressed]
+     (3-5 items maximum - keep concise for quick review)
+
+     OUT OF SCOPE ❌
+     • [Related item 1 that won't be included]
+     • [Related item 2 that won't be included]
+     • [Related item 3 that won't be included]
+     (3-5 items maximum - clear boundaries)
+
+     KEY EDGE CASES 🔍
+     • [Important edge case 1 to consider]
+     • [Important edge case 2 to consider]
+     (2-3 items maximum - most critical ones)
+
+     ═══════════════════════════════════════════════════
      ```
    - **CRITICAL**: Keep this concise for quick developer review
-   - **WAIT for user response** (execution MUST stop until user answers)
-   - If user provides corrections: update understanding and present again
-   - Continue only after user confirms with "y" or "yes"
+   - Use AskUserQuestion tool with these parameters:
+     ```json
+     {
+       "questions": [
+         {
+           "question": "Does this understanding match your intent for the feature?",
+           "header": "Understand?",
+           "options": [
+             {
+               "label": "Yes, correct",
+               "description": "Understanding is accurate, proceed with specification creation"
+             },
+             {
+               "label": "No, needs changes",
+               "description": "Provide corrections to adjust the understanding"
+             }
+           ],
+           "multiSelect": false
+         }
+       ]
+     }
+     ```
+   - Wait for user response
+   - If user selects "No, needs changes": Ask for corrections via "Other" option, update understanding, and present again
+   - Continue only after user selects "Yes, correct"
    - **Store confirmed understanding** for Spec.md generation (full detailed spec will be created from this)
 
 ### Phase 3: Template Setup & Execution
@@ -215,20 +274,43 @@ Initialize feature specification by validating setup, confirming feature naming,
     - If clarification points found:
       - Parse each clarification point to extract the specific question and line context
       - **FOR EACH CLARIFICATION (one at a time)**:
-        - Present the specific question to user using User Input Format:
+        - Analyze the extracted clarification question and generate 2-4 reasonable answer suggestions based on context
+        - Use AskUserQuestion tool with these parameters:
+          ```json
+          {
+            "questions": [
+              {
+                "question": "[Extracted clarification question from 🚨 marker]",
+                "header": "Answer?",
+                "options": [
+                  {
+                    "label": "[Suggested answer 1]",
+                    "description": "[Why this answer makes sense based on context]"
+                  },
+                  {
+                    "label": "[Suggested answer 2]",
+                    "description": "[Why this answer makes sense based on context]"
+                  },
+                  {
+                    "label": "[Suggested answer 3 if applicable]",
+                    "description": "[Why this answer makes sense based on context]"
+                  },
+                  {
+                    "label": "Skip for now",
+                    "description": "Leave this clarification marker for later resolution"
+                  }
+                ],
+                "multiSelect": false
+              }
+            ]
+          }
           ```
-          ═══════════════════════════════════════════════════
-          ║ ❓ SPECIFICATION CLARIFICATION NEEDED
-          ═══════════════════════════════════════════════════
-          ║
-          ║ [Specific extracted question from 🚨 [NEEDS CLARIFICATION: ...]]
-          ║
-          ║ Please provide your answer to resolve this specification requirement:
-          ```
-        - **WAIT for user response** (execution MUST stop until user answers)
-        - Use `Edit` tool to replace the 🚨 [NEEDS CLARIFICATION: ...] marker with the user's answer
-        - Continue to next clarification point only after current one is resolved
-      - After all clarifications resolved: confirm all markers removed from Spec.md
+        - Wait for user response
+        - If user selects a suggested answer: Use that answer and replace 🚨 marker in Spec.md
+        - If user provides custom answer via "Other": Use that answer and replace 🚨 marker in Spec.md
+        - If user selects "Skip for now": Leave marker in place and continue to next
+        - Continue to next clarification point
+      - After all clarifications processed: confirm how many markers were resolved vs remaining
 
 14. **Display Success Message** (see Success Messages section)
 

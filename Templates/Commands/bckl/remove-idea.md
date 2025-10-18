@@ -1,5 +1,5 @@
 # Remove Completed Ideas from Backlog
-<!-- Template Version: 2 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 3 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -51,47 +51,95 @@ Remove completed or cancelled ideas from the backlog database. Identifies target
 
 4. **Present Search Results**
    - If no matches found:
-     ```
-     💡 No matching ideas found for: "[search term]"
-
-     Check Context/Backlog/Ideas-Backlog.md for available ideas.
-     Use exact ID like "IDEA-001" or keywords from the idea title.
-     ```
+     - Display message: "💡 No matching ideas found for: '[search term]'. Check Context/Backlog/Ideas-Backlog.md for available ideas. Use exact ID like 'IDEA-001' or keywords from the idea title."
      → END (no matches)
 
    - If single match found: Skip to confirmation step
-   - If multiple matches found: Present selection menu:
-     ```
-     🔍 Multiple ideas match "[search term]":
+   - If multiple matches found:
+     - Display matches in chat:
+       ```
+       ════════════════════════════════════════════════════════════════
+       🔍 SEARCH RESULTS - Multiple Ideas Found
+       ════════════════════════════════════════════════════════════════
 
-     A) [IDEA-001] Dark mode UI support (Score: 5.2, 8h effort)
-     B) [IDEA-003] Dark theme for settings (Score: 15.0, 2h effort)
-     C) [IDEA-007] Night mode accessibility (Score: 25.5, 4h effort)
+       Multiple ideas match "[search term]":
 
-     Which idea do you want to remove? (A/B/C or type new search)
-     ```
-   - Wait for user selection and validate choice
+       A) [IDEA-001] Dark mode UI support (Score: 5.2, 8h effort)
+       B) [IDEA-003] Dark theme for settings (Score: 15.0, 2h effort)
+       C) [IDEA-007] Night mode accessibility (Score: 25.5, 4h effort)
+
+       ════════════════════════════════════════════════════════════════
+       ```
+     - Use AskUserQuestion tool with dynamically generated options based on search results:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Which idea do you want to remove?",
+             "header": "Select Idea",
+             "options": [
+               {
+                 "label": "[IDEA-001] Dark mode",
+                 "description": "Dark mode UI support (Score: 5.2, 8h effort)"
+               },
+               {
+                 "label": "[IDEA-003] Dark theme",
+                 "description": "Dark theme for settings (Score: 15.0, 2h effort)"
+               },
+               {
+                 "label": "[IDEA-007] Night mode",
+                 "description": "Night mode accessibility (Score: 25.5, 4h effort)"
+               }
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - Wait for user selection
+     - Note: "New search" option available via "Other" selection
 
 ### Phase 3: Confirmation & Removal
 
 5. **Confirm Removal Intent**
-   - Present selected idea with details:
+   - Display selected idea details in chat:
      ```
      ────────────────────────────────────────────────────────────────
-     **🗑️ CONFIRM REMOVAL: Are you sure you want to remove this idea?**
+     🗑️ CONFIRM REMOVAL - Are you sure?
      ────────────────────────────────────────────────────────────────
 
-     **Idea**: [IDEA-###] [Title]
-     **Priority Score**: [Score from backlog]
-     **Effort**: [Hours estimated]
-     **Source**: [Who suggested it]
-     **Status**: This will be permanently removed from the backlog
+     Idea: [IDEA-###] [Title]
+     Priority Score: [Score from backlog]
+     Effort: [Hours estimated]
+     Source: [Who suggested it]
+     Status: This will be permanently removed from the backlog
 
-     Type 'yes' to confirm removal, or anything else to cancel.
      ────────────────────────────────────────────────────────────────
      ```
-   - Wait for user confirmation
-   - If not confirmed: Cancel and exit gracefully
+   - Use AskUserQuestion tool with these parameters:
+     ```json
+     {
+       "questions": [
+         {
+           "question": "🗑️ Are you sure you want to remove idea [IDEA-###] ([Title])?",
+           "header": "Confirm?",
+           "options": [
+             {
+               "label": "Yes, remove",
+               "description": "Permanently remove this idea from the backlog"
+             },
+             {
+               "label": "No, cancel",
+               "description": "Keep this idea in the backlog and exit"
+             }
+           ],
+           "multiSelect": false
+         }
+       ]
+     }
+     ```
+   - Wait for user response
+   - If user selects "No, cancel": Cancel and exit gracefully
 
 6. **Execute REMOVE_COMPLETED Operation**
    - **Call REMOVE_COMPLETED operation from Ideas-Backlog.md** with:

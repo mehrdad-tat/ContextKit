@@ -1,5 +1,5 @@
 # Initialize Project with ContextKit
-<!-- Template Version: 10 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 11 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -12,18 +12,6 @@
 Initialize current project with ContextKit development workflow system. Sets up systematic development environment with template distribution and context generation.
 
 ## Execution Flow (main)
-
-**User Question Format**: When asking user questions, use this consistent format:
-```
-═══════════════════════════════════════════════════
-║ ❓ [DESCRIPTIVE HEADER]
-═══════════════════════════════════════════════════
-║
-║ [Question text and context]
-║ [Options if applicable]
-║
-║ [Clear response instruction]
-```
 
 ### Phase 0: Check Customization
 
@@ -93,59 +81,88 @@ Initialize current project with ContextKit development workflow system. Sets up 
 6. **Model Setting Configuration**
    - Use `Read` tool to examine current model setting in `.claude/settings.json`
    - If missing or different from "sonnet":
-     ```
-     ═══════════════════════════════════════════════════
-     ║ ❓ MODEL CONFIGURATION
-     ═══════════════════════════════════════════════════
-     ║
-     ║ Current model: [current/none detected]
-     ║ 
-     ║ Set to 'sonnet'? Default Claude Code uses Opus which burns
-     ║ through the 5-hour limit quickly. ContextKit uses Sonnet to avoid
-     ║ hitting limits during complex planning phases while maintaining
-     ║ sufficient quality with proper guidance.
-     ║
-     ║ Response: Y (recommended) or N
-     ```
-   - **WAIT for user response before proceeding**
-   - If user agrees: Use `Edit` tool to update model setting immediately
+     - Use AskUserQuestion tool with these parameters:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Set default model to 'sonnet' for better 5-hour limit management? (Current: [current/none detected]. Default Claude Code uses Opus which burns through the 5-hour limit quickly. ContextKit uses Sonnet to avoid hitting limits during complex planning phases while maintaining sufficient quality.)",
+             "header": "Model Config",
+             "options": [
+               {
+                 "label": "Yes (recommended)",
+                 "description": "Use Sonnet to avoid burning through 5h limit with Opus on complex planning"
+               },
+               {
+                 "label": "No, keep current",
+                 "description": "Keep existing model configuration unchanged"
+               }
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - Wait for user response
+     - If user selects "Yes (recommended)": Use `Edit` tool to update model setting immediately
 
 7. **Status Line Configuration**
    - Check current statusLine configuration in `.claude/settings.json`
    - If missing or different from "./Context/Scripts/CustomStatusline.sh":
-     ```
-     ═══════════════════════════════════════════════════
-     ║ ❓ STATUS LINE SETUP
-     ═══════════════════════════════════════════════════
-     ║
-     ║ Current statusline: [current/none detected]
-     ║
-     ║ Set to ContextKit statusline? Provides real-time monitoring:
-     ║ '5h-Usage: 73% (1.4h left) | Chat: ▓▓▓▓▓▓░░░░ 64% (128k/200k)'
-     ║ with colored progress bars (Light Gray <50%, Yellow 50-80%, Red >80%)
-     ║ for context awareness.
-     ║
-     ║ Response: Y (recommended) or N
-     ```
-   - **WAIT for user response before proceeding**
+     - Use AskUserQuestion tool with these parameters:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Set to ContextKit statusline with real-time monitoring? (Current: [current/none detected]. Provides: '5h-Usage: 73% (1.4h left) | Chat: ▓▓▓▓▓▓░░░░ 64% (128k/200k)' with colored progress bars for context awareness.)",
+             "header": "Status Line",
+             "options": [
+               {
+                 "label": "Yes (recommended)",
+                 "description": "Show real-time 5h usage and context progress bars with color coding"
+               },
+               {
+                 "label": "No, keep current",
+                 "description": "Keep existing statusline configuration"
+               }
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - Wait for user response
 
 8. **Claude Plan Selection** (only if user agreed to status line)
-   - If user agreed to status line setup:
-     ```
-     ═══════════════════════════════════════════════════
-     ║ ❓ CLAUDE PLAN SELECTION
-     ═══════════════════════════════════════════════════
-     ║
-     ║ What Claude plan do you have? (for usage tracking)
-     ║
-     ║ 1. Pro ($20/month)
-     ║ 2. Max 5x ($100/month) 
-     ║ 3. Max 20x ($200/month)
-     ║
-     ║ Response: Enter number (1, 2, or 3)
-     ```
-   - **WAIT for user response before proceeding**
-   - Store plan selection for status line configuration
+   - If user selected "Yes (recommended)" for status line:
+     - Use AskUserQuestion tool with these parameters:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Which Claude plan do you have? (for usage tracking in statusline)",
+             "header": "Plan Type",
+             "options": [
+               {
+                 "label": "Pro ($20/month)",
+                 "description": "Standard 5-hour usage limit per day"
+               },
+               {
+                 "label": "Max 5x ($100/month)",
+                 "description": "5x extended usage limit (25 hours per day)"
+               },
+               {
+                 "label": "Max 20x ($200/month)",
+                 "description": "20x extended usage limit (100 hours per day)"
+               }
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - Wait for user response
+     - Store plan selection for status line configuration
 
 9. **Workspace Discovery**
    - Start from current directory and traverse parent directories
@@ -167,21 +184,31 @@ Initialize current project with ContextKit development workflow system. Sets up 
      done
      ```
    - If workspace context found:
-     ```
-     ═══════════════════════════════════════════════════
-     ║ ❓ WORKSPACE INHERITANCE
-     ═══════════════════════════════════════════════════
-     ║
-     ║ Found workspace context at: [path]
-     ║
-     ║ Inherit from this workspace context?
-     ║ This will configure project to follow workspace coding standards
-     ║ and constitutional principles.
-     ║
-     ║ Response: Y (recommended) or N
-     ```
-   - **WAIT for user response before proceeding**
-   - If multiple workspace contexts found: ask user which to inherit from
+     - Use AskUserQuestion tool with these parameters:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Inherit from workspace context at [path]? This will configure project to follow workspace coding standards and constitutional principles.",
+             "header": "Workspace",
+             "options": [
+               {
+                 "label": "Yes (recommended)",
+                 "description": "Follow workspace-level coding standards and principles"
+               },
+               {
+                 "label": "No, standalone",
+                 "description": "Configure project independently without workspace inheritance"
+               }
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - Wait for user response
+   - If multiple workspace contexts found:
+     - Use AskUserQuestion with multiSelect=false to let user choose which workspace to inherit from
 
 10. **Apply User Configurations**
     - Apply model setting (if user agreed)

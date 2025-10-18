@@ -1,5 +1,5 @@
 Quick planning for smaller tasks, bug fixes, and improvements (single-file workflow)
-<!-- Template Version: 3 | ContextKit: 0.2.0 | Updated: 2025-01-17 -->
+<!-- Template Version: 4 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -89,53 +89,74 @@ This command creates a condensed, single-file plan for:
 ### Phase 4: Interactive Understanding Validation
 
 5. **Present Understanding Summary to User**
-   - Display understanding in chat (DO NOT create file yet):
-   ```
-   ════════════════════════════════════════════════════════════════
-   📋 TASK UNDERSTANDING - Please Review & Confirm
-   ════════════════════════════════════════════════════════════════
+   - Display understanding summary in chat (DO NOT create file yet):
+     ```
+     ════════════════════════════════════════════════════════════════
+     📋 TASK UNDERSTANDING - Please Review & Confirm
+     ════════════════════════════════════════════════════════════════
 
-   ## What I Understood
+     ## What I Understood
 
-   [Summary of the task - as detailed as necessary for clarity]
+     [Summary of the task - as detailed as necessary for clarity]
 
-   ## In Scope ✅
+     ## In Scope ✅
 
-   - [Items that will be addressed]
-   - [As many items as needed for clarity]
+     - [Items that will be addressed]
+     - [As many items as needed for clarity]
 
-   ## Out of Scope ❌
+     ## Out of Scope ❌
 
-   - [Related items that won't be addressed]
-   - [Clearly defined boundaries]
+     - [Related items that won't be addressed]
+     - [Clearly defined boundaries]
 
-   ## Potential Edge Cases 🔍
+     ## Potential Edge Cases 🔍
 
-   - [Edge cases to consider]
-   - [Boundary conditions to watch for]
+     - [Edge cases to consider]
+     - [Boundary conditions to watch for]
 
-   ## Questions/Clarifications ❓
+     ## Questions/Clarifications ❓
 
-   [Only if there are genuine uncertainties]
+     [Only if there are genuine uncertainties]
 
-   ════════════════════════════════════════════════════════════════
-
-   **Does this match your intent?**
-
-   ✅ "yes" or "y" - Proceed with this plan
-   ✏️  "no" or provide corrections - I'll adjust
-   ❓ "help" - Show more codebase details
-   ```
-   - **WAIT for user response** (execution MUST stop)
-   - If user says "no" or provides corrections:
+     ════════════════════════════════════════════════════════════════
+     ```
+   - Use AskUserQuestion tool with these parameters:
+     ```json
+     {
+       "questions": [
+         {
+           "question": "Does this understanding match your intent for the task?",
+           "header": "Confirm?",
+           "options": [
+             {
+               "label": "Yes, proceed",
+               "description": "Understanding is correct, create the quick plan file"
+             },
+             {
+               "label": "No, adjust",
+               "description": "Provide corrections to update the understanding"
+             },
+             {
+               "label": "Show details",
+               "description": "Show more detailed codebase analysis findings first"
+             }
+           ],
+           "multiSelect": false
+         }
+       ]
+     }
+     ```
+   - Wait for user response
+   - If user selects "No, adjust":
+     - Accept corrections via "Other" option text input
      - Update understanding based on feedback
      - Present revised understanding
-     - Wait for confirmation again
-   - If user says "help":
-     - Show detailed codebase analysis findings
+     - Ask confirmation question again
+   - If user selects "Show details":
+     - Display detailed codebase analysis findings
      - Present understanding summary again
-     - Wait for confirmation
-   - Continue only after user confirms with "yes" or "y"
+     - Ask confirmation question again
+   - Continue only after user selects "Yes, proceed"
 
 ### Phase 5: Generate Quick Plan File
 

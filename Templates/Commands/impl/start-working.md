@@ -1,5 +1,5 @@
 # Begin Development with Context
-<!-- Template Version: 15 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 16 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -10,18 +10,6 @@
 
 ## Description
 Begin systematic development with context-aware setup, task analysis, and guided implementation initiation based on completed planning phases.
-
-## User Input Format
-
-```
-═══════════════════════════════════════════════════
-║ ❓ USER INPUT REQUIRED - [Topic]
-═══════════════════════════════════════════════════
-║
-║ [Question and context]
-║
-║ [Response instruction]
-```
 
 ## Execution Flow (main)
 
@@ -43,19 +31,44 @@ Begin systematic development with context-aware setup, task analysis, and guided
      - Extract full name from branch (e.g., `feature/001-visionos26-modernization` → `001-visionos26-modernization`)
      - Set FEATURE_NAME variable for directory matching
    - If not on feature branch:
-     ```
-     ⚠️ Not on a feature branch!
+     - Display warning in chat:
+       ```
+       ═══════════════════════════════════════════════════
+       ⚠️ WARNING - Not on Feature Branch
+       ═══════════════════════════════════════════════════
 
-     Current branch: [current_branch_name]
+       Current branch: [current_branch_name]
+       Expected: feature/[prefix]-[feature-name] branch from /ctxk:plan:1-spec
 
-     Expected: feature/[prefix]-[feature-name] branch from /ctxk:plan:1-spec
+       Switch to feature branch or create one with /ctxk:plan:1-spec
 
-     Switch to feature branch or create one with /ctxk:plan:1-spec
-     Continue anyway? (y/N):
-     ```
-     - Wait for user confirmation
-     - If "N" or no response: EXIT
-     - If "y": Ask user to specify feature name manually
+       ═══════════════════════════════════════════════════
+       ```
+     - Use AskUserQuestion tool with these parameters:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Continue development without being on a feature branch?",
+             "header": "Branch?",
+             "options": [
+               {
+                 "label": "No, stop",
+                 "description": "Exit and switch to proper feature branch (recommended)"
+               },
+               {
+                 "label": "Yes, continue",
+                 "description": "Proceed anyway and specify feature name manually"
+               }
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - Wait for user response
+     - If user selects "No, stop": EXIT
+     - If user selects "Yes, continue": Ask user to specify feature name manually via text input
 
 2. **Validate Feature Planning Completion**
    - Use `Bash` tool to find numbered feature directory with flexible matching:
@@ -110,17 +123,42 @@ Begin systematic development with context-aware setup, task analysis, and guided
    git status --porcelain || echo "⚠️ Git not available"
    ```
    - If uncommitted changes exist:
-     ```
-     ⚠️ Uncommitted changes detected!
+     - Display warning in chat:
+       ```
+       ═══════════════════════════════════════════════════
+       ⚠️ WARNING - Uncommitted Changes Detected
+       ═══════════════════════════════════════════════════
 
-     You have uncommitted work that might be overwritten during development.
-     Commit or stash changes before starting new development work.
+       You have uncommitted work that might be overwritten during development.
+       Commit or stash changes before starting new development work.
 
-     Continue anyway? (y/N):
-     ```
-     - Wait for user confirmation
-     - If "N": EXIT (recommend committing first)
-     - If "y": Continue with warning
+       ═══════════════════════════════════════════════════
+       ```
+     - Use AskUserQuestion tool with these parameters:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Continue with uncommitted changes in working directory?",
+             "header": "Git Changes",
+             "options": [
+               {
+                 "label": "No, commit first",
+                 "description": "Exit and commit/stash changes before starting (recommended)"
+               },
+               {
+                 "label": "Yes, continue",
+                 "description": "Proceed anyway with uncommitted changes present"
+               }
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - Wait for user response
+     - If user selects "No, commit first": EXIT (recommend committing/stashing)
+     - If user selects "Yes, continue": Continue with warning logged
 
 
 ### Phase 3: Steps.md-Driven Development Execution
@@ -175,65 +213,124 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
    **For MANUAL REQUIRED Tasks** (marked with ⚠️ MANUAL REQUIRED in Steps.md):
 
-   **CRITICAL**: Always use the standardized user input box format below - never use custom formatting:
+   - Display manual task details in chat:
+     ```
+     ═══════════════════════════════════════════════════
+     👤 MANUAL TASK - [TaskNumber from Steps.md]
+     ═══════════════════════════════════════════════════
 
-   ```
-   ═══════════════════════════════════════════════════
-   ║ 👤 MANUAL TASK REQUIRED - [TaskNumber from Steps.md]
-   ═══════════════════════════════════════════════════
-   ║
-   ║ 📋 TASK FROM STEPS.md: [Exact task description from Steps.md]
-   ║ 📂 Files: [Exact file paths from Steps.md]
-   ║ 🛠️ Manual steps required:
-   ║ [Extract detailed manual instructions from Steps.md task notes]
-   ║
-   ║ 📝 FULL CONTEXT (from planning files):
-   ║ • Feature purpose: [Complete understanding from Spec.md]
-   ║ • Technical approach: [Complete understanding from Tech.md]
-   ║ • Why this task: [Reason from Steps.md context]
-   ║ • Current progress: [completed_tasks]/[total_tasks] tasks done in Steps.md
-   ║
-   ║ Please complete this manual task exactly as specified, then return here.
-   ║
-   ║ Options:
-   ║ ✅ 'done' - I completed the manual task (will mark as ✅ in Steps.md)
-   ║ ⏭️  'skip' - Skip this task for now (breaks planned sequence)
-   ║ ❓ 'help' - Show more detailed instructions from Steps.md
-   ║ 🔙 'back' - Return to task selection
-   ║
-   ║ Status:
-   ```
+     📋 TASK FROM STEPS.md:
+     [Exact task description from Steps.md]
+
+     📂 FILES:
+     [Exact file paths from Steps.md]
+
+     🛠️ MANUAL STEPS REQUIRED:
+     [Extract detailed manual instructions from Steps.md task notes]
+
+     📝 FULL CONTEXT (from planning files):
+     • Feature purpose: [Complete understanding from Spec.md]
+     • Technical approach: [Complete understanding from Tech.md]
+     • Why this task: [Reason from Steps.md context]
+     • Current progress: [completed_tasks]/[total_tasks] tasks done in Steps.md
+
+     Please complete this manual task exactly as specified, then return here.
+
+     ═══════════════════════════════════════════════════
+     ```
+   - Use AskUserQuestion tool with these parameters:
+     ```json
+     {
+       "questions": [
+         {
+           "question": "Manual task [TaskNumber] status? ([Task description from Steps.md])",
+           "header": "Manual Task",
+           "options": [
+             {
+               "label": "Done",
+               "description": "I completed the manual task (will mark as ✅ in Steps.md)"
+             },
+             {
+               "label": "Skip for now",
+               "description": "Skip this task temporarily (breaks planned sequence)"
+             },
+             {
+               "label": "Show details",
+               "description": "Show more detailed instructions from Steps.md"
+             },
+             {
+               "label": "Back to list",
+               "description": "Return to task selection menu"
+             }
+           ],
+           "multiSelect": false
+         }
+       ]
+     }
+     ```
+   - Wait for user response and process accordingly
 
    **For AUTOMATED Tasks** (no manual markers in Steps.md):
 
-   **CRITICAL**: Execute exactly as specified in Steps.md - no shortcuts or assumptions:
-   ```
-   ═══════════════════════════════════════════════════
-   ║ 🚀 AUTOMATED TASK - [TaskNumber from Steps.md]
-   ═══════════════════════════════════════════════════
-   ║
-   ║ 📋 TASK FROM STEPS.md: [Exact task description from Steps.md]
-   ║ 📂 Files to modify: [Exact file paths from Steps.md]
-   ║ 🎯 Acceptance criteria: [Criteria from Steps.md]
-   ║ 🔗 Dependencies: [Dependencies listed in Steps.md]
-   ║
-   ║ 📝 FULL CONTEXT FOR IMPLEMENTATION:
-   ║ • Feature specification: [Complete understanding from Spec.md]
-   ║ • Technical planning: [Research and architecture from Tech.md]
-   ║ • Current progress: [completed_tasks]/[total_tasks] tasks done in Steps.md
-   ║
-   ║ 🔧 IMPLEMENTATION APPROACH:
-   ║ [How this will be implemented based on complete context understanding]
-   ║
-   ║ Ready to execute this Steps.md task? (Y/n):
-   ```
+   **CRITICAL**: Execute exactly as specified in Steps.md - no shortcuts or assumptions
+
+   - Display automated task details in chat:
+     ```
+     ═══════════════════════════════════════════════════
+     🚀 AUTOMATED TASK - [TaskNumber from Steps.md]
+     ═══════════════════════════════════════════════════
+
+     📋 TASK FROM STEPS.md:
+     [Exact task description from Steps.md]
+
+     📂 FILES TO MODIFY:
+     [Exact file paths from Steps.md]
+
+     🎯 ACCEPTANCE CRITERIA:
+     [Criteria from Steps.md]
+
+     🔗 DEPENDENCIES:
+     [Dependencies listed in Steps.md]
+
+     📝 FULL CONTEXT FOR IMPLEMENTATION:
+     • Feature specification: [Complete understanding from Spec.md]
+     • Technical planning: [Research and architecture from Tech.md]
+     • Current progress: [completed_tasks]/[total_tasks] tasks done in Steps.md
+
+     🔧 IMPLEMENTATION APPROACH:
+     [How this will be implemented based on complete context understanding]
+
+     ═══════════════════════════════════════════════════
+     ```
+   - Use AskUserQuestion tool with these parameters:
+     ```json
+     {
+       "questions": [
+         {
+           "question": "Ready to execute automated task [TaskNumber]? ([Task description from Steps.md])",
+           "header": "Execute?",
+           "options": [
+             {
+               "label": "Yes, execute",
+               "description": "Proceed with implementing this task from Steps.md"
+             },
+             {
+               "label": "Wait, clarify",
+               "description": "Need clarification before executing (emphasize Steps.md must be followed)"
+             }
+           ],
+           "multiSelect": false
+         }
+       ]
+     }
+     ```
+   - Wait for user response
 
    **IMPORTANT**:
    - Task details come DIRECTLY from Steps.md - never modify or interpret
    - Use complete context from Spec.md and Tech.md (which contains research + architecture) for implementation
    - Do NOT skip steps or take shortcuts - follow Steps.md exactly
-   - Wait for user confirmation before proceeding
-   - If "n": Ask for clarification but emphasize Steps.md must be followed
+   - If user selects "Wait, clarify": Provide clarification but emphasize Steps.md must be followed
 
 ### Phase 4: Task Execution with Steps.md as Central Progress Tracker
 

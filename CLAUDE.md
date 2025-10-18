@@ -500,6 +500,183 @@ Embed these validation checkpoints in every template where applicable:
 - [ ] Simple solutions chosen over complex ones?
 ```
 
+### Interactive User Questions with AskUserQuestion Tool
+
+**CRITICAL**: All user questions in command templates MUST use the AskUserQuestion tool for structured interactive questions.
+
+**Purpose**: Standardized, interactive question-answer interface with structured options and automatic "Other" choice for custom input.
+
+---
+
+#### Pattern: Context Display + Question
+
+When asking questions that need context, use this two-part pattern:
+
+**1. Display Context Information (in formatted box)**
+
+```markdown
+- Display context in chat:
+  ```
+  ═══════════════════════════════════════════════════
+  [ICON] HEADER - Descriptive Title
+  ═══════════════════════════════════════════════════
+
+  [Relevant information that helps user understand the question]
+  [File paths, current state, warnings, summaries, etc.]
+
+  ═══════════════════════════════════════════════════
+  ```
+```
+
+**2. Ask Question (with AskUserQuestion tool)**
+
+```markdown
+- Use AskUserQuestion tool with these parameters:
+  ```json
+  {
+    "questions": [
+      {
+        "question": "Clear, specific question about the context above?",
+        "header": "Short Label",
+        "options": [
+          {"label": "Option 1", "description": "What this choice means"},
+          {"label": "Option 2", "description": "What this alternative means"}
+        ],
+        "multiSelect": false
+      }
+    ]
+  }
+  ```
+- Wait for user response
+```
+
+**Box Header Icons**:
+- ⚠️ WARNING - Critical alerts requiring user attention
+- 📋 UNDERSTANDING/INFO - Summary information for review
+- 👤 MANUAL TASK - Tasks requiring manual user action
+- 🚀 AUTOMATED TASK - Tasks to be executed by AI
+- 🔍 SEARCH RESULTS - Multiple items found from search
+- 🗑️ CONFIRM REMOVAL - Deletion confirmations
+
+**Box Width Standards**:
+- 51 characters `═══════════════════════════════════════════════════` (standard)
+- 64 characters `════════════════════════════════════════════════════════════════` (wide/detailed)
+- 60 characters `────────────────────────────────────────────────────────────────` (separator/confirmation)
+
+---
+
+#### Pattern: Simple Questions (No Context Box Needed)
+
+For configuration questions where the question itself provides sufficient context:
+
+```markdown
+- Use AskUserQuestion tool with these parameters:
+  ```json
+  {
+    "questions": [
+      {
+        "question": "Set default model to 'sonnet' for better 5-hour limit management? (Current: [current/none]. Default Claude Code uses Opus which burns through the 5-hour limit quickly.)",
+        "header": "Model Config",
+        "options": [
+          {
+            "label": "Yes (recommended)",
+            "description": "Use Sonnet to avoid burning through 5h limit with Opus on complex planning"
+          },
+          {
+            "label": "No, keep current",
+            "description": "Keep existing model configuration unchanged"
+          }
+        ],
+        "multiSelect": false
+      }
+    ]
+  }
+  ```
+- Wait for user response
+```
+
+---
+
+#### Multiple Questions at Once
+
+Ask up to 4 sequential questions in one call:
+
+```json
+{
+  "questions": [
+    {
+      "question": "Which Claude plan do you have? (for usage tracking)",
+      "header": "Plan Type",
+      "options": [
+        {"label": "Pro ($20/month)", "description": "Standard 5-hour usage limit"},
+        {"label": "Max 5x ($100/month)", "description": "5x extended usage limit"},
+        {"label": "Max 20x ($200/month)", "description": "20x extended usage limit"}
+      ],
+      "multiSelect": false
+    },
+    {
+      "question": "Enable custom statusline with usage tracking?",
+      "header": "Status Line",
+      "options": [
+        {"label": "Yes", "description": "Show real-time 5h usage and context progress bars"},
+        {"label": "No", "description": "Use default Claude Code statusline"}
+      ],
+      "multiSelect": false
+    }
+  ]
+}
+```
+
+---
+
+#### Multi-Select Questions
+
+For selecting multiple items (components, features, etc.):
+
+```json
+{
+  "questions": [
+    {
+      "question": "Which components will be affected by this feature?",
+      "header": "Components",
+      "options": [
+        {"label": "Root workspace", "description": "Main repository in current directory"},
+        {"label": "iOS App", "description": "Mobile application component"},
+        {"label": "Server API", "description": "Backend service component"}
+      ],
+      "multiSelect": true
+    }
+  ]
+}
+```
+
+---
+
+#### Best Practices
+
+1. **Question Text**: Always end with `?`, be specific and clear
+2. **Header**: Max 12 characters, concise label (e.g., "Model Config", "Plan Type", "Components")
+3. **Label**: 1-5 words, what the user sees in the selection
+4. **Description**: Explain what this choice means, trade-offs, or implications
+5. **Multi-Select**: Use `true` when user can select multiple options
+6. **Options Count**: Provide 2-4 options (tool automatically adds "Other" for custom input)
+7. **Wait for Response**: Always include "Wait for user response" after the tool invocation
+8. **Context Boxes**: Use for complex scenarios where user needs to review information before answering
+9. **Simple Questions**: Skip context boxes when question itself is self-explanatory
+
+**When NOT to Use**:
+
+- Simple command parameters (use standard parameters instead)
+- Purely informational messages with no question
+- Questions already answered by previous user input
+
+**Real Examples from ContextKit**:
+
+- **Simple question**: Model configuration (no box needed - question explains context)
+- **Context + question**: Manual task details (box shows task info, question asks for status)
+- **Context + question**: Understanding confirmation (box shows analysis, question asks for validation)
+- **Context + question**: Search results (box shows matches, question asks which to select)
+
 ### Template Creation Rules
 
 1. **Commands** (`Templates/Commands/`): 

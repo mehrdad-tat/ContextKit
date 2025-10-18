@@ -1,5 +1,5 @@
 # Remove Fixed Bugs from Backlog
-<!-- Template Version: 2 | ContextKit: 0.2.0 | Updated: 2025-10-02 -->
+<!-- Template Version: 3 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -51,48 +51,96 @@ Remove fixed or resolved bugs from the backlog database. Identifies target bug t
 
 4. **Present Search Results**
    - If no matches found:
-     ```
-     🐛 No matching bugs found for: "[search term]"
-
-     Check Context/Backlog/Bugs-Backlog.md for available bugs.
-     Use exact ID like "BUG-001" or keywords from the bug title.
-     ```
+     - Display message: "🐛 No matching bugs found for: '[search term]'. Check Context/Backlog/Bugs-Backlog.md for available bugs. Use exact ID like 'BUG-001' or keywords from the bug title."
      → END (no matches)
 
    - If single match found: Skip to confirmation step
-   - If multiple matches found: Present selection menu:
-     ```
-     🔍 Multiple bugs match "[search term]":
+   - If multiple matches found:
+     - Display matches in chat:
+       ```
+       ════════════════════════════════════════════════════════════════
+       🔍 SEARCH RESULTS - Multiple Bugs Found
+       ════════════════════════════════════════════════════════════════
 
-     A) [BUG-001] Login crashes on iOS 18.2 (Critical, Simple fix)
-     B) [BUG-003] Login validation error (High, Medium effort)
-     C) [BUG-007] Login button alignment (Low, Simple fix)
+       Multiple bugs match "[search term]":
 
-     Which bug do you want to remove? (A/B/C or type new search)
-     ```
-   - Wait for user selection and validate choice
+       A) [BUG-001] Login crashes on iOS 18.2 (Critical, Simple fix)
+       B) [BUG-003] Login validation error (High, Medium effort)
+       C) [BUG-007] Login button alignment (Low, Simple fix)
+
+       ════════════════════════════════════════════════════════════════
+       ```
+     - Use AskUserQuestion tool with dynamically generated options based on search results:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Which bug do you want to remove?",
+             "header": "Select Bug",
+             "options": [
+               {
+                 "label": "[BUG-001] Login crash",
+                 "description": "Login crashes on iOS 18.2 (Critical, Simple fix)"
+               },
+               {
+                 "label": "[BUG-003] Validation",
+                 "description": "Login validation error (High, Medium effort)"
+               },
+               {
+                 "label": "[BUG-007] Button align",
+                 "description": "Login button alignment (Low, Simple fix)"
+               }
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - Wait for user selection
+     - Note: "New search" option available via "Other" selection
 
 ### Phase 3: Confirmation & Removal
 
 5. **Confirm Removal Intent**
-   - Present selected bug with details:
+   - Display selected bug details in chat:
      ```
      ────────────────────────────────────────────────────────────────
-     **🗑️ CONFIRM REMOVAL: Are you sure you want to remove this bug?**
+     🗑️ CONFIRM REMOVAL - Are you sure?
      ────────────────────────────────────────────────────────────────
 
-     **Bug**: [BUG-###] [Title]
-     **Severity**: [Critical/High/Medium/Low]
-     **Priority Score**: [Score from backlog]
-     **Effort**: [Simple/Medium/Complex/Major]
-     **Source**: [Who reported it]
-     **Status**: This will be permanently removed from the backlog
+     Bug: [BUG-###] [Title]
+     Severity: [Critical/High/Medium/Low]
+     Priority Score: [Score from backlog]
+     Effort: [Simple/Medium/Complex/Major]
+     Source: [Who reported it]
+     Status: This will be permanently removed from the backlog
 
-     Type 'yes' to confirm removal, or anything else to cancel.
      ────────────────────────────────────────────────────────────────
      ```
-   - Wait for user confirmation
-   - If not confirmed: Cancel and exit gracefully
+   - Use AskUserQuestion tool with these parameters:
+     ```json
+     {
+       "questions": [
+         {
+           "question": "🗑️ Are you sure you want to remove bug [BUG-###] ([Title])?",
+           "header": "Confirm?",
+           "options": [
+             {
+               "label": "Yes, remove",
+               "description": "Permanently remove this bug from the backlog"
+             },
+             {
+               "label": "No, cancel",
+               "description": "Keep this bug in the backlog and exit"
+             }
+           ],
+           "multiSelect": false
+         }
+       ]
+     }
+     ```
+   - Wait for user response
+   - If user selects "No, cancel": Cancel and exit gracefully
 
 6. **Execute REMOVE_FIXED Operation**
    - **Call REMOVE_FIXED operation from Bugs-Backlog.md** with:
