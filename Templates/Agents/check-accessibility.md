@@ -13,7 +13,7 @@ color: cyan
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Purpose
 Detect and automatically fix accessibility issues in UI code including missing screen reader labels, text scaling gaps, and keyboard navigation problems. Applies universal accessibility principles with automatic framework-specific fixes.

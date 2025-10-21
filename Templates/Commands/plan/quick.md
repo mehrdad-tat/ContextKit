@@ -6,7 +6,7 @@ Quick planning for smaller tasks, bug fixes, and improvements (single-file workf
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ---
 

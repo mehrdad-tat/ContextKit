@@ -89,12 +89,12 @@ ContextKit/
 
 ### Phase 1: Global Installation (`./install.sh`)
 
-**When users run**: `curl -fsSL https://raw.githubusercontent.com/FlineDev/ContextKit/main/install.sh | sh`
+**When users run**: `curl -fsSL https://raw.githubusercontent.com/mehrdad-tat/ContextKit/main/install.sh | sh`
 
 **What happens**:
 ```bash
 # 1. Clone or update ContextKit repository to ~/.ContextKit/
-git clone --depth 1 https://github.com/FlineDev/ContextKit.git ~/.ContextKit/
+git clone --depth 1 https://github.com/mehrdad-tat/ContextKit.git ~/.ContextKit/
 # OR git pull origin main (if updating existing installation)
 
 # 2. Install ALL commands to user's Claude Code as ctxk shorthand
@@ -885,7 +885,7 @@ All commands, agents, and guidelines that get copied to user projects MUST inclu
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 ```
 
 ### 📝 **Content Review Guidelines**

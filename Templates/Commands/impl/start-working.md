@@ -1,12 +1,12 @@
 # Begin Development with Context
-<!-- Template Version: 16 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
+<!-- Template Version: 17 | ContextKit: 0.2.0 | Updated: 2025-10-21 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
 Begin systematic development with context-aware setup, task analysis, and guided implementation initiation based on completed planning phases.
@@ -31,7 +31,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
      - Extract full name from branch (e.g., `feature/001-visionos26-modernization` → `001-visionos26-modernization`)
      - Set FEATURE_NAME variable for directory matching
    - If not on feature branch:
-     - Display warning in chat:
+     - Display warning in chat and auto-continue:
        ```
        ═══════════════════════════════════════════════════
        ⚠️ WARNING - Not on Feature Branch
@@ -40,35 +40,13 @@ Begin systematic development with context-aware setup, task analysis, and guided
        Current branch: [current_branch_name]
        Expected: feature/[prefix]-[feature-name] branch from /ctxk:plan:1-spec
 
-       Switch to feature branch or create one with /ctxk:plan:1-spec
+       Recommendation: Switch to feature branch or create one with /ctxk:plan:1-spec
 
+       Auto-continuing to search for feature by branch name pattern...
        ═══════════════════════════════════════════════════
        ```
-     - Use AskUserQuestion tool with these parameters:
-       ```json
-       {
-         "questions": [
-           {
-             "question": "Continue development without being on a feature branch?",
-             "header": "Branch?",
-             "options": [
-               {
-                 "label": "No, stop",
-                 "description": "Exit and switch to proper feature branch (recommended)"
-               },
-               {
-                 "label": "Yes, continue",
-                 "description": "Proceed anyway and specify feature name manually"
-               }
-             ],
-             "multiSelect": false
-           }
-         ]
-       }
-       ```
-     - Wait for user response
-     - If user selects "No, stop": EXIT
-     - If user selects "Yes, continue": Ask user to specify feature name manually via text input
+     - Attempt to extract feature name from current branch pattern
+     - If extraction fails: Use most recent feature directory from Context/Features/
 
 2. **Validate Feature Planning Completion**
    - Use `Bash` tool to find numbered feature directory with flexible matching:
@@ -99,8 +77,11 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
      Complete the planning phases first:
      1. /ctxk:plan:1-spec - Business requirements (creates Spec.md)
-     2. /ctxk:plan:2-research-tech - Technical planning: research and architecture (creates Tech.md)
-     3. /ctxk:plan:3-steps - Implementation tasks (creates Steps.md)
+     2. /ctxk:plan:2-research - Research findings (creates Research.md)
+     3. /ctxk:plan:3-tech - Technical architecture (creates Tech.md)
+     4. /ctxk:plan:4-steps - Implementation tasks (creates Steps.md)
+
+     Or run /ctxk:plan:planning to execute all phases automatically.
 
      Cannot proceed with development until planning is complete.
      ```
@@ -118,47 +99,24 @@ Begin systematic development with context-aware setup, task analysis, and guided
    - If workspace Context.md found: Use `Read` tool to load workspace-specific overrides
    - **CRITICAL**: This context forms the foundation for understanding how to execute all Steps.md tasks
 
-4. **Verify Development Environment**
+4. **Verify Development Environment (Auto-Continue with Warnings)**
    ```bash
    git status --porcelain || echo "⚠️ Git not available"
    ```
    - If uncommitted changes exist:
-     - Display warning in chat:
+     - Display warning in chat and auto-continue:
        ```
        ═══════════════════════════════════════════════════
        ⚠️ WARNING - Uncommitted Changes Detected
        ═══════════════════════════════════════════════════
 
        You have uncommitted work that might be overwritten during development.
-       Commit or stash changes before starting new development work.
+       Recommendation: Commit or stash changes before starting new development work.
 
+       Auto-continuing anyway...
        ═══════════════════════════════════════════════════
        ```
-     - Use AskUserQuestion tool with these parameters:
-       ```json
-       {
-         "questions": [
-           {
-             "question": "Continue with uncommitted changes in working directory?",
-             "header": "Git Changes",
-             "options": [
-               {
-                 "label": "No, commit first",
-                 "description": "Exit and commit/stash changes before starting (recommended)"
-               },
-               {
-                 "label": "Yes, continue",
-                 "description": "Proceed anyway with uncommitted changes present"
-               }
-             ],
-             "multiSelect": false
-           }
-         ]
-       }
-       ```
-     - Wait for user response
-     - If user selects "No, commit first": EXIT (recommend committing/stashing)
-     - If user selects "Yes, continue": Continue with warning logged
+     - Continue automatically (no user prompt)
 
 
 ### Phase 3: Steps.md-Driven Development Execution
@@ -207,7 +165,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
    - The entire workflow is designed to be resumable across multiple sessions
    - **Each step deserves proper attention** - never sacrifice quality for speed
 
-7. **Execute Current Task from Steps.md - Follow the Plan Exactly**
+7. **Execute Current Task from Steps.md - Auto-Execute**
 
    **CRITICAL**: The current task comes directly from Steps.md - execute exactly as specified, no shortcuts
 
@@ -234,41 +192,11 @@ Begin systematic development with context-aware setup, task analysis, and guided
      • Why this task: [Reason from Steps.md context]
      • Current progress: [completed_tasks]/[total_tasks] tasks done in Steps.md
 
-     Please complete this manual task exactly as specified, then return here.
-
+     ⏸️ Pausing for manual completion. Run /ctxk:impl:start-working again when done.
      ═══════════════════════════════════════════════════
      ```
-   - Use AskUserQuestion tool with these parameters:
-     ```json
-     {
-       "questions": [
-         {
-           "question": "Manual task [TaskNumber] status? ([Task description from Steps.md])",
-           "header": "Manual Task",
-           "options": [
-             {
-               "label": "Done",
-               "description": "I completed the manual task (will mark as ✅ in Steps.md)"
-             },
-             {
-               "label": "Skip for now",
-               "description": "Skip this task temporarily (breaks planned sequence)"
-             },
-             {
-               "label": "Show details",
-               "description": "Show more detailed instructions from Steps.md"
-             },
-             {
-               "label": "Back to list",
-               "description": "Return to task selection menu"
-             }
-           ],
-           "multiSelect": false
-         }
-       ]
-     }
-     ```
-   - Wait for user response and process accordingly
+   - EXIT and wait for user to complete manual task
+   - User re-runs command when ready to continue
 
    **For AUTOMATED Tasks** (no manual markers in Steps.md):
 
@@ -277,7 +205,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
    - Display automated task details in chat:
      ```
      ═══════════════════════════════════════════════════
-     🚀 AUTOMATED TASK - [TaskNumber from Steps.md]
+     🚀 AUTO-EXECUTING TASK - [TaskNumber from Steps.md]
      ═══════════════════════════════════════════════════
 
      📋 TASK FROM STEPS.md:
@@ -300,37 +228,15 @@ Begin systematic development with context-aware setup, task analysis, and guided
      🔧 IMPLEMENTATION APPROACH:
      [How this will be implemented based on complete context understanding]
 
+     Starting implementation now...
      ═══════════════════════════════════════════════════
      ```
-   - Use AskUserQuestion tool with these parameters:
-     ```json
-     {
-       "questions": [
-         {
-           "question": "Ready to execute automated task [TaskNumber]? ([Task description from Steps.md])",
-           "header": "Execute?",
-           "options": [
-             {
-               "label": "Yes, execute",
-               "description": "Proceed with implementing this task from Steps.md"
-             },
-             {
-               "label": "Wait, clarify",
-               "description": "Need clarification before executing (emphasize Steps.md must be followed)"
-             }
-           ],
-           "multiSelect": false
-         }
-       ]
-     }
-     ```
-   - Wait for user response
+   - Auto-execute immediately (no user prompt)
 
    **IMPORTANT**:
    - Task details come DIRECTLY from Steps.md - never modify or interpret
    - Use complete context from Spec.md and Tech.md (which contains research + architecture) for implementation
    - Do NOT skip steps or take shortcuts - follow Steps.md exactly
-   - If user selects "Wait, clarify": Provide clarification but emphasize Steps.md must be followed
 
 ### Phase 4: Task Execution with Steps.md as Central Progress Tracker
 
@@ -434,16 +340,16 @@ Begin systematic development with context-aware setup, task analysis, and guided
 ## Error Conditions
 
 - **"Not on feature branch"** → Create feature branch with `/ctxk:plan:1-spec` or switch to existing one
-- **"Planning phases incomplete"** → Complete `/ctxk:plan:1-spec` (creates Spec.md), `/ctxk:plan:2-research-tech` (creates Tech.md), `/ctxk:plan:3-steps` (creates Steps.md) sequence
+- **"Planning phases incomplete"** → Complete `/ctxk:plan:1-spec`, `/ctxk:plan:2-research`, `/ctxk:plan:3-tech`, `/ctxk:plan:4-steps` or use `/ctxk:plan:planning` for all
 - **"No feature directory found"** → Feature name detection failed, verify branch name format
-- **"Steps.md empty"** → Run `/ctxk:plan:3-steps` to create implementation breakdown
+- **"Steps.md empty"** → Run `/ctxk:plan:4-steps` to create implementation breakdown
 - **"Build environment broken"** → Resolve dependency issues before starting development
 - **"All tasks complete"** → No pending work, consider `/ctxk:impl:commit-changes` or new feature
 
 
 ## Integration Points
 
-- **Planning Commands**: Requires completed `/ctxk:plan:1-spec` (Spec.md), `/ctxk:plan:2-research-tech` (Tech.md with research + architecture), `/ctxk:plan:3-steps` (Steps.md) workflow
+- **Planning Commands**: Requires completed planning workflow: `/ctxk:plan:1-spec` (Spec.md), `/ctxk:plan:2-research` (Research.md), `/ctxk:plan:3-tech` (Tech.md), `/ctxk:plan:4-steps` (Steps.md) - or use `/ctxk:plan:planning` for automatic execution
 - **Project Setup**: Uses Context.md from `/ctxk:proj:init` for project type detection and standards
 - **Quality Agents**: Integrates with `build-project`, `run-test-*` agents (ready). `/run check-*` agents incomplete - pending rework
 - **Workspace Context**: Inherits client-specific requirements from workspace-level Context.md files

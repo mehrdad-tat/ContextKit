@@ -14,7 +14,7 @@ readonly NC='\033[0m' # No Color
 
 # Global variables
 readonly CONTEXTKIT_DIR="$HOME/.ContextKit"
-readonly GITHUB_REPO="https://github.com/FlineDev/ContextKit.git"
+readonly GITHUB_REPO="https://github.com/mehrdad-tat/ContextKit.git"
 INSTALL_TYPE="install"
 
 ###########################################
@@ -179,7 +179,7 @@ cleanup_on_error() {
    fi
    
    print_error "Please check the error messages above and try again"
-   print_info "For support: https://github.com/FlineDev/ContextKit/issues"
+   print_info "For support: https://github.com/mehrdad-tat/ContextKit/issues"
    exit 1
 }
 
@@ -195,7 +195,7 @@ main() {
    print_header "🧠 ContextKit Global Installation"
    echo
    print_info "Installing ContextKit - Context Engineering System"
-   print_info "Repository: https://github.com/FlineDev/ContextKit"
+   print_info "Repository: https://github.com/mehrdad-tat/ContextKit"
    echo
    
    # Mark if we're creating ContextKit directory (for cleanup)

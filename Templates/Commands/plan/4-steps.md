@@ -1,14 +1,15 @@
-# Create Task List
-<!-- Template Version: 7 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
+# Create Implementation Task Breakdown
+<!-- Template Version: 8 | ContextKit: 0.2.0 | Updated: 2025-10-21 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: <https://github.com/mehrdad-tat/ContextKit/issues>
 
 ## Description
+
 Generate implementation task breakdown by detecting current feature, validating prerequisites, copying steps template, and executing template workflow with S### task enumeration and parallel execution planning.
 
 ## Execution Flow (main)
@@ -31,24 +32,32 @@ Generate implementation task breakdown by detecting current feature, validating 
 
 2. **Validate Prerequisites**
    - Use `Bash` tool to check planning files exist:
+
      ```bash
-     ls [numbered-feature-directory]/Spec.md [numbered-feature-directory]/Tech.md
+     ls [numbered-feature-directory]/Spec.md [numbered-feature-directory]/Research.md [numbered-feature-directory]/Tech.md
      ```
+
    - If any missing:
+
      ```
      ❌ Prerequisites not complete!
 
      All planning phases are required for implementation:
      - Run /ctxk:plan:1-spec if Spec.md is missing
-     - Run /ctxk:plan:2-research-tech if Tech.md is missing
+     - Run /ctxk:plan:2-research if Research.md is missing
+     - Run /ctxk:plan:3-tech if Tech.md is missing
 
-     Implementation planning requires completed specification and technical planning.
+     Or run /ctxk:plan:planning to execute all planning phases automatically.
+
+     Implementation task breakdown requires completed specification, research, and architecture.
      ```
+
      → END (exit with error)
 
 ### Phase 2: Template Setup & Execution
 
 3. **Copy Steps Template**
+
    ```bash
    cp ~/.ContextKit/Templates/Features/Steps.md [numbered-feature-directory]/Steps.md
    echo "✅ Copied implementation steps template"
@@ -69,6 +78,7 @@ Generate implementation task breakdown by detecting current feature, validating 
      - **FOR EACH CLARIFICATION (one at a time)**:
        - Analyze the extracted clarification question and generate 2-4 reasonable answer suggestions based on context
        - Use AskUserQuestion tool with these parameters:
+
          ```json
          {
            "questions": [
@@ -98,6 +108,7 @@ Generate implementation task breakdown by detecting current feature, validating 
            ]
          }
          ```
+
        - Wait for user response
        - If user selects a suggested answer: Use that answer and replace 🚨 marker in Steps.md
        - If user provides custom answer via "Other": Use that answer and replace 🚨 marker in Steps.md
@@ -109,7 +120,7 @@ Generate implementation task breakdown by detecting current feature, validating 
 
 ## Error Conditions
 
-- **"Prerequisites not complete"** → Must run `/ctxk:plan:1-spec` and `/ctxk:plan:2-research-tech` first
+- **"Prerequisites not complete"** → Must run `/ctxk:plan:1-spec`, `/ctxk:plan:2-research`, and `/ctxk:plan:3-tech` first (or use `/ctxk:plan:planning` for all)
 - **"Steps template not found"** → Ensure template files are available
 - **"Template execution failed"** → Verify Steps.md template contains system instructions section
 
@@ -126,6 +137,7 @@ Generate implementation task breakdown by detecting current feature, validating 
 ## Success Messages
 
 ### Implementation Steps Created Successfully
+
 ```
 🎉 Implementation task breakdown created successfully!
 
@@ -143,7 +155,6 @@ Generate implementation task breakdown by detecting current feature, validating 
 
 💡 Implementation roadmap ready for development execution!
 ```
-
 
 ════════════════════════════════════════════════════════════════════════════════
 👩‍💻 DEVELOPER CUSTOMIZATIONS - EDITABLE SECTION

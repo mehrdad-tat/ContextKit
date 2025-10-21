@@ -6,7 +6,7 @@
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
 Initialize workspace-level context configuration. Copies workspace template and executes interactive setup for multi-project workspace standards.
@@ -44,7 +44,7 @@ Initialize workspace-level context configuration. Copies workspace template and 
 
 2. **Verify ContextKit Global Installation**
    ```bash
-   ls -la ~/.ContextKit/Templates/Contexts/Workspace.md || echo "❌ ContextKit not installed globally. Run: curl -fsSL https://raw.githubusercontent.com/FlineDev/ContextKit/main/install.sh | sh"
+   ls -la ~/.ContextKit/Templates/Contexts/Workspace.md || echo "❌ ContextKit not installed globally. Run: curl -fsSL https://raw.githubusercontent.com/mehrdad-tat/ContextKit/main/install.sh | sh"
    ```
 
 ### Phase 2: Template Installation & Execution
@@ -175,7 +175,7 @@ Initialize workspace-level context configuration. Copies workspace template and 
 
 ## Error Conditions
 
-- **"ContextKit not installed globally"** → Run installation: `curl -fsSL https://raw.githubusercontent.com/FlineDev/ContextKit/main/install.sh | sh`
+- **"ContextKit not installed globally"** → Run installation: `curl -fsSL https://raw.githubusercontent.com/mehrdad-tat/ContextKit/main/install.sh | sh`
 - **"Workspace template not found"** → Check global ContextKit installation integrity
 - **"Template copy failed"** → Check directory permissions and disk space
 - **"Template execution failed"** → Verify Context.md template contains system instructions section

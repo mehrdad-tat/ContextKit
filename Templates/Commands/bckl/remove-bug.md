@@ -6,7 +6,7 @@
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
 Remove fixed or resolved bugs from the backlog database. Identifies target bug through search and calls database removal operations defined in Bugs-Backlog.md.

@@ -6,7 +6,7 @@
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
 Process ideas from inbox through systematic 5-step evaluation with binary search priority placement. Orchestrates user interaction and calls database operations defined in Ideas-Backlog.md.

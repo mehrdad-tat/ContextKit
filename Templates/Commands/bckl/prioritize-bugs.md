@@ -6,7 +6,7 @@
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
 Process bugs from inbox through systematic 5-step triage with severity-based binary search positioning. Orchestrates user interaction and calls database operations defined in Bugs-Backlog.md.

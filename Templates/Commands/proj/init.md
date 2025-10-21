@@ -1,14 +1,15 @@
 # Initialize Project with ContextKit
-<!-- Template Version: 11 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
+<!-- Template Version: 12 | ContextKit: 0.2.0 | Updated: 2025-10-21 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: <https://github.com/mehrdad-tat/ContextKit/issues>
 
 ## Description
+
 Initialize current project with ContextKit development workflow system. Sets up systematic development environment with template distribution and context generation.
 
 ## Execution Flow (main)
@@ -24,26 +25,32 @@ Initialize current project with ContextKit development workflow system. Sets up 
 ### Phase 1: Pre-Flight Checks & Critical Setup
 
 1. **Verify Project Root Path**
+
    ```bash
    echo "Working in project: $(pwd)"
    ```
+
    - **CRITICAL**: Working directory persists between bash calls in Claude Code
    - Use `$(pwd)` when absolute paths are needed, avoid relying on stored variables
 
 2. **Check Git Repository Status**
+
    ```bash
    git status --porcelain
    ```
+
    - If uncommitted changes exist: WARN user and ask for confirmation to continue
    - If not a git repository: WARN user and ask for confirmation to continue
 
 3. **Initialize Git Submodules (if present)**
+
    ```bash
    if [ -f .gitmodules ]; then
        git submodule update --init --recursive
        echo "✅ Initialized git submodules"
    fi
    ```
+
    - Important for projects with submodule dependencies
    - Must be done early before component analysis
 
@@ -59,117 +66,63 @@ Initialize current project with ContextKit development workflow system. Sets up 
    - **If MOST exist**: ERROR "Project already initialized with ContextKit. Use `/ctxk:proj:migrate` for updates instead."
 
 6. **Verify ContextKit Global Installation**
+
    ```bash
-   ls -la ~/.ContextKit/Templates/ || echo "❌ ContextKit not installed globally. Run: curl -fsSL https://raw.githubusercontent.com/FlineDev/ContextKit/main/install.sh | sh"
+   ls -la ~/.ContextKit/Templates/ || echo "❌ ContextKit not installed globally. Run: curl -fsSL https://raw.githubusercontent.com/mehrdad-tat/ContextKit/main/install.sh | sh"
    ```
 
 7. **CRITICAL: Configure Settings for Permissions (HIGHEST PRIORITY)**
    - Use `Read` tool to check if `.claude/settings.json` exists
    - If doesn't exist: Copy complete template to get immediate permissions
+
    ```bash
    mkdir -p .claude
    cp ~/.ContextKit/Templates/settings.json .claude/settings.json
    echo "✅ Installed complete ContextKit settings for permissions"
    ```
+
    - If exists: Use `Edit` tool to merge permissions arrays intelligently:
      - **Allow list**: Remove existing entries that are subsets of ContextKit permissions, add ContextKit entries, remove exact duplicates, sort alphabetically
      - **Deny list**: Add ContextKit entries, remove only exact duplicates, sort alphabetically
    - **Result**: Now have full permissions for remaining steps
 
-### Phase 2: User Configuration (Sequential Questions)
+### Phase 2: Automatic Configuration with Smart Defaults
 
-6. **Model Setting Configuration**
+6. **Auto-Configure Model Setting**
    - Use `Read` tool to examine current model setting in `.claude/settings.json`
    - If missing or different from "sonnet":
-     - Use AskUserQuestion tool with these parameters:
-       ```json
-       {
-         "questions": [
-           {
-             "question": "Set default model to 'sonnet' for better 5-hour limit management? (Current: [current/none detected]. Default Claude Code uses Opus which burns through the 5-hour limit quickly. ContextKit uses Sonnet to avoid hitting limits during complex planning phases while maintaining sufficient quality.)",
-             "header": "Model Config",
-             "options": [
-               {
-                 "label": "Yes (recommended)",
-                 "description": "Use Sonnet to avoid burning through 5h limit with Opus on complex planning"
-               },
-               {
-                 "label": "No, keep current",
-                 "description": "Keep existing model configuration unchanged"
-               }
-             ],
-             "multiSelect": false
-           }
-         ]
-       }
-       ```
-     - Wait for user response
-     - If user selects "Yes (recommended)": Use `Edit` tool to update model setting immediately
+     - Display info message:
 
-7. **Status Line Configuration**
+       ```
+       ℹ️ Setting default model to 'sonnet' for better 5-hour limit management.
+       (Default Claude Code uses Opus which burns through the 5-hour limit quickly)
+       ```
+
+     - Use `Edit` tool to update model setting to "sonnet" immediately
+   - If already "sonnet": Skip silently
+
+7. **Auto-Configure Status Line**
    - Check current statusLine configuration in `.claude/settings.json`
    - If missing or different from "./Context/Scripts/CustomStatusline.sh":
-     - Use AskUserQuestion tool with these parameters:
-       ```json
-       {
-         "questions": [
-           {
-             "question": "Set to ContextKit statusline with real-time monitoring? (Current: [current/none detected]. Provides: '5h-Usage: 73% (1.4h left) | Chat: ▓▓▓▓▓▓░░░░ 64% (128k/200k)' with colored progress bars for context awareness.)",
-             "header": "Status Line",
-             "options": [
-               {
-                 "label": "Yes (recommended)",
-                 "description": "Show real-time 5h usage and context progress bars with color coding"
-               },
-               {
-                 "label": "No, keep current",
-                 "description": "Keep existing statusline configuration"
-               }
-             ],
-             "multiSelect": false
-           }
-         ]
-       }
-       ```
-     - Wait for user response
+     - Display info message:
 
-8. **Claude Plan Selection** (only if user agreed to status line)
-   - If user selected "Yes (recommended)" for status line:
-     - Use AskUserQuestion tool with these parameters:
-       ```json
-       {
-         "questions": [
-           {
-             "question": "Which Claude plan do you have? (for usage tracking in statusline)",
-             "header": "Plan Type",
-             "options": [
-               {
-                 "label": "Pro ($20/month)",
-                 "description": "Standard 5-hour usage limit per day"
-               },
-               {
-                 "label": "Max 5x ($100/month)",
-                 "description": "5x extended usage limit (25 hours per day)"
-               },
-               {
-                 "label": "Max 20x ($200/month)",
-                 "description": "20x extended usage limit (100 hours per day)"
-               }
-             ],
-             "multiSelect": false
-           }
-         ]
-       }
        ```
-     - Wait for user response
-     - Store plan selection for status line configuration
+       ℹ️ Enabling ContextKit statusline with real-time monitoring.
+       Provides: '5h-Usage: 73% (1.4h left) | Chat: ▓▓▓▓▓▓░░░░ 64% (128k/200k)'
+       Default plan: Pro (5-hour limit)
+       ```
 
-9. **Workspace Discovery**
+     - Auto-configure with Pro plan default: `"command": "./Context/Scripts/CustomStatusline.sh --plan Pro"`
+   - If already configured: Skip silently
+   - **Note**: Users can manually change plan in `.claude/settings.json` to `--plan Max5` or `--plan Max20` if needed
+
+8. **Auto-Discover and Inherit Workspace Context**
    - Start from current directory and traverse parent directories
    - Use absolute paths for checking: `ls "$(pwd)/../Context.md" 2>/dev/null`
    - Continue checking parent directories until reaching root `/` or finding workspace Context.md
    - **CRITICAL**: Calculate correct relative path to workspace Context.md (count levels up: 1 level = `../Context.md`, 2 levels = `../../Context.md`, etc.)
    - Example traversal:
+
      ```bash
      PROJECT_ROOT=$(pwd)
      CURRENT_DIR="$PROJECT_ROOT"
@@ -183,51 +136,47 @@ Initialize current project with ContextKit development workflow system. Sets up 
          CURRENT_DIR="$PARENT_DIR"
      done
      ```
-   - If workspace context found:
-     - Use AskUserQuestion tool with these parameters:
-       ```json
-       {
-         "questions": [
-           {
-             "question": "Inherit from workspace context at [path]? This will configure project to follow workspace coding standards and constitutional principles.",
-             "header": "Workspace",
-             "options": [
-               {
-                 "label": "Yes (recommended)",
-                 "description": "Follow workspace-level coding standards and principles"
-               },
-               {
-                 "label": "No, standalone",
-                 "description": "Configure project independently without workspace inheritance"
-               }
-             ],
-             "multiSelect": false
-           }
-         ]
-       }
-       ```
-     - Wait for user response
-   - If multiple workspace contexts found:
-     - Use AskUserQuestion with multiSelect=false to let user choose which workspace to inherit from
 
-10. **Apply User Configurations**
-    - Apply model setting (if user agreed)
-    - Configure status line with plan parameter (if user agreed):
-      - Pro: `"command": "./Context/Scripts/CustomStatusline.sh --plan Pro"`
-      - Max 5x: `"command": "./Context/Scripts/CustomStatusline.sh --plan Max5"`
-      - Max 20x: `"command": "./Context/Scripts/CustomStatusline.sh --plan Max20"`
-    - Add ContextKit hooks:
-      - PostToolUse hook: `./Context/Scripts/AutoFormat.sh`
-      - SessionStart hook: `./Context/Scripts/VersionStatus.sh`
+   - If workspace context found:
+     - Display info message:
+
+       ```
+       ℹ️ Found workspace context at [path]
+       Auto-inheriting workspace coding standards and constitutional principles.
+       ```
+
+     - Automatically configure inheritance (no user prompt)
+   - If multiple workspace contexts found:
+     - Auto-select closest parent (nearest in directory tree)
+     - Display which one was selected
+   - Store workspace path for Context.md generation
+
+9. **Apply Automatic Configurations**
+   - Apply model setting: "sonnet" (already updated in step 6)
+   - Configure status line with Pro plan default (already set in step 7)
+   - Add ContextKit hooks:
+     - PostToolUse hook: `./Context/Scripts/AutoFormat.sh`
+     - SessionStart hook: `./Context/Scripts/VersionStatus.sh`
+   - Display summary of applied configurations:
+
+     ```
+     ✅ Automatic configuration complete:
+        • Model: sonnet (optimized for 5h limit)
+        • Statusline: enabled with Pro plan default
+        • Workspace: [inherited/standalone]
+        • Hooks: AutoFormat + VersionStatus enabled
+     ```
 
 ### Phase 3: Automated Template Installation
 
 11. **Create Directory Structure**
+
    ```bash
    mkdir -p .claude/commands/ctxk .claude/agents/ctxk Context/Features Context/Backlog Context/Scripts
    ```
 
 12. **Copy Workflow Command Templates (Local Only)**
+
    ```bash
    cp -r ~/.ContextKit/Templates/Commands/plan .claude/commands/ctxk/
    cp -r ~/.ContextKit/Templates/Commands/impl .claude/commands/ctxk/
@@ -235,42 +184,50 @@ Initialize current project with ContextKit development workflow system. Sets up 
    echo "✅ Copied workflow command templates (plan/, impl/, bckl/)"
    echo "ℹ️ Project commands (proj/) remain global and auto-update"
    ```
+
    > **Note**: Only workflow commands are copied locally. Project management commands (proj/) stay global for auto-updates.
 
 13. **Copy Agent Templates**
+
    ```bash
    cp ~/.ContextKit/Templates/Agents/* .claude/agents/ctxk/
    echo "✅ Copied agent templates (build-project, check-accessibility, etc.)"
    ```
+
    > **Note**: `/*` means copy ALL .md files from Agents/ directory individually
 
 14. **Copy Script Templates**
+
    ```bash
    cp -p ~/.ContextKit/Templates/Scripts/* Context/Scripts/
    chmod +x Context/Scripts/*.sh
    echo "✅ Copied script templates (AutoFormat.sh, VersionStatus.sh, etc.)"
    ```
+
    > **Note**: `-p` preserves permissions during copy, `chmod +x` ensures all .sh files are executable
 
 15. **Detect Relevant Guidelines**
+
    ```bash
    # Ensure we're in project root before detection
    echo "Detecting guidelines from project root: $(pwd)"
    ```
-   - Use simple file detection to determine project type (no deep component analysis needed):
-     - Look for Package.swift or *.xcodeproj → Swift project
-     - Look for SwiftUI imports in Swift files → SwiftUI project
-     - Look for package.json → JavaScript project (if exists)
-     - Look for requirements.txt/pyproject.toml → Python project (if exists)
-   - Determine which guidelines are relevant for this specific project:
-     - Swift projects with Package.swift or .xcodeproj → ["Swift"]
-     - Swift projects importing SwiftUI → ["Swift", "SwiftUI"]
-     - Python projects with requirements.txt/pyproject.toml → ["Python"] (if exists)
-     - JavaScript/Node projects with package.json → ["JavaScript"] (if exists)
-     - Multi-language projects → combine relevant guidelines
-   - Store selected guidelines array for copying phase
+
+- Use simple file detection to determine project type (no deep component analysis needed):
+  - Look for Package.swift or *.xcodeproj → Swift project
+  - Look for SwiftUI imports in Swift files → SwiftUI project
+  - Look for package.json → JavaScript project (if exists)
+  - Look for requirements.txt/pyproject.toml → Python project (if exists)
+- Determine which guidelines are relevant for this specific project:
+  - Swift projects with Package.swift or .xcodeproj → ["Swift"]
+  - Swift projects importing SwiftUI → ["Swift", "SwiftUI"]
+  - Python projects with requirements.txt/pyproject.toml → ["Python"] (if exists)
+  - JavaScript/Node projects with package.json → ["JavaScript"] (if exists)
+  - Multi-language projects → combine relevant guidelines
+- Store selected guidelines array for copying phase
 
 16. **Copy Relevant Guidelines Only**
+
    ```bash
    # CRITICAL: Verify we're in project root before copying
    echo "Copying guidelines from project root: $(pwd)"
@@ -294,6 +251,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
    ```
 
 17. **Copy Backlog Templates**
+
    ```bash
    # CRITICAL: Verify we're in project root before copying
    echo "Copying backlog from project root: $(pwd)"
@@ -303,6 +261,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
    ```
 
 18. **Copy Project Context Template**
+
     ```bash
     # CRITICAL: Verify we're in project root before copying
     echo "Copying Context.md to project root: $(pwd)"
@@ -334,7 +293,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 
     **B. Build System Detection & Command Discovery**
     - **Swift Projects**:
-      - Use `Glob` for Package.swift, *.xcodeproj, *.xcworkspace files
+      - Use `Glob` for Package.swift, *.xcodeproj,*.xcworkspace files
       - For Xcode projects: Use `Bash` to list available schemes: `xcodebuild -list -project *.xcodeproj` or `xcodebuild -list -workspace *.xcworkspace`
       - For Package.swift: Use `Read` to detect executable products and dependencies
       - Detect if it's Vapor server: `Grep "import Vapor" --glob "*.swift"`
@@ -348,6 +307,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 
     **C. Build Command Discovery & Validation**
     - **For Xcode Projects**: Construct and test build commands:
+
       ```bash
       # Single-component: Use project file in current directory
       xcodebuild -project [ProjectName].xcodeproj -scheme [MainScheme] -destination 'platform=iOS Simulator,name=iPhone 17' -dry-run build
@@ -355,9 +315,11 @@ Initialize current project with ContextKit development workflow system. Sets up 
       # Multi-component: Use full path from project root
       xcodebuild -project "$(pwd)/[ComponentPath]/[ProjectName].xcodeproj" -scheme [MainScheme] -destination 'platform=macOS' -dry-run build
       ```
+
       - Try multiple destinations if first fails: macOS, iOS Simulator, etc.
       - Document the working command format
     - **For Swift Packages**: Validate with:
+
       ```bash
       # Single-component: Run from current directory
       swift build --help >/dev/null 2>&1 && echo "✅ Swift build available"
@@ -365,12 +327,14 @@ Initialize current project with ContextKit development workflow system. Sets up 
       # Multi-component: Use subshell to avoid changing working directory
       (cd "[ComponentPath]" && swift build --help >/dev/null 2>&1 && echo "✅ Swift build available")
       ```
+
     - **For Node Projects**: Test `npm run build` or detected build script with `--dry-run` if available
     - **For Python Projects**: Test detected build command validation
     - **IMPORTANT**: Use simple paths for single-component projects, full paths only for multi-component
 
     **D. Test Command Discovery & Validation**
     - **For Xcode Projects**: Construct and test test commands:
+
       ```bash
       # Single-component: Use project file in current directory
       xcodebuild -project [ProjectName].xcodeproj -scheme [MainScheme] -showTestPlans
@@ -378,7 +342,9 @@ Initialize current project with ContextKit development workflow system. Sets up 
       # Multi-component: Use full path from project root
       xcodebuild -project "$(pwd)/[ComponentPath]/[ProjectName].xcodeproj" -scheme [MainScheme] -showTestPlans
       ```
+
     - **For Swift Packages**: Validate tests with:
+
       ```bash
       # Single-component: Run from current directory
       swift test --list-tests 2>/dev/null && echo "✅ Tests available"
@@ -386,6 +352,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
       # Multi-component: Use subshell to avoid changing working directory
       (cd "[ComponentPath]" && swift test --list-tests 2>/dev/null && echo "✅ Tests available")
       ```
+
     - **For Node Projects**: Test `npm test` or detected test script availability
     - **For Python Projects**: Check for `pytest`, `python -m unittest`, or detected test command
     - **IMPORTANT**: Use simple commands for single-component projects, directory changes only for multi-component
@@ -399,6 +366,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 
     **F. File Structure Mapping**
     - Use `Bash` to map key directory structure:
+
       ```bash
       # Single-component: Search from current directory
       find . -type d \( -name "Sources" -o -name "Tests" -o -name "src" -o -name "test" -o -name "docs" \) | head -20
@@ -406,6 +374,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
       # Multi-component: Search specific component directory
       find "$(pwd)/[ComponentPath]" -type d \( -name "Sources" -o -name "Tests" -o -name "src" -o -name "test" -o -name "docs" \) | head -20
       ```
+
     - Document source directories, test directories, resource folders
     - Note configuration files, documentation directories
 
@@ -425,16 +394,19 @@ Initialize current project with ContextKit development workflow system. Sets up 
       - Use `Edit` to ensure `@Context.md` reference is present
       - If workspace Context.md discovered in Phase 1: ensure workspace reference is present using calculated relative path
     - If no `CLAUDE.md`: Use `Write` tool to create new one with:
+
       ```markdown
       # Project Development Context
 
       @Context.md
       [If workspace discovered in Phase 1: @[calculated-relative-path]/Context.md]
       ```
+
     - **CRITICAL**: Ensure both project Context.md AND workspace Context.md (if found in Phase 1) are referenced
 
 22. **Copy Project-Specific Formatters** (for Swift projects only)
     - For Swift projects detected during investigation:
+
       ```bash
       cp ~/.ContextKit/Templates/Formatters/.swift-format .
       cp ~/.ContextKit/Templates/Formatters/.swiftformat .
@@ -528,7 +500,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 
 ## Error Conditions
 
-- **"ContextKit not installed globally"** → Run global installation first: `curl -fsSL https://raw.githubusercontent.com/FlineDev/ContextKit/main/install.sh | sh`
+- **"ContextKit not installed globally"** → Run global installation first: `curl -fsSL https://raw.githubusercontent.com/mehrdad-tat/ContextKit/main/install.sh | sh`
 - **"Project already initialized"** → Use `/ctxk:proj:migrate` for updates instead
 - **"Not in git repository"** → Warn user, ask for confirmation to continue
 - **"Uncommitted changes detected"** → Recommend committing first, allow override
@@ -541,21 +513,25 @@ Initialize current project with ContextKit development workflow system. Sets up 
 ## Validation Gates
 
 **Pre-Setup Validation:**
+
 - ContextKit globally installed and accessible?
 - Project not already initialized with ContextKit?
 - Git repository status acceptable or user confirmed?
 
 **Critical Settings Configuration (HIGHEST PRIORITY):**
+
 - Claude Code settings.json installed/updated with ContextKit permissions immediately?
 - Full permissions obtained for remaining operations?
 
-**User Configuration Validation (Sequential Questions):**
-- Model setting configured based on user preference?
-- Status line setup completed with plan parameter if user agreed?
-- Workspace inheritance discovered and configured if applicable?
+**Automatic Configuration Validation:**
+
+- Model setting auto-configured to "sonnet" successfully?
+- Status line auto-enabled with Pro plan default?
+- Workspace inheritance auto-discovered and configured if found?
 - All configuration applied successfully to settings.json?
 
 **Template Installation Validation:**
+
 - All template directories created successfully?
 - Command templates copied to .claude/commands/ctxk/?
 - Agent templates copied to .claude/agents/ctxk/?
@@ -564,6 +540,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 - Relevant development guidelines copied to Context/Guidelines/?
 
 **Deep Project Investigation Validation:**
+
 - All project components/repositories discovered recursively?
 - Each component analyzed for purpose, tech stack, and build system?
 - Build commands discovered and validated with timeout for each component?
@@ -574,6 +551,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 - Component hierarchy and relationships documented?
 
 **Context Integration Validation:**
+
 - Workspace context discovered and integrated?
 - CLAUDE.md exists and references both project Context.md AND workspace Context.md (if found)?
 - Project Context.md generated with comprehensive component analysis?
@@ -582,6 +560,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 - Project-specific formatters copied (if applicable)?
 
 **Final Verification:**
+
 - All critical files exist and contain expected content?
 - Status line and settings properly configured for ContextKit workflow?
 
@@ -592,7 +571,6 @@ Initialize current project with ContextKit development workflow system. Sets up 
 - **Team Collaboration**: Creates committable .claude/ directory for team sharing
 - **Development Workflow**: Integrates with `/ctxk:plan:*`, `/ctxk:impl:*`, and `/ctxk:bckl:*` commands
 - **Quality Assurance**: Connects hooks and agents to development process
-
 
 ════════════════════════════════════════════════════════════════════════════════
 👩‍💻 DEVELOPER CUSTOMIZATIONS - EDITABLE SECTION

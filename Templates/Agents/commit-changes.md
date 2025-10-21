@@ -13,7 +13,7 @@ color: green
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
-> Found a bug or improvement for everyone? Please report it: https://github.com/FlineDev/ContextKit/issues
+> Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Purpose
 Analyze current git changes comprehensively, understand both the 'what' and 'why' of modifications, generate intelligent commit messages following strict format requirements, execute the commit, and provide a clear summary of the committed changes.
