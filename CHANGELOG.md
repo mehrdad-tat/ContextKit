@@ -1,5 +1,5 @@
 # ContextKit Changelog
-<!-- ContextKit: 0.2.0 | Updated: 2025-10-17 -->
+<!-- ContextKit: 0.2.1 | Updated: 2025-10-21 -->
 
 Maintains accurate changelog following [Keep a Changelog](https://keepachangelog.com/) format. 
 Used by `/ctxk:proj:migrate` command to track file changes and preserve user customizations.
@@ -103,6 +103,12 @@ N/A
 
 ### Security
 N/A
+
+## [0.2.1] - 2025-10-21
+
+### Fixed
+- `[M] Templates/Commands/proj/init.md` - Replace hanging user prompts with AskUserQuestion tool for interactive buttons (a78a46f)
+- `install.sh` - Auto-detect and update repository remote URL to ensure users always pull from correct repository (da4cbb4)
 
 ## [0.2.0] - 2025-10-17
 
