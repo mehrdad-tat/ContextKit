@@ -1,5 +1,5 @@
 # Initialize Project with ContextKit
-<!-- Template Version: 12 | ContextKit: 0.2.0 | Updated: 2025-10-21 -->
+<!-- Template Version: 13 | ContextKit: 0.2.0 | Updated: 2025-10-21 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -39,8 +39,69 @@ Initialize current project with ContextKit development workflow system. Sets up 
    git status --porcelain
    ```
 
-   - If uncommitted changes exist: WARN user and ask for confirmation to continue
-   - If not a git repository: WARN user and ask for confirmation to continue
+   - If uncommitted changes exist:
+     - Display warning in chat:
+       ```
+       ═══════════════════════════════════════════════════
+       ⚠️ WARNING - Uncommitted Changes Detected
+       ═══════════════════════════════════════════════════
+
+       The repository has uncommitted changes.
+
+       Recommendation: It's generally safer to commit your
+       changes before initializing ContextKit to have a
+       clean slate.
+
+       ═══════════════════════════════════════════════════
+       ```
+     - Use AskUserQuestion tool:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Continue with ContextKit initialization despite uncommitted changes?",
+             "header": "Proceed?",
+             "options": [
+               {"label": "Yes, continue anyway", "description": "Proceed with ContextKit initialization despite uncommitted changes"},
+               {"label": "No, stop now", "description": "Stop initialization so I can commit changes first"}
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - If user selects "No, stop now": EXIT with message "Please commit your changes and run /ctxk:proj:init again"
+   - If not a git repository:
+     - Display warning in chat:
+       ```
+       ═══════════════════════════════════════════════════
+       ⚠️ WARNING - Not a Git Repository
+       ═══════════════════════════════════════════════════
+
+       Current directory is not a git repository.
+
+       Recommendation: ContextKit works best with git-based
+       projects for version control and workflow tracking.
+
+       ═══════════════════════════════════════════════════
+       ```
+     - Use AskUserQuestion tool:
+       ```json
+       {
+         "questions": [
+           {
+             "question": "Continue with ContextKit initialization in non-git directory?",
+             "header": "Proceed?",
+             "options": [
+               {"label": "Yes, continue anyway", "description": "Proceed with ContextKit initialization without git"},
+               {"label": "No, stop now", "description": "Stop so I can initialize git repository first"}
+             ],
+             "multiSelect": false
+           }
+         ]
+       }
+       ```
+     - If user selects "No, stop now": EXIT with message "Please run 'git init' and run /ctxk:proj:init again"
 
 3. **Initialize Git Submodules (if present)**
 
