@@ -1,5 +1,5 @@
 ---
-meta: "Template Version: 8 | ContextKit: 0.2.1 | Updated: 2025-10-02"
+meta: "Template Version: 8 | ContextKit: 0.2.2 | Updated: 2025-10-02"
 name: check-accessibility
 description: [INCOMPLETE] Detect and fix accessibility issues in UI code - needs rework for read-only reporting
 tools: Read, Edit, MultiEdit, Grep, Glob, Task

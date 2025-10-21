@@ -1,5 +1,5 @@
 ---
-meta: "Template Version: 3 | ContextKit: 0.2.1 | Updated: 2025-10-02"
+meta: "Template Version: 3 | ContextKit: 0.2.2 | Updated: 2025-10-02"
 name: build-project
 description: Execute project builds and provide clean error reporting with filtered output
 tools: Bash, Read, Grep, Glob

@@ -1,5 +1,5 @@
 # ContextKit Changelog
-<!-- ContextKit: 0.2.1 | Updated: 2025-10-21 -->
+<!-- ContextKit: 0.2.2 | Updated: 2025-10-21 -->
 
 Maintains accurate changelog following [Keep a Changelog](https://keepachangelog.com/) format. 
 Used by `/ctxk:proj:migrate` command to track file changes and preserve user customizations.
@@ -103,6 +103,11 @@ N/A
 
 ### Security
 N/A
+
+## [0.2.2] - 2025-10-21
+
+### Changed
+- `[M] Templates/Scripts/CustomStatusline.sh` - Enhanced with 256-color gradient, better formatting, icons, and improved code structure
 
 ## [0.2.1] - 2025-10-21
 

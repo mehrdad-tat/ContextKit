@@ -17,7 +17,9 @@
       "TodoWrite",
       "WebFetch",
       "WebSearch",
-      "Write"
+      "Write",
+      "Bash(git push:*)",
+      "Bash(git flow:*)"
     ],
     "deny": [
       "Bash(base64 -d | sh:*)",
@@ -34,7 +36,6 @@
       "Bash(format:*)",
       "Bash(gem install:*)",
       "Bash(git force:*)",
-      "Bash(git push:*)",
       "Bash(git rebase:*)",
       "Bash(git reset --hard:*)",
       "Bash(grep -r password:*)",
@@ -115,7 +116,7 @@
         "matcher": ".*",
         "hooks": [
           {
-            "type": "command", 
+            "type": "command",
             "command": "./Context/Scripts/VersionStatus.sh"
           }
         ]

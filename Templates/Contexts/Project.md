@@ -1,5 +1,5 @@
 # Project Context Template
-<!-- Template Version: 3 | ContextKit: 0.2.1 | Updated: 2025-10-02 -->
+<!-- Template Version: 3 | ContextKit: 0.2.2 | Updated: 2025-10-02 -->
 
 ## Description
 Project-level Context.md template providing project-specific investigation, development commands, project structure analysis, and ContextKit workflow configuration.
