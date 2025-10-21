@@ -1,5 +1,5 @@
 # Release Swift Package
-<!-- Template Version: 3 | ContextKit: 0.2.0 | Updated: 2025-10-18 -->
+<!-- Template Version: 3 | ContextKit: 0.2.1 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.

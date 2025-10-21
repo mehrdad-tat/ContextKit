@@ -1,5 +1,5 @@
 # Swift Development Guidelines
-<!-- Template Version: 4 | ContextKit: 0.2.0 | Updated: 2025-09-26 -->
+<!-- Template Version: 4 | ContextKit: 0.2.1 | Updated: 2025-09-26 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.

@@ -1,5 +1,5 @@
 # Create Feature Specification
-<!-- Template Version: 15 | ContextKit: 0.2.0 | Updated: 2025-10-21 -->
+<!-- Template Version: 15 | ContextKit: 0.2.1 | Updated: 2025-10-21 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
