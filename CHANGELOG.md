@@ -107,7 +107,7 @@ N/A
 ## [0.2.2] - 2025-10-21
 
 ### Changed
-- `[M] Templates/Scripts/CustomStatusline.sh` - Enhanced with 256-color gradient, better formatting, icons, and improved code structure
+- `[M] Templates/Scripts/CustomStatusline.sh` - Enhanced with 256-color gradient, better formatting, icons, and improved code structure (1e64d9c)
 
 ## [0.2.1] - 2025-10-21
 
