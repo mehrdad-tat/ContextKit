@@ -68,6 +68,14 @@ clone_or_update_repository() {
       # Existing git repository - update it
       print_info "Existing ContextKit installation detected - updating..."
       cd "$CONTEXTKIT_DIR"
+
+      # Ensure remote is pointing to correct repository
+      local current_remote=$(git remote get-url origin 2>/dev/null || echo "none")
+      if [[ "$current_remote" != "$GITHUB_REPO" ]]; then
+         print_info "Updating repository remote: $current_remote → $GITHUB_REPO"
+         git remote set-url origin "$GITHUB_REPO"
+      fi
+
       if ! git pull origin main; then
          print_error "Failed to update ContextKit repository"
          print_info "Repository: $GITHUB_REPO"
