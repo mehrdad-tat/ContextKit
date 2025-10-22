@@ -1,5 +1,5 @@
 #!/bin/bash
-# Template Version: 8 | ContextKit: 0.2.8 | Updated: 2025-09-24
+# Template Version: 9 | ContextKit: 0.2.8 | Updated: 2025-10-22
 
 # version-status.sh - ContextKit version management and project status
 # Called by SessionStart hook when Claude Code starts a new session
@@ -47,19 +47,19 @@ update_global_contextkit() {
         return 1
     fi
 
-    # Get current version before update (line 2 parsing)
+    # Get current version before update (line 3 parsing - after title and blank line)
     local old_version="unknown"
     if [ -f "$CONTEXTKIT_DIR/CHANGELOG.md" ]; then
-        old_version=$(sed -n '2p' "$CONTEXTKIT_DIR/CHANGELOG.md" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
+        old_version=$(sed -n '3p' "$CONTEXTKIT_DIR/CHANGELOG.md" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
     fi
 
     # Auto-update global ContextKit repository
     cd "$CONTEXTKIT_DIR"
     if git pull origin main --quiet 2>/dev/null; then
-        # Check if version actually changed (line 2 parsing)
+        # Check if version actually changed (line 3 parsing - after title and blank line)
         local new_version="unknown"
         if [ -f "$CONTEXTKIT_DIR/CHANGELOG.md" ]; then
-            new_version=$(sed -n '2p' "$CONTEXTKIT_DIR/CHANGELOG.md" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
+            new_version=$(sed -n '3p' "$CONTEXTKIT_DIR/CHANGELOG.md" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
         fi
 
         if [ "$old_version" != "$new_version" ] && [ "$new_version" != "unknown" ]; then
@@ -83,15 +83,15 @@ update_global_contextkit() {
 check_project_compatibility() {
     cd "$PROJECT_DIR"
 
-    # Get current global version from CHANGELOG.md (line 2 parsing)
+    # Get current global version from CHANGELOG.md (line 3 parsing - after title and blank line)
     local global_version="unknown"
     if [ -f "$CONTEXTKIT_DIR/CHANGELOG.md" ]; then
-        global_version=$(sed -n '2p' "$CONTEXTKIT_DIR/CHANGELOG.md" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
+        global_version=$(sed -n '3p' "$CONTEXTKIT_DIR/CHANGELOG.md" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
     fi
 
-    # Check project version from installed plan command
+    # Check project version from installed plan command (line 3 parsing - after title and blank line)
     if [ -f ".claude/commands/ctxk/plan/1-spec.md" ]; then
-        local project_version=$(sed -n '2p' ".claude/commands/ctxk/plan/1-spec.md" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
+        local project_version=$(sed -n '3p' ".claude/commands/ctxk/plan/1-spec.md" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
 
         if [ "$project_version" != "$global_version" ] && [ "$project_version" != "unknown" ] && [ "$global_version" != "unknown" ]; then
             echo "  ⚠️  Updates available: v$project_version → v$global_version"
@@ -200,11 +200,11 @@ count_outdated_templates() {
         local source_file="$source_dir/$rel_path"
 
         if [ -f "$source_file" ]; then
-            local local_template_version=$(sed -n '2p' "$local_file" 2>/dev/null | grep -o "Template Version: [0-9]*" | grep -o "[0-9]*" || echo "0")
-            local source_template_version=$(sed -n '2p' "$source_file" 2>/dev/null | grep -o "Template Version: [0-9]*" | grep -o "[0-9]*" || echo "0")
+            local local_template_version=$(sed -n '3p' "$local_file" 2>/dev/null | grep -o "Template Version: [0-9]*" | grep -o "[0-9]*" || echo "0")
+            local source_template_version=$(sed -n '3p' "$source_file" 2>/dev/null | grep -o "Template Version: [0-9]*" | grep -o "[0-9]*" || echo "0")
 
-            local local_contextkit_version=$(sed -n '2p' "$local_file" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
-            local source_contextkit_version=$(sed -n '2p' "$source_file" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
+            local local_contextkit_version=$(sed -n '3p' "$local_file" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
+            local source_contextkit_version=$(sed -n '3p' "$source_file" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
 
             # File is outdated if template version is lower OR ContextKit version differs
             local is_outdated=false
@@ -258,11 +258,11 @@ check_project_guidelines_updates() {
         local source_guideline="$CONTEXTKIT_DIR/Templates/Guidelines/$guideline_name"
 
         if [ -f "$source_guideline" ]; then
-            local project_template_version=$(sed -n '2p' "$project_guideline" 2>/dev/null | grep -o "Template Version: [0-9]*" | grep -o "[0-9]*" || echo "0")
-            local source_template_version=$(sed -n '2p' "$source_guideline" 2>/dev/null | grep -o "Template Version: [0-9]*" | grep -o "[0-9]*" || echo "0")
+            local project_template_version=$(sed -n '3p' "$project_guideline" 2>/dev/null | grep -o "Template Version: [0-9]*" | grep -o "[0-9]*" || echo "0")
+            local source_template_version=$(sed -n '3p' "$source_guideline" 2>/dev/null | grep -o "Template Version: [0-9]*" | grep -o "[0-9]*" || echo "0")
 
-            local project_contextkit_version=$(sed -n '2p' "$project_guideline" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
-            local source_contextkit_version=$(sed -n '2p' "$source_guideline" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
+            local project_contextkit_version=$(sed -n '3p' "$project_guideline" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
+            local source_contextkit_version=$(sed -n '3p' "$source_guideline" 2>/dev/null | grep -o "ContextKit: [^|]*" | sed 's/ContextKit: *//' | sed 's/ *$//' || echo "unknown")
 
             # File is outdated if template version is lower OR ContextKit version differs
             local is_outdated=false
