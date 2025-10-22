@@ -1,5 +1,5 @@
 # ContextKit Changelog
-<!-- ContextKit: 0.2.4 | Updated: 2025-10-22 -->
+<!-- ContextKit: 0.2.5 | Updated: 2025-10-22 -->
 
 Maintains accurate changelog following [Keep a Changelog](https://keepachangelog.com/) format. 
 Used by `/ctxk:proj:migrate` command to track file changes and preserve user customizations.
@@ -69,23 +69,56 @@ Used by `/ctxk:proj:migrate` command to track file changes and preserve user cus
 ║ # ContextKit Changelog
 ║ [system instructions...]
 ║ 
-║ ## [Unreleased]
-║ ### Added
-║ N/A
-║ ### Changed  
-║ N/A
-║ [etc. - all sections with N/A]
-║ 
-║ ## [1.0.0] - 2025-01-15
-║ ### Added
-║ - `file.md` - Description (a1b2c3d)
-║ ### Changed
-║ - `[M] file.md` - Description (e4f5g6h)  
-║ [Only sections with actual content]
-════════════════════════════════════════════════════════════════════════════════
-
 ## [Unreleased]
 
+### Added
+N/A
+
+### Changed
+N/A
+
+### Deprecated
+N/A
+
+### Removed
+N/A
+
+### Fixed
+N/A
+
+### Security
+N/A
+
+## [0.2.5] - 2025-10-22
+
+### Fixed
+- `[M] Templates/Commands/proj/migrate.md` - Ensure global commands are updated during migration
+- Documentation clarity improvements for migration workflow
+## [Unreleased]
+
+### Added
+N/A
+
+### Changed
+N/A
+
+### Deprecated
+N/A
+
+### Removed
+N/A
+
+### Fixed
+N/A
+
+### Security
+N/A
+
+## [0.2.5] - 2025-10-22
+
+### Fixed
+- `[M] Templates/Commands/proj/migrate.md` - Ensure global commands are updated during migration
+- Documentation clarity improvements for migration workflow
 ### Added
 N/A
 
