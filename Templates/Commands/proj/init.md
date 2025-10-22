@@ -1,5 +1,5 @@
 # Initialize Project with ContextKit
-<!-- Template Version: 13 | ContextKit: 0.2.2 | Updated: 2025-10-21 -->
+<!-- Template Version: 14 | ContextKit: 0.2.3 | Updated: 2025-10-22 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -33,75 +33,44 @@ Initialize current project with ContextKit development workflow system. Sets up 
    - **CRITICAL**: Working directory persists between bash calls in Claude Code
    - Use `$(pwd)` when absolute paths are needed, avoid relying on stored variables
 
-2. **Check Git Repository Status**
+2. **Check Git Repository Status (Auto-Continue with Warnings)**
 
    ```bash
-   git status --porcelain
+   git status --porcelain || echo "⚠️ Git not available - continuing without version control"
    ```
 
    - If uncommitted changes exist:
-     - Display warning in chat:
+     - Display warning and auto-continue:
        ```
        ═══════════════════════════════════════════════════
        ⚠️ WARNING - Uncommitted Changes Detected
        ═══════════════════════════════════════════════════
 
-       The repository has uncommitted changes.
+       You have uncommitted changes in your working directory.
+       Recommendation: Commit these before ContextKit setup for a clean slate.
 
-       Recommendation: It's generally safer to commit your
-       changes before initializing ContextKit to have a
-       clean slate.
+       Run: git add . && git commit -m "Your commit message"
 
+       Auto-continuing anyway...
        ═══════════════════════════════════════════════════
        ```
-     - Use AskUserQuestion tool:
-       ```json
-       {
-         "questions": [
-           {
-             "question": "Continue with ContextKit initialization despite uncommitted changes?",
-             "header": "Proceed?",
-             "options": [
-               {"label": "Yes, continue anyway", "description": "Proceed with ContextKit initialization despite uncommitted changes"},
-               {"label": "No, stop now", "description": "Stop initialization so I can commit changes first"}
-             ],
-             "multiSelect": false
-           }
-         ]
-       }
-       ```
-     - If user selects "No, stop now": EXIT with message "Please commit your changes and run /ctxk:proj:init again"
+     - Continue automatically (no user prompt, no exit)
    - If not a git repository:
-     - Display warning in chat:
+     - Display warning and auto-continue:
        ```
        ═══════════════════════════════════════════════════
        ⚠️ WARNING - Not a Git Repository
        ═══════════════════════════════════════════════════
 
        Current directory is not a git repository.
+       Recommendation: Initialize git for better version control integration.
 
-       Recommendation: ContextKit works best with git-based
-       projects for version control and workflow tracking.
+       Run: git init
 
+       Auto-continuing without git integration...
        ═══════════════════════════════════════════════════
        ```
-     - Use AskUserQuestion tool:
-       ```json
-       {
-         "questions": [
-           {
-             "question": "Continue with ContextKit initialization in non-git directory?",
-             "header": "Proceed?",
-             "options": [
-               {"label": "Yes, continue anyway", "description": "Proceed with ContextKit initialization without git"},
-               {"label": "No, stop now", "description": "Stop so I can initialize git repository first"}
-             ],
-             "multiSelect": false
-           }
-         ]
-       }
-       ```
-     - If user selects "No, stop now": EXIT with message "Please run 'git init' and run /ctxk:proj:init again"
+     - Continue automatically (no user prompt, no exit)
 
 3. **Initialize Git Submodules (if present)**
 

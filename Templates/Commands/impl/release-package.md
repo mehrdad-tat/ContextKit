@@ -1,5 +1,5 @@
 # Release Swift Package
-<!-- Template Version: 3 | ContextKit: 0.2.2 | Updated: 2025-10-18 -->
+<!-- Template Version: 4 | ContextKit: 0.2.3 | Updated: 2025-10-22 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -90,16 +90,16 @@ Execute Swift Package release workflow with version management, release notes ge
    - Examine Package.swift for dependency changes
    - Check README.md and documentation updates
 
-8. **User Input for Version Number**
-   - Analyze changes from step 7 to suggest version bump type:
+8. **Auto-Select Version Number**
+   - Analyze changes from step 7 to auto-select version bump type:
      - **MAJOR**: If breaking changes detected (public API removals, signature changes)
      - **MINOR**: If new features added (new public APIs, significant functionality)
      - **PATCH**: If only bug fixes, documentation, internal improvements, performance optimizations
 
-   - Display version context in chat:
+   - Display auto-selected version:
      ```
      ════════════════════════════════════════════════════════════════
-     📦 VERSION SELECTION - Please Review
+     📦 AUTO-SELECTED VERSION
      ════════════════════════════════════════════════════════════════
 
      Package: [package name]
@@ -107,15 +107,14 @@ Execute Swift Package release workflow with version management, release notes ge
      Current Version: [current version]
      Commits Since Last Release: [count]
 
-     Suggested Bump: [MAJOR/MINOR/PATCH]
-     Reasoning: [why this version bump is recommended based on changes]
+     Auto-Selected Bump: [MAJOR/MINOR/PATCH]
+     New Version: [calculated version]
+     Reasoning: [why this version bump was selected based on changes]
 
+     Proceeding with this version...
      ════════════════════════════════════════════════════════════════
      ```
-   - Use AskUserQuestion tool to ask for version selection
-   - Accept specific version (e.g., "1.2.0") or bump type ("major"/"minor"/"patch")
-   - Parse and validate version format
-   - If bump type provided: calculate from current version
+   - Auto-continue with selected version (no user prompt)
 
 ### Phase 3: Release Notes Generation
 
@@ -156,31 +155,20 @@ Execute Swift Package release workflow with version management, release notes ge
    - Write user-focused descriptions explaining the benefit
    - If no meaningful user-facing changes found: Ask "Create maintenance release anyway?"
 
-10. **Iterate on Release Notes with User Feedback**
-    - Display generated release notes in chat:
+10. **Auto-Generate Release Notes**
+    - Display generated release notes:
       ```
       ════════════════════════════════════════════════════════════════
-      📝 GENERATED RELEASE NOTES - Please Review
+      📝 AUTO-GENERATED RELEASE NOTES
       ════════════════════════════════════════════════════════════════
 
       [Generated release notes as simple bullet list organized by category]
 
+      Using these release notes for GitHub release...
       ════════════════════════════════════════════════════════════════
       ```
-    - Use AskUserQuestion tool to ask: "Use these release notes? (Y/n/r to revise - tell me what to change)"
-    - **Y**: Continue with generated notes
-    - **n**: Skip release notes (create release without notes)
-    - **r**: Revise - use text input to ask user for specific improvement requests, then regenerate
-
-    **If user chooses "r" (revise):**
-    - Prompt: "How should I improve these release notes? Examples:"
-      - "Make the API changes point more specific and include code example"
-      - "Combine the performance improvements into one clearer point"
-      - "Add more detail about the breaking changes and migration steps"
-      - "Use more user-friendly language, less technical"
-      - "Reorder by importance - put the new features first"
-    - Take user feedback and regenerate improved version
-    - Repeat Y/n/r cycle until user approves or skips
+    - Auto-continue with generated notes (no user prompt)
+    - Developer can manually edit release on GitHub if needed
 
 ### Phase 4: Build Verification
 

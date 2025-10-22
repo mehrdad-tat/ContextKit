@@ -1,5 +1,5 @@
 # ContextKit Changelog
-<!-- ContextKit: 0.2.2 | Updated: 2025-10-21 -->
+<!-- ContextKit: 0.2.3 | Updated: 2025-10-22 -->
 
 Maintains accurate changelog following [Keep a Changelog](https://keepachangelog.com/) format. 
 Used by `/ctxk:proj:migrate` command to track file changes and preserve user customizations.
@@ -103,6 +103,16 @@ N/A
 
 ### Security
 N/A
+
+## [0.2.3] - 2025-10-22
+
+### Changed
+- `[M] Templates/Commands/proj/init.md` - Removed blocking git status confirmations, auto-continue with warnings for uncommitted changes and non-git directories (83ff1ec)
+- `[M] Templates/Commands/plan/1-spec.md` - Removed understanding confirmation prompt, auto-continue with summary display for faster workflow (83ff1ec)
+- `[M] Templates/Commands/plan/quick.md` - Removed understanding confirmation prompt, auto-continue with summary display for faster workflow (83ff1ec)
+- `[M] Templates/Commands/plan/4-steps.md` - Auto-resolve clarification points with reasonable defaults instead of interactive prompts (83ff1ec)
+- `[M] Templates/Commands/impl/release-app.md` - Auto-select version bump and auto-generate release notes for faster app releases (83ff1ec)
+- `[M] Templates/Commands/impl/release-package.md` - Auto-select version bump and auto-generate release notes for faster package releases (83ff1ec)
 
 ## [0.2.2] - 2025-10-21
 

@@ -1,5 +1,5 @@
 # Create Implementation Task Breakdown
-<!-- Template Version: 8 | ContextKit: 0.2.2 | Updated: 2025-10-21 -->
+<!-- Template Version: 9 | ContextKit: 0.2.3 | Updated: 2025-10-22 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -71,50 +71,39 @@ Generate implementation task breakdown by detecting current feature, validating 
    - **Template execution**: The copied Steps.md handles all task breakdown, dependency analysis, and parallel execution planning
    - **Progress tracking**: User can see checkboxes being completed in the copied file
 
-5. **Extract and Resolve Clarification Points Interactively**
+5. **Auto-Resolve Clarification Points with Reasonable Defaults**
    - Use `Grep` tool to find clarification markers in Steps.md: `Grep "🚨 \\[NEEDS CLARIFICATION:" [numbered-feature-directory]/Steps.md`
    - If clarification points found:
      - Parse each clarification point to extract the specific question and line context
-     - **FOR EACH CLARIFICATION (one at a time)**:
-       - Analyze the extracted clarification question and generate 2-4 reasonable answer suggestions based on context
-       - Use AskUserQuestion tool with these parameters:
+     - **FOR EACH CLARIFICATION**:
+       - Analyze the extracted clarification question
+       - Generate most reasonable answer based on:
+         - Project Context.md understanding
+         - Spec.md and Tech.md context
+         - Industry best practices
+         - Constitutional principles
+         - Common developer expectations
+       - Use `Edit` tool to replace 🚨 marker with auto-resolved answer:
 
-         ```json
-         {
-           "questions": [
-             {
-               "question": "[Extracted clarification question from 🚨 marker]",
-               "header": "Answer?",
-               "options": [
-                 {
-                   "label": "[Suggested answer 1]",
-                   "description": "[Why this answer makes sense based on context]"
-                 },
-                 {
-                   "label": "[Suggested answer 2]",
-                   "description": "[Why this answer makes sense based on context]"
-                 },
-                 {
-                   "label": "[Suggested answer 3 if applicable]",
-                   "description": "[Why this answer makes sense based on context]"
-                 },
-                 {
-                   "label": "Skip for now",
-                   "description": "Leave this clarification marker for later resolution"
-                 }
-               ],
-               "multiSelect": false
-             }
-           ]
-         }
+         ```
+         OLD: 🚨 [NEEDS CLARIFICATION: Should we cache API responses?]
+         NEW: ✅ [AUTO-RESOLVED: Yes, implement 5-minute cache for API responses to improve performance and reduce server load. This follows best practices for network efficiency.]
          ```
 
-       - Wait for user response
-       - If user selects a suggested answer: Use that answer and replace 🚨 marker in Steps.md
-       - If user provides custom answer via "Other": Use that answer and replace 🚨 marker in Steps.md
-       - If user selects "Skip for now": Leave marker in place and continue to next
-       - Continue to next clarification point
-     - After all clarifications processed: confirm how many markers were resolved vs remaining
+       - Log resolution in chat:
+
+         ```
+         ℹ️ Auto-resolved clarification:
+            Question: [extracted question]
+            Answer: [reasonable default based on context]
+         ```
+
+     - After all clarifications resolved:
+
+       ```
+       ✅ Auto-resolved [count] clarification points with reasonable defaults.
+       Review Steps.md and adjust answers if needed before proceeding.
+       ```
 
 6. **Display Success Message** (see Success Messages section)
 
@@ -144,12 +133,11 @@ Generate implementation task breakdown by detecting current feature, validating 
 ✅ Created: [numbered-feature-directory]/Steps.md
 ✅ Generated S### task enumeration with parallel execution markers
 ✅ All mandatory phases completed with dependency analysis
-
-✅ All implementation clarifications resolved interactively during generation
+✅ All clarification points auto-resolved with reasonable defaults
 
 🔗 Next Steps:
 1. Review [numbered-feature-directory]/Steps.md to ensure task breakdown is comprehensive
-2. [If clarifications needed:] Edit the steps file to resolve marked implementation questions
+2. Check auto-resolved answers (marked with ✅ [AUTO-RESOLVED:]) and adjust if needed
 3. When satisfied with the implementation plan: commit your changes with git
 4. Run /ctxk:impl:start-working (in a new chat) to begin systematic development execution
 

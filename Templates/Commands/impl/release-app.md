@@ -1,5 +1,5 @@
 # Release App to App Store
-<!-- Template Version: 3 | ContextKit: 0.2.2 | Updated: 2025-10-18 -->
+<!-- Template Version: 4 | ContextKit: 0.2.3 | Updated: 2025-10-22 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -41,17 +41,16 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
      - Understand the intent behind changes made during this development session
      - Cross-reference with git changes to ensure accurate release notes
 
-3. **Suggest next version based on change analysis**
-   Analyze code changes to suggest version bump:
+3. **Auto-determine next version based on change analysis**
+   Analyze code changes and automatically select version bump:
    - **MAJOR**: Breaking changes, removed features, major UX overhauls
    - **MINOR**: New features, significant improvements, new user-facing functionality
    - **PATCH**: Bug fixes, minor improvements, performance optimizations
 
-4. **Get version confirmation from user**
-   - Display version context in chat:
+   Display auto-selected version:
      ```
      ════════════════════════════════════════════════════════════════
-     📦 VERSION CONFIRMATION - Please Review
+     📦 AUTO-SELECTED VERSION
      ════════════════════════════════════════════════════════════════
 
      Current Version: [current version from project]
@@ -59,16 +58,15 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
      Changes Found:
      [Summary of changes since last release]
 
-     Suggested Version: [suggested version] ([MAJOR/MINOR/PATCH])
-     Reasoning: [why this version bump is recommended]
+     Auto-Selected Version: [suggested version] ([MAJOR/MINOR/PATCH])
+     Reasoning: [why this version bump was selected]
 
+     Proceeding with this version...
      ════════════════════════════════════════════════════════════════
      ```
-   - Use AskUserQuestion tool to ask for version confirmation
-   - Accept specific version (e.g., "1.2.0") or suggestion via options
-   - Validate semantic version format
+   - Auto-continue with suggested version (no user prompt)
 
-5. **Generate release notes as simple prioritized list**
+4. **Auto-generate release notes as simple prioritized list**
    Analyze changes and create sorted list following Keep a Changelog order:
 
    **Include in release notes (sorted by importance within each category):**
@@ -84,40 +82,28 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
    - Developer tooling, build system changes, tests
    - Code formatting, documentation, comments
 
-6. **Iterate on release notes with user feedback**
-   - Display generated release notes in chat:
+   Display generated release notes:
      ```
      ════════════════════════════════════════════════════════════════
-     📝 GENERATED RELEASE NOTES - Please Review
+     📝 AUTO-GENERATED RELEASE NOTES
      ════════════════════════════════════════════════════════════════
 
      [Generated release notes as simple bullet list organized by category]
 
+     Using these release notes for App Store submission...
      ════════════════════════════════════════════════════════════════
      ```
-   - Use AskUserQuestion tool to ask: "Use these release notes? (Y/n/r to revise - tell me what to change)"
-   - **Y**: Continue with generated notes
-   - **n**: Skip release notes (empty What's New)
-   - **r**: Revise - use text input to ask user for specific improvement requests, then regenerate
-
-   **If user chooses "r" (revise):**
-   - Prompt: "How should I improve these release notes? Examples:"
-     - "Make the first point more specific about the new search feature"
-     - "Combine the last two bug fix points into one"
-     - "Add more detail about the performance improvements"
-     - "Use more user-friendly language, less technical"
-     - "Reorder by importance - put the UI changes first"
-   - Take user feedback and regenerate improved version
-   - Repeat Y/n/r cycle until user approves or skips
+   - Auto-continue with generated notes (no user prompt)
+   - Developer can manually edit release notes in App Store Connect if needed
 
 ### Phase 3: Version Management and Git Operations
-7. **Update project version**
+5. **Update project version**
    - Use `Read` to examine project.pbxproj file structure
    - Use `Edit` to update MARKETING_VERSION to provided version parameter
    - Keep CURRENT_PROJECT_VERSION at "1" (Xcode Cloud manages build numbers)
    - Verify version consistency across Debug and Release configurations
 
-8. **Execute git workflow**
+6. **Execute git workflow**
    - Determine appropriate commit message:
      - If only MARKETING_VERSION changed: "Bump version to [version]"
      - If both MARKETING_VERSION and CURRENT_PROJECT_VERSION changed: "Bump version and build number to [version]"
@@ -127,7 +113,7 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
    - Tag push will trigger Xcode Cloud build automatically
 
 ### Phase 4: App Store Connect Preparation
-9. **Display What's New text for App Store Connect**
+7. **Display What's New text for App Store Connect**
    - Use `Read` to get App Store URL from Context.md configuration
    - Extract Apple ID from App Store URL (pattern: `/id(\d+)`)
    - Present final release notes as formatted "What's New" text
@@ -135,7 +121,7 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
    - Provide direct App Store Connect URL using extracted Apple ID
 
 ### Phase 5: Completion and Next Steps
-10. **Finalize and provide guidance**
+8. **Finalize and provide guidance**
    - Summarize constitutional compliance results
    - List files created and modified
    - Provide clear next steps for user:
@@ -144,7 +130,7 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
      - Submit for review once build completes
    - Reference Guidelines/Release.md for detailed App Store Connect procedures
 
-11. **Return SUCCESS** with release prepared and ready for user to push
+9. **Return SUCCESS** with release prepared and ready for user to push
 
 ## Success Message
 

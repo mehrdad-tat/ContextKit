@@ -1,5 +1,5 @@
 # Create Feature Specification
-<!-- Template Version: 15 | ContextKit: 0.2.2 | Updated: 2025-10-21 -->
+<!-- Template Version: 16 | ContextKit: 0.2.3 | Updated: 2025-10-22 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -120,16 +120,16 @@ Initialize feature specification by validating setup, confirming feature naming,
 
    - Store confirmed names for subsequent steps (no user prompt)
 
-7. **Present Understanding Summary & Get Confirmation**
+7. **Generate Understanding Summary (Auto-Continue)**
    - Based on user's original description, generate CONCISE understanding summary
    - Display summary in chat:
 
      ```
      ═══════════════════════════════════════════════════
-     📋 UNDERSTANDING CONFIRMATION
+     📋 UNDERSTANDING SUMMARY
      ═══════════════════════════════════════════════════
 
-     Before creating the specification, let me confirm my understanding:
+     My understanding of the feature:
 
      [1-2 paragraph summary of what the feature does and why]
 
@@ -150,38 +150,14 @@ Initialize feature specification by validating setup, confirming feature naming,
      • [Important edge case 2 to consider]
      (2-3 items maximum - most critical ones)
 
+     Proceeding with specification creation...
      ═══════════════════════════════════════════════════
      ```
 
    - **CRITICAL**: Keep this concise for quick developer review
-   - Use AskUserQuestion tool with these parameters:
-
-     ```json
-     {
-       "questions": [
-         {
-           "question": "Does this understanding match your intent for the feature?",
-           "header": "Understand?",
-           "options": [
-             {
-               "label": "Yes, correct",
-               "description": "Understanding is accurate, proceed with specification creation"
-             },
-             {
-               "label": "No, needs changes",
-               "description": "Provide corrections to adjust the understanding"
-             }
-           ],
-           "multiSelect": false
-         }
-       ]
-     }
-     ```
-
-   - Wait for user response
-   - If user selects "No, needs changes": Ask for corrections via "Other" option, update understanding, and present again
-   - Continue only after user selects "Yes, correct"
-   - **Store confirmed understanding** for Spec.md generation (full detailed spec will be created from this)
+   - Auto-continue without confirmation (no user prompt)
+   - **Store understanding** for Spec.md generation (full detailed spec will be created from this)
+   - Developer can review and edit Spec.md after it's created if understanding is incorrect
 
 ### Phase 3: Template Setup & Execution
 
