@@ -126,7 +126,7 @@ install_global_commands() {
       fi
    fi
    
-   # Create ctxk commands directory and copy ONLY proj commands globally
+   # Create ctxk commands directory and copy global commands
    local commands_dir="$CONTEXTKIT_DIR/Templates/Commands"
    local ctxk_commands_dir="$claude_commands_dir/ctxk"
 
@@ -141,13 +141,21 @@ install_global_commands() {
       exit 1
    fi
 
+   # Copy proj commands subdirectory
    if ! cp -R "$commands_dir/proj" "$ctxk_commands_dir"/; then
       print_error "Failed to copy proj commands"
       exit 1
    fi
-   
-   print_success "Global ContextKit project management commands installed"
-   print_info "Project commands (/ctxk:proj:*) available in Claude Code globally"
+
+   # Copy version.md to root of ctxk commands (for /ctxk:version)
+   if [[ -f "$commands_dir/version.md" ]]; then
+      if ! cp "$commands_dir/version.md" "$ctxk_commands_dir"/; then
+         print_warning "Failed to copy version.md"
+      fi
+   fi
+
+   print_success "Global ContextKit commands installed"
+   print_info "Available: /ctxk:proj:* commands and /ctxk:version"
 }
 
 ## Step 3: Display success message and next steps

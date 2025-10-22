@@ -1,5 +1,5 @@
 # ContextKit Changelog
-<!-- ContextKit: 0.2.3 | Updated: 2025-10-22 -->
+<!-- ContextKit: 0.2.4 | Updated: 2025-10-22 -->
 
 Maintains accurate changelog following [Keep a Changelog](https://keepachangelog.com/) format. 
 Used by `/ctxk:proj:migrate` command to track file changes and preserve user customizations.
@@ -103,6 +103,12 @@ N/A
 
 ### Security
 N/A
+
+## [0.2.4] - 2025-10-22
+
+### Fixed
+- `[M] Templates/Commands/version.md` - Moved from proj/ to root for correct /ctxk:version command path (72ab0c6)
+- `install.sh` - Updated to copy version.md to root of ctxk commands directory (72ab0c6)
 
 ## [0.2.3] - 2025-10-22
 
