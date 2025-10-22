@@ -148,15 +148,22 @@ install_global_commands() {
    fi
 
    # Copy version.md to root of ctxk commands (for /ctxk:version)
-
-   # Clean up old version.md from proj/ (migration from v0.2.5)
-   if [[ -f "$ctxk_commands_dir/proj/version.md" ]]; then
-      rm -f "$ctxk_commands_dir/proj/version.md"
-   fi
    if [[ -f "$commands_dir/version.md" ]]; then
       if ! cp "$commands_dir/version.md" "$ctxk_commands_dir"/; then
          print_warning "Failed to copy version.md"
       fi
+   fi
+
+   # Copy VERSION file for quick version checking
+   if [[ -f "$CONTEXTKIT_DIR/VERSION" ]]; then
+      if ! cp "$CONTEXTKIT_DIR/VERSION" "$ctxk_commands_dir"/; then
+         print_warning "Failed to copy VERSION file"
+      fi
+   fi
+
+   # Clean up old version.md from proj/ (migration from v0.2.3)
+   if [[ -f "$ctxk_commands_dir/proj/version.md" ]]; then
+      rm -f "$ctxk_commands_dir/proj/version.md"
    fi
 
    print_success "Global ContextKit commands installed"

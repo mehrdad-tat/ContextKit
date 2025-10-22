@@ -1,5 +1,5 @@
 # ContextKit Changelog
-<!-- ContextKit: 0.2.5 | Updated: 2025-10-22 -->
+<!-- ContextKit: 0.2.6 | Updated: 2025-10-22 -->
 
 Maintains accurate changelog following [Keep a Changelog](https://keepachangelog.com/) format. 
 Used by `/ctxk:proj:migrate` command to track file changes and preserve user customizations.
@@ -89,6 +89,33 @@ N/A
 ### Security
 N/A
 
+## [0.2.6] - 2025-10-22
+
+### Added
+- `VERSION` file (44b9578) - Simple text file containing current version for quick comparison
+- `Templates/Scripts/check-version.sh` (44b9578) - Fast version checker with colored output
+
+### Changed
+- `install.sh` - Copy VERSION file (44b9578) during installation
+- `[M] Templates/Commands/proj/migrate.md` - Copy VERSION file (44b9578) during migration
+### Added
+N/A
+
+### Changed
+N/A
+
+### Deprecated
+N/A
+
+### Removed
+N/A
+
+### Fixed
+N/A
+
+### Security
+N/A
+
 ## [0.2.5] - 2025-10-22
 
 ### Fixed
@@ -96,6 +123,33 @@ N/A
 - Documentation clarity improvements for migration workflow
 ## [Unreleased]
 
+### Added
+N/A
+
+### Changed
+N/A
+
+### Deprecated
+N/A
+
+### Removed
+N/A
+
+### Fixed
+N/A
+
+### Security
+N/A
+
+## [0.2.6] - 2025-10-22
+
+### Added
+- `VERSION` file (44b9578) - Simple text file containing current version for quick comparison
+- `Templates/Scripts/check-version.sh` (44b9578) - Fast version checker with colored output
+
+### Changed
+- `install.sh` - Copy VERSION file (44b9578) during installation
+- `[M] Templates/Commands/proj/migrate.md` - Copy VERSION file (44b9578) during migration
 ### Added
 N/A
 
