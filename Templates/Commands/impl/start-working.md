@@ -1,6 +1,6 @@
 # Begin Development with Context
 
-<!-- Template Version: 18 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
+<!-- Template Version: 19 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
 
 > [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
@@ -264,7 +264,18 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
 ### Phase 4: Task Execution with Steps.md as Central Progress Tracker
 
-**🚨 CRITICAL EXECUTION MODE**: This phase runs **continuously and automatically** until all tasks in Steps.md are complete. Do NOT stop between tasks, do NOT ask for user confirmation, do NOT wait for approval. Execute each task, update Steps.md, and immediately proceed to the next task.
+**🚨 CRITICAL EXECUTION MODE**: This phase runs **continuously and automatically** until all tasks in Steps.md are complete.
+
+**FORBIDDEN BEHAVIORS**:
+- ❌ Do NOT stop between tasks
+- ❌ Do NOT ask for user confirmation
+- ❌ Do NOT wait for approval
+- ❌ Do NOT create summary sections
+- ❌ Do NOT ask "Would you like me to continue?"
+- ❌ Do NOT show "Key Achievements" or "Next Steps"
+- ❌ Do NOT pause for ANY reason except the exit conditions below
+
+**REQUIRED BEHAVIOR**: Execute task → Update Steps.md → Execute next task (no delays, no questions, no summaries)
 
 8. **Execute Task Implementation with Complete Context**
 
@@ -300,7 +311,9 @@ Begin systematic development with context-aware setup, task analysis, and guided
     - **🚨 CRITICAL - NEVER ASK USER TO CONTINUE**: Do NOT ask "Would you like me to continue?" or "Should I proceed?" - just continue automatically
     - **🚨 CRITICAL - NEVER WAIT FOR CONFIRMATION**: Do NOT pause between tasks - execute the next task immediately
     - **🚨 CRITICAL - NEVER STOP BETWEEN TASKS**: The workflow is designed to run continuously until completion
-    - Display progress update based on Steps.md status:
+    - **🚨 CRITICAL - NO SUMMARY SECTIONS**: Do NOT create "Summary of Progress", "Key Achievements", "Next Steps" sections - just execute
+    - **🚨 CRITICAL - NO QUESTIONS AT ALL**: Do NOT ask ANY questions about continuing - zero questions, zero waiting
+    - Display ONLY this minimal progress update:
 
     ```
     ✅ Task [TaskNumber] completed and marked in Steps.md!
@@ -309,13 +322,15 @@ Begin systematic development with context-aware setup, task analysis, and guided
     🔄 Continuing with implementation...
     ```
 
+    - **DO NOT ADD**: summaries, achievements, next steps, questions, or any other text beyond the 3 lines above
     - **IMMEDIATELY** proceed to Phase 3, Step 6 to load and execute next task from Steps.md
+    - **NO DELAY, NO PAUSE, NO WAITING** - go straight to the next task execution
     - **Only exit when**:
       - ALL Steps.md tasks completed (all checkboxes checked)
       - Dependency blocking prevents any task execution
       - Manual task encountered (marked ⚠️ MANUAL REQUIRED in Steps.md)
       - User explicitly requests to stop with a message
-    - **The goal**: Complete the entire Steps.md task list systematically without any interruptions
+    - **The goal**: Complete the entire Steps.md task list systematically without any interruptions, summaries, or questions
 
 11. **Quality Assurance Integration with Primary Agents**
 
