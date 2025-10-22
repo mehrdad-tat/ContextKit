@@ -1,6 +1,6 @@
 # Begin Development with Context
 
-<!-- Template Version: 20 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
+<!-- Template Version: 21 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
 
 > [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
@@ -13,6 +13,12 @@
 Begin systematic development with context-aware setup, task analysis, and guided implementation initiation based on completed planning phases.
 
 ## Execution Flow (main)
+
+<workflow_execution>
+This command executes as a continuous loop until all Steps.md tasks are complete.
+The workflow does NOT pause between tasks, does NOT ask for user confirmation,
+and does NOT create summaries. It executes task after task automatically.
+</workflow_execution>
 
 ### Phase 0: Check Customization
 
@@ -156,22 +162,49 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
 6. **Execute Steps.md Tasks Sequentially - NO SHORTCUTS ALLOWED**
 
-   - **PRIMARY OBJECTIVE**: Follow Steps.md step-by-step as the definitive task list
-   - Find the **first uncompleted task** in S001, S002, S003... sequence from Steps.md
-   - **ABSOLUTE REQUIREMENT**: Do NOT skip tasks, do NOT choose "easier" tasks, do NOT take shortcuts
-   - **ABSOLUTE REQUIREMENT**: Do NOT assume tasks are complete - follow the plan exactly
-   - **ABSOLUTE REQUIREMENT**: Do NOT stop between tasks to ask user - continue automatically
-   - Check dependencies are satisfied:
-     - Extract "Dependencies: S001, S002" from task description in Steps.md
-     - Verify all dependency tasks are completed (checked boxes in Steps.md)
-     - If dependencies not met: Display which specific tasks need completion first
-   - **CRITICAL RULE**: Steps.md is the master plan - follow it religiously, never deviate
-   - **NEVER SPEED UP**: Do NOT execute multiple steps at once - handle ONE task at a time
-   - **NEVER ASSUME**: Do NOT assume tasks are simple or can be batched - follow each step individually
-   - **NEVER STOP TO ASK**: Do NOT pause between tasks asking "Should I continue?" - just continue
-   - **NEVER AUTOMATE THE PROCESS**: Each step requires individual attention and execution
-   - If no valid next task available: Display completion status and guide user to next phase
-   - **Steps.md drives everything** - it's not just a reference, it's the execution plan
+   <continuous_execution_loop>
+   <until>All Steps.md tasks completed OR manual task encountered OR dependency blocks execution</until>
+   <loop_body>
+
+   **Find Next Task:**
+   - Parse Steps.md to find first uncompleted task in S001, S002, S003... sequence
+   - Verify dependencies satisfied (check all "Dependencies: S###" are marked complete)
+   - If blocked by dependencies: report blocking tasks and EXIT loop
+   - If manual task (⚠️ MANUAL REQUIRED): display manual task details and EXIT loop
+
+   **Execute Current Task:**
+   - Display task details box (informational only)
+   - **DO NOT ASK QUESTIONS** - immediately start implementation
+   - Execute task following Steps.md specifications exactly
+   - Use complete context from Spec.md and Tech.md
+   - Apply all acceptance criteria from Steps.md
+
+   **Update Progress:**
+   - Mark task complete in Steps.md: `- [ ]` → `- [x]`
+   - Display ONLY these 3 lines:
+     ```
+     ✅ Task [TaskNumber] completed and marked in Steps.md!
+     📊 Progress: [X]/[Y] tasks done per Steps.md
+     🔄 Continuing with implementation...
+     ```
+   - **NO summaries, NO achievements, NO questions, NO pauses**
+
+   **Continue Loop:**
+   - **IMMEDIATELY** return to start of loop (find next task)
+   - **NO user confirmation needed**
+   - **NO delay between iterations**
+
+   </loop_body>
+   </continuous_execution_loop>
+
+   **CRITICAL RULES FOR LOOP EXECUTION**:
+   - **NEVER break loop** to ask "Would you like me to continue?"
+   - **NEVER break loop** to show summaries or achievements
+   - **NEVER skip tasks** or choose "easier" tasks - follow S001, S002, S003... order
+   - **NEVER execute multiple steps at once** - ONE task per iteration
+   - **NEVER assume tasks are complete** - check Steps.md checkboxes
+   - **Loop continues automatically** until exit conditions met
+   - **Steps.md is the master plan** - follow it religiously
 
    **🚨 CRITICAL: TOKEN LIMITS ARE IRRELEVANT**
 
