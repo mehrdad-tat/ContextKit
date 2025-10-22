@@ -182,6 +182,7 @@ Both workflows maintain chronological order with sequential numbering, making it
 - `/ctxk:proj:init` - Setup project context by auto-detecting type and configuring ContextKit
 - `/ctxk:proj:init-workspace` - Configure team standards for different clients/companies
 - `/ctxk:proj:migrate` - Upgrade to latest ContextKit versions
+- `/ctxk:version` - Display current version and check for updates from GitHub
 
 ### Systematic Feature Planning
 - `/ctxk:plan:1-spec` - Define requirements with business specifications and user stories (full workflow)
