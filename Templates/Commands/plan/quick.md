@@ -1,5 +1,5 @@
 Quick planning for smaller tasks, bug fixes, and improvements (single-file workflow)
-<!-- Template Version: 5 | ContextKit: 0.2.6 | Updated: 2025-10-22 -->
+<!-- Template Version: 6 | ContextKit: 0.2.6 | Updated: 2025-10-22 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -89,6 +89,7 @@ This command creates a condensed, single-file plan for:
 ### Phase 4: Interactive Understanding Validation
 
 5. **Display Understanding Summary (Auto-Continue)**
+   - **CRITICAL: DO NOT ask user for confirmation - this is informational only**
    - Display understanding summary in chat (DO NOT create file yet):
      ```
      ════════════════════════════════════════════════════════════════
@@ -121,8 +122,8 @@ This command creates a condensed, single-file plan for:
      Proceeding with quick plan creation...
      ════════════════════════════════════════════════════════════════
      ```
-   - Auto-continue without confirmation (no user prompt)
    - Developer can review and edit Quick.md file after it's created if understanding is incorrect
+   - **NO USER PROMPT - proceed immediately to next step**
 
 ### Phase 5: Generate Quick Plan File
 

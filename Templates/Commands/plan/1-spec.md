@@ -1,5 +1,5 @@
 # Create Feature Specification
-<!-- Template Version: 16 | ContextKit: 0.2.6 | Updated: 2025-10-22 -->
+<!-- Template Version: 17 | ContextKit: 0.2.6 | Updated: 2025-10-22 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -72,6 +72,7 @@ Initialize feature specification by validating setup, confirming feature naming,
    - Continue with description-based processing
 
 4. **Auto-Detect Components (Default: Root Only)**
+   - **CRITICAL: DO NOT ask user about components - always default to root only**
    - Use `Bash` tool to check for multi-component structure:
 
      ```bash
@@ -100,6 +101,7 @@ Initialize feature specification by validating setup, confirming feature naming,
        ```
 
    - Store affected components: ["root"]
+   - **NO USER PROMPT - proceed immediately to next step**
 
 5. **Generate Names**
    - Parse user description for key concepts
@@ -108,6 +110,7 @@ Initialize feature specification by validating setup, confirming feature naming,
    - Focus on user value, not implementation details
 
 6. **Auto-Generate and Confirm Names**
+   - **CRITICAL: DO NOT ask user for confirmation - auto-accept generated names**
    - Display generated names to user in a summary:
 
      ```
@@ -118,9 +121,11 @@ Initialize feature specification by validating setup, confirming feature naming,
      Auto-accepting generated names...
      ```
 
-   - Store confirmed names for subsequent steps (no user prompt)
+   - Store confirmed names for subsequent steps
+   - **NO USER PROMPT - proceed immediately to next step**
 
 7. **Generate Understanding Summary (Auto-Continue)**
+   - **CRITICAL: DO NOT ask user for confirmation - this is informational only**
    - Based on user's original description, generate CONCISE understanding summary
    - Display summary in chat:
 
@@ -155,9 +160,9 @@ Initialize feature specification by validating setup, confirming feature naming,
      ```
 
    - **CRITICAL**: Keep this concise for quick developer review
-   - Auto-continue without confirmation (no user prompt)
    - **Store understanding** for Spec.md generation (full detailed spec will be created from this)
    - Developer can review and edit Spec.md after it's created if understanding is incorrect
+   - **NO USER PROMPT - proceed immediately to next step**
 
 ### Phase 3: Template Setup & Execution
 
