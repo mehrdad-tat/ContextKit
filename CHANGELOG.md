@@ -106,13 +106,16 @@ N/A
 
 ## [0.2.3] - 2025-10-22
 
+### Added
+- `Templates/Commands/proj/version.md` - New command to display ContextKit version with GitHub update checking (f3314f1)
+
 ### Changed
-- `[M] Templates/Commands/proj/init.md` - Removed blocking git status confirmations, auto-continue with warnings for uncommitted changes and non-git directories (83ff1ec)
-- `[M] Templates/Commands/plan/1-spec.md` - Removed understanding confirmation prompt, auto-continue with summary display for faster workflow (83ff1ec)
-- `[M] Templates/Commands/plan/quick.md` - Removed understanding confirmation prompt, auto-continue with summary display for faster workflow (83ff1ec)
-- `[M] Templates/Commands/plan/4-steps.md` - Auto-resolve clarification points with reasonable defaults instead of interactive prompts (83ff1ec)
-- `[M] Templates/Commands/impl/release-app.md` - Auto-select version bump and auto-generate release notes for faster app releases (83ff1ec)
-- `[M] Templates/Commands/impl/release-package.md` - Auto-select version bump and auto-generate release notes for faster package releases (83ff1ec)
+- `[M] Templates/Commands/proj/init.md` - Removed blocking git status confirmations, auto-continue with warnings for uncommitted changes and non-git directories (f3314f1)
+- `[M] Templates/Commands/plan/1-spec.md` - Removed understanding confirmation prompt, auto-continue with summary display for faster workflow (f3314f1)
+- `[M] Templates/Commands/plan/quick.md` - Removed understanding confirmation prompt, auto-continue with summary display for faster workflow (f3314f1)
+- `[M] Templates/Commands/plan/4-steps.md` - Auto-resolve clarification points with reasonable defaults instead of interactive prompts (f3314f1)
+- `[M] Templates/Commands/impl/release-app.md` - Auto-select version bump and auto-generate release notes for faster app releases (f3314f1)
+- `[M] Templates/Commands/impl/release-package.md` - Auto-select version bump and auto-generate release notes for faster package releases (f3314f1)
 
 ## [0.2.2] - 2025-10-21
 
