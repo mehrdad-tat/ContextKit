@@ -1,17 +1,19 @@
 # Remove Completed Ideas from Backlog
-<!-- Template Version: 4 | ContextKit: 0.2.6 | Updated: 2025-10-18 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 4 | ContextKit: 0.2.7 | Updated: 2025-10-18 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
+
 Remove completed or cancelled ideas from the backlog database. Identifies target idea through search and calls database removal operations defined in Ideas-Backlog.md.
 
 ## Parameters
+
 - `description` (required): The idea description or ID (e.g., "dark mode" or "IDEA-001")
 
 ## Execution Flow (main)
@@ -27,36 +29,45 @@ Remove completed or cancelled ideas from the backlog database. Identifies target
 ### Phase 1: Setup & Infrastructure Check
 
 1. **Check Ideas Infrastructure**
+
    - Use `Glob` tool to verify: `Glob Context/Backlog Ideas-Backlog.md`
    - If Ideas-Backlog.md missing:
+
      ```
      ❌ Ideas backlog not found!
 
      Expected: Context/Backlog/Ideas-Backlog.md
      Run /ctxk:proj:init to setup ContextKit backlog system first.
      ```
+
      → END (exit with error)
 
 ### Phase 2: Idea Identification
 
 2. **Parse User Input**
+
    - Extract search term from command parameter
    - If no description provided: ERROR "Description required: /ctxk:bckl:remove-idea 'search term or IDEA-001'"
 
 3. **Search Existing Backlog**
+
    - Use `Read` tool to read Ideas-Backlog.md: `Read Context/Backlog/Ideas-Backlog.md`
    - Search Priority Index and Idea Details sections for matches
    - **Perfect ID match**: If input exactly matches "IDEA-###" format and exists, skip to confirmation
    - **Partial matches**: Search titles and descriptions for keywords
 
 4. **Present Search Results**
+
    - If no matches found:
+
      - Display message: "💡 No matching ideas found for: '[search term]'. Check Context/Backlog/Ideas-Backlog.md for available ideas. Use exact ID like 'IDEA-001' or keywords from the idea title."
-     → END (no matches)
+       → END (no matches)
 
    - If single match found: Skip to confirmation step
    - If multiple matches found:
+
      - Display matches in chat:
+
        ```
        ════════════════════════════════════════════════════════════════
        🔍 SEARCH RESULTS - Multiple Ideas Found
@@ -70,6 +81,7 @@ Remove completed or cancelled ideas from the backlog database. Identifies target
 
        ════════════════════════════════════════════════════════════════
        ```
+
      - Use AskUserQuestion tool with dynamically generated options based on search results:
        ```json
        {
@@ -102,7 +114,9 @@ Remove completed or cancelled ideas from the backlog database. Identifies target
 ### Phase 3: Confirmation & Removal
 
 5. **Confirm Removal Intent**
+
    - Display selected idea details in chat:
+
      ```
      ────────────────────────────────────────────────────────────────
      🗑️ CONFIRM REMOVAL - Are you sure?
@@ -116,6 +130,7 @@ Remove completed or cancelled ideas from the backlog database. Identifies target
 
      ────────────────────────────────────────────────────────────────
      ```
+
    - Use AskUserQuestion tool with these parameters:
      ```json
      {
@@ -142,6 +157,7 @@ Remove completed or cancelled ideas from the backlog database. Identifies target
    - If user selects "No, cancel": Cancel and exit gracefully
 
 6. **Execute REMOVE_COMPLETED Operation**
+
    - **Call REMOVE_COMPLETED operation from Ideas-Backlog.md** with:
      - Confirmed idea ID
      - Reason for removal (completed/cancelled/implemented)
@@ -149,6 +165,7 @@ Remove completed or cancelled ideas from the backlog database. Identifies target
    - Preserve operation result for success message
 
 7. **Display Removal Confirmation**
+
    ```
    ✅ Idea removed successfully!
 
@@ -166,17 +183,20 @@ Remove completed or cancelled ideas from the backlog database. Identifies target
 ## Search Strategy Details
 
 ### ID-Based Search
+
 - **Exact match**: "IDEA-001" → Direct match if exists
 - **Partial ID**: "001" → Search for "IDEA-001"
 - **Case insensitive**: "idea-001" → Matches "IDEA-001"
 
 ### Keyword Search
+
 - **Title matching**: Search idea titles for keywords
 - **Description content**: Search context and evaluation notes
 - **Source matching**: Search source attribution fields
 - **Multi-word**: "dark mode" → Matches titles containing both words
 
 ### Search Results Priority
+
 1. **Exact ID matches** (highest priority)
 2. **Title keyword matches** (high priority)
 3. **Description content matches** (medium priority)
@@ -193,16 +213,19 @@ Remove completed or cancelled ideas from the backlog database. Identifies target
 ## Validation Gates
 
 **Prerequisites:**
+
 - Ideas backlog infrastructure exists and is readable?
 - User provided meaningful search term or ID?
 - Ideas-Backlog.md contains REMOVE_COMPLETED operation?
 
 **Processing:**
+
 - Search identified at least one matching idea?
 - User confirmed removal of correct idea?
 - REMOVE_COMPLETED operation executed successfully?
 
 **Output:**
+
 - Idea removed from all backlog database sections?
 - Database integrity maintained after removal?
 - User informed of successful removal and updated status?

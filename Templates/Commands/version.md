@@ -1,8 +1,8 @@
 # Display ContextKit Version
-<!-- Template Version: 0 | ContextKit: 0.2.6 | Updated: 2025-10-22 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 0 | ContextKit: 0.2.7 | Updated: 2025-10-22 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -25,6 +25,7 @@ Display current ContextKit version installed in this project and available updat
 ### Phase 1: Version Detection
 
 1. **Check Latest Version on GitHub**
+
    ```bash
    echo "🔍 Checking latest version on GitHub..."
    LATEST_GITHUB=$(curl -s https://api.github.com/repos/mehrdad-tat/ContextKit/releases/latest | grep '"tag_name":' | sed -E 's/.*"v?([^"]+)".*/\1/')
@@ -38,6 +39,7 @@ Display current ContextKit version installed in this project and available updat
    ```
 
 2. **Check Global ContextKit Installation**
+
    ```bash
    if [ -f ~/.ContextKit/CHANGELOG.md ]; then
        GLOBAL_VERSION=$(sed -n '2s/.*ContextKit: \([0-9.]*\).*/\1/p' ~/.ContextKit/CHANGELOG.md)
@@ -50,6 +52,7 @@ Display current ContextKit version installed in this project and available updat
    ```
 
 3. **Check Project ContextKit Version**
+
    - Use `Glob` to check if Context.md exists: `Glob . Context.md`
    - If Context.md found:
      - Use `Bash` to detect project version from any template file:
@@ -66,6 +69,7 @@ Display current ContextKit version installed in this project and available updat
      - Display message: "⚠️ Not a ContextKit project (Context.md missing)"
 
 4. **Compare Versions and Display Update Status**
+
    ```bash
    # Function to compare semantic versions
    version_gt() {
@@ -129,11 +133,12 @@ Display current ContextKit version installed in this project and available updat
 ## Success Messages
 
 ### Up to Date
+
 ```
 🎉 ContextKit Version Information
 
-✅ Global ContextKit: v0.2.6
-📦 Project ContextKit: v0.2.6
+✅ Global ContextKit: v0.2.7
+📦 Project ContextKit: v0.2.7
 
 ✅ ContextKit is up to date!
 
@@ -144,11 +149,12 @@ Display current ContextKit version installed in this project and available updat
 ```
 
 ### Update Available
+
 ```
 🎉 ContextKit Version Information
 
-✅ Global ContextKit: v0.2.6
-📦 Project ContextKit: v0.2.6
+✅ Global ContextKit: v0.2.7
+📦 Project ContextKit: v0.2.7
 
 ════════════════════════════════════════════════════════════════
 🔄 UPDATE AVAILABLE
@@ -156,8 +162,8 @@ Display current ContextKit version installed in this project and available updat
 
 Your project is using an older ContextKit version.
 
-Project Version:  v0.2.6
-Latest Available: v0.2.6
+Project Version:  v0.2.7
+Latest Available: v0.2.7
 
 Run /ctxk:proj:migrate to update your project templates.
 

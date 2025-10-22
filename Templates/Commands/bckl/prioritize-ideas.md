@@ -1,14 +1,15 @@
 # Prioritize Ideas with Binary Search Evaluation
-<!-- Template Version: 4 | ContextKit: 0.2.6 | Updated: 2025-10-18 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 4 | ContextKit: 0.2.7 | Updated: 2025-10-18 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
+
 Process ideas from inbox through systematic 5-step evaluation with binary search priority placement. Orchestrates user interaction and calls database operations defined in Ideas-Backlog.md.
 
 ## Execution Flow (main)
@@ -24,26 +25,32 @@ Process ideas from inbox through systematic 5-step evaluation with binary search
 ### Phase 1: Setup & Inventory
 
 1. **Check Ideas Infrastructure**
+
    - Use `Glob` tool to verify: `Glob Context/Backlog Ideas-Inbox.md Ideas-Backlog.md`
    - If missing files:
+
      ```
      ❌ Ideas infrastructure incomplete!
 
      Missing files detected. Run /ctxk:proj:init to setup complete backlog system.
      Required: Context/Backlog/Ideas-Inbox.md and Ideas-Backlog.md
      ```
+
      → END (exit with error)
 
 2. **Load Ideas Inventory**
+
    - Use `Read` tool to read Ideas-Inbox.md: `Read Context/Backlog/Ideas-Inbox.md`
    - Parse all ideas awaiting evaluation (look for `## [IDEA-###]` entries)
    - If no ideas in inbox:
+
      ```
      💡 Ideas inbox is empty!
 
      All ideas have been processed. Use /ctxk:bckl:add-idea to capture new ideas.
      Current state: Ready for development with existing backlog.
      ```
+
      → END (success - no work needed)
 
 3. **Load Existing Backlog Database**
@@ -54,9 +61,11 @@ Process ideas from inbox through systematic 5-step evaluation with binary search
 ### Phase 2: Systematic Idea Processing
 
 4. **Process Each Idea from Inbox Using 5-Step Evaluation**
+
    - For each idea in Ideas-Inbox.md, execute systematic evaluation:
 
    **Step 1: Effort Assessment**
+
    ```
    ────────────────────────────────────────────────────────────────
    **⏱️ EFFORT: How many hours of human review/testing time with AI assistance?**
@@ -69,10 +78,12 @@ Process ideas from inbox through systematic 5-step evaluation with binary search
 
    ────────────────────────────────────────────────────────────────
    ```
+
    - If >4 hours: Ask "This seems large. Should we split it into smaller pieces?"
    - Document effort assessment and any splitting decisions
 
    **Step 2: Deadline Assessment**
+
    ```
    ────────────────────────────────────────────────────────────────
    **📅 DEADLINE: Does this have a deadline or time-sensitive requirement?**
@@ -83,11 +94,14 @@ Process ideas from inbox through systematic 5-step evaluation with binary search
 
    ────────────────────────────────────────────────────────────────
    ```
+
    - Document deadline requirements for DEADLINE_BUBBLE_UP operation
 
    **Step 3: Binary Search Priority Placement**
+
    - **Call BINARY_SEARCH_INSERT operation from Ideas-Backlog.md**
    - Present exactly 3 reference ideas from existing Priority Index:
+
    ```
    ────────────────────────────────────────────────────────────────
    **📍 PRIORITY: Where would you place this idea?**
@@ -107,10 +121,12 @@ Process ideas from inbox through systematic 5-step evaluation with binary search
 
    ────────────────────────────────────────────────────────────────
    ```
+
    - **Continue narrowing** until exact insertion point identified
    - **Never stop** until position between two consecutive ideas found
 
    **Step 4: Dependencies and Grouping**
+
    ```
    ────────────────────────────────────────────────────────────────
    **🔗 DEPENDENCIES: Does this depend on any other ideas, or would it work well grouped with anything?**
@@ -121,9 +137,11 @@ Process ideas from inbox through systematic 5-step evaluation with binary search
 
    ────────────────────────────────────────────────────────────────
    ```
+
    - Document dependencies for metadata tables
 
    **Step 5: Finalize Using ADD_ENTRY Operation**
+
    - **Call ADD_ENTRY operation from Ideas-Backlog.md** with collected information:
      - Priority score from binary search
      - Effort assessment
@@ -137,16 +155,19 @@ Process ideas from inbox through systematic 5-step evaluation with binary search
 ### Phase 3: Session Completion & Database Maintenance
 
 5. **Execute Session Management Operations**
+
    - **Call DEADLINE_BUBBLE_UP operation** to check for urgent deadlines
    - **Call REBALANCE_SCORES operation** if priority gaps have become too small
    - Update session tracking information in Ideas-Backlog.md
 
 6. **Clean Inbox and Update Status**
+
    - Use `Edit` tool to remove all processed ideas from Ideas-Inbox.md
    - Update "Last Priority Session" date in Ideas-Backlog.md
    - Calculate next review due date (7 days or when >5 new ideas)
 
 7. **Display Session Summary**
+
    ```
    💡 Ideas prioritization complete!
 
@@ -171,17 +192,20 @@ Process ideas from inbox through systematic 5-step evaluation with binary search
 ## Binary Search Implementation Details
 
 ### Reference Selection Strategy
+
 - **Pick 3 ideas** from different priority ranges in existing Priority Index
 - **Include meaningful context**: effort estimate, source, deadline info
 - **Example format**: "Dark mode UI support (8h, customer requests)" not just "Dark mode"
 
 ### User Interaction Flow
+
 - If user picks "A) Higher priority": Select references from higher range and continue
 - If user picks "C) Lower priority": Select references from lower range and continue
 - **Never terminate** until exact insertion point between consecutive items identified
 - **Calculate precise score** using formula from BINARY_SEARCH_INSERT operation
 
 ### Database Operation Calls
+
 - **BINARY_SEARCH_INSERT**: For finding exact priority position
 - **ADD_ENTRY**: For adding idea with complete metadata
 - **DEADLINE_BUBBLE_UP**: For promoting urgent deadlines
@@ -199,16 +223,19 @@ Process ideas from inbox through systematic 5-step evaluation with binary search
 ## Validation Gates
 
 **Prerequisites:**
+
 - Ideas infrastructure files exist and are readable?
 - At least one idea exists in inbox for processing?
 - Ideas-Backlog.md contains documented database operations?
 
 **Processing:**
+
 - Each idea goes through complete 5-step evaluation?
 - Binary search continues until exact position identified?
 - Database operations called with complete information?
 
 **Output:**
+
 - Ideas moved from inbox to backlog using documented operations?
 - Priority Index maintained in correct sorted order?
 - Session tracking information updated properly?

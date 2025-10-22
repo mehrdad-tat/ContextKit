@@ -1,8 +1,8 @@
 # Technical Architecture Design
-<!-- Template Version: 0 | ContextKit: 0.2.6 | Updated: 2025-10-21 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 0 | ContextKit: 0.2.7 | Updated: 2025-10-21 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -25,9 +25,11 @@ Design technical architecture based on research findings: apply development guid
 ### Phase 1: Feature Detection & Validation
 
 1. **Detect Current Feature (Auto-Continue with Fallback)**
+
    - Use `Bash` tool to check current git branch: `git branch --show-current`
    - If on feature/[prefix]-[name] branch: Extract feature name from branch
    - If not on feature branch:
+
      - Display warning:
 
        ```
@@ -35,10 +37,12 @@ Design technical architecture based on research findings: apply development guid
        ```
 
      - Use most recent feature directory from Context/Features/
+
    - Use `Glob` tool to find numbered feature directory: `Glob Context/Features/???-*`
    - Store the found directory path for use in subsequent steps
 
 2. **Validate Prerequisites**
+
    - Use `Bash` tool to check required files exist:
 
      ```bash
@@ -54,6 +58,7 @@ Design technical architecture based on research findings: apply development guid
      ```
 
      → END (exit with error)
+
    - If Research.md missing:
 
      ```
@@ -75,21 +80,25 @@ Design technical architecture based on research findings: apply development guid
    ```
 
 4. **Execute Tech Template**
+
    - Use `Read` tool to read the **ENTIRE** copied Tech.md template: `Read [numbered-feature-directory]/Tech.md`
    - **CRITICAL**: Follow the Tech.md template's **🤖 EXECUTION FLOW** instructions step by step:
 
    **Phase 1: Context & Research Loading** (Steps 1-3 in Tech.md)
+
    - Load feature specification (Spec.md)
    - Load research findings (Research.md)
    - Load project context (Context.md)
    - Understand feature requirements and research outcomes
 
    **Phase 2: Guidelines & Standards** (Steps 4-5 in Tech.md)
+
    - Discover and load all development guidelines from Context/Guidelines/
    - Apply Context/Guidelines compliance gates
    - Understand constitutional principles and coding standards
 
    **Phase 3: Architecture Design** (Steps 6-10 in Tech.md)
+
    - Design iOS/macOS architecture using research findings
    - Make technology choices based on research
    - Design data models, services, UI components
@@ -97,11 +106,13 @@ Design technical architecture based on research findings: apply development guid
    - Apply constitutional principles (accessibility, privacy, localizability, etc.)
 
    **Phase 4: Complexity Assessment** (Steps 11-12 in Tech.md)
+
    - Analyze implementation complexity
    - Identify risks and challenges
    - Document complexity tracking
 
    **Phase 5: Validation & Completion** (Steps 13-14 in Tech.md)
+
    - Execute validation steps
    - Use `Edit` tool to **remove the entire boxed system instructions section**
    - Verify architecture quality
@@ -109,10 +120,13 @@ Design technical architecture based on research findings: apply development guid
    **Template execution**: You must populate Tech.md with actual architecture decisions informed by Research.md
 
 5. **Auto-Resolve Clarification Points with Reasonable Defaults**
+
    - Use `Grep` tool to find clarification markers: `Grep "🚨 \\[NEEDS CLARIFICATION:" [numbered-feature-directory]/Tech.md`
    - If clarification points found:
+
      - Parse each clarification point
      - **FOR EACH CLARIFICATION**:
+
        - Analyze the question
        - Generate most reasonable answer based on:
          - Research.md findings

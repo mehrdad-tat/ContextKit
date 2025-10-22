@@ -1,8 +1,8 @@
 # Complete Feature Planning Workflow
-<!-- Template Version: 0 | ContextKit: 0.2.6 | Updated: 2025-10-21 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 0 | ContextKit: 0.2.7 | Updated: 2025-10-21 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -34,6 +34,7 @@ Execute complete planning workflow automatically: specification → research →
 ### Phase 1: Prerequisites
 
 1. **Verify ContextKit Setup**
+
    - Use `Glob` to verify Context.md exists: `Glob . Context.md`
    - If missing:
 
@@ -72,6 +73,7 @@ Execute complete planning workflow automatically: specification → research →
    ```
 
 3. **Execute Phase 1: Specification** (/ctxk:plan:1-spec)
+
    - Use `SlashCommand` tool to execute: `/ctxk:plan:1-spec`
    - Wait for completion
    - Verify Spec.md was created
@@ -86,6 +88,7 @@ Execute complete planning workflow automatically: specification → research →
      ```
 
 4. **Execute Phase 2: Research** (/ctxk:plan:2-research)
+
    - Use `SlashCommand` tool to execute: `/ctxk:plan:2-research`
    - Wait for completion
    - Verify Research.md was created
@@ -100,6 +103,7 @@ Execute complete planning workflow automatically: specification → research →
      ```
 
 5. **Execute Phase 3: Architecture** (/ctxk:plan:3-tech)
+
    - Use `SlashCommand` tool to execute: `/ctxk:plan:3-tech`
    - Wait for completion
    - Verify Tech.md was created
@@ -114,6 +118,7 @@ Execute complete planning workflow automatically: specification → research →
      ```
 
 6. **Execute Phase 4: Task Breakdown** (/ctxk:plan:4-steps)
+
    - Use `SlashCommand` tool to execute: `/ctxk:plan:4-steps`
    - Wait for completion
    - Verify Steps.md was created

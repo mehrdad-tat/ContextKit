@@ -1,13 +1,12 @@
 # SwiftUI Development Guidelines
-<!-- Template Version: 11 | ContextKit: 0.2.6 | Updated: 2025-09-17 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 11 | ContextKit: 0.2.7 | Updated: 2025-09-17 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
-
 
 ## Overview
 
@@ -18,6 +17,7 @@ These guidelines provide strategic direction for SwiftUI development in ContextK
 ## UI Framework Strategy
 
 ### SwiftUI First Approach
+
 - ✅ **SwiftUI over UIKit**: For all new development and modern UI patterns
 - ✅ **Plain SwiftUI**: Avoid complex architecture patterns, keep apps simple
 - ✅ **Native Components**: Use system components over custom implementations
@@ -25,6 +25,7 @@ These guidelines provide strategic direction for SwiftUI development in ContextK
 - ❌ **Avoid**: Complex MVVM or architectural patterns (use Models + @Environment services instead)
 
 ### State Management Strategy
+
 - ✅ **`@Observable`**: For view state management (iOS 17+)
 - ✅ **`@State`**: For local view state (toggles, text input, selection)
 - ✅ **SwiftData**: For persistence with automatic UI updates
@@ -37,12 +38,14 @@ These guidelines provide strategic direction for SwiftUI development in ContextK
 ## Modern SwiftUI Patterns
 
 ### View Organization Preferences
+
 - ✅ **`@ViewBuilder` properties**: For non-reusable view components
 - ✅ **In-type computed/functions properties**: When components used only within one parent
 - ✅ **Separate View structs**: Only for truly reusable components across contexts
 - ❌ **Avoid**: Creating separate views for single-use components
 
 ### Modern API Adoption
+
 - ✅ **`#Preview`**: Use `#Preview` macro over `PreviewProvider` (Xcode 15+)
 - ✅ **`@Previewable @State`**: For interactive previews (Xcode 16+)
 - ✅ **`.rect()` shorthand**: For final shape calls over `RoundedRectangle()`
@@ -50,11 +53,13 @@ These guidelines provide strategic direction for SwiftUI development in ContextK
 - ✅ **Navigation Stack**: Over legacy `NavigationView` for iOS 16+
 
 ### Modern Logging Patterns
+
 - ✅ **`Logger()`**: Use `Logger().info("message")` instead of `print()` (available via FlineDevKit)
 - ✅ **Log levels**: `.info()`, `.debug()`, `.error()` for appropriate context
 - ❌ **Avoid**: `print()` statements for logging
 
 ### Button and Interaction Patterns
+
 - ✅ **Trailing closure syntax**: `Button { action } label: { CustomView() }`
 - ✅ **Built-in initializers**: `Button("Save", systemImage: "checkmark") { }` over `Button { } label: { Label("Save", systemImage: "checkmark") }`
 - ✅ **Text selection**: Enable for error messages and important content
@@ -66,6 +71,7 @@ These guidelines provide strategic direction for SwiftUI development in ContextK
 ## Color and Appearance Strategy
 
 ### Color System Preferences
+
 - ✅ **SwiftUI system colors**: `.gray.opacity(0.1)` over UIKit wrapped colors
 - ✅ **Semantic colors**: `.primary`, `.secondary`, `.accentColor`
 - ✅ **Asset Catalog colors**: Add custom colors to Assets.xcassets, reference via generated symbols
@@ -73,6 +79,7 @@ These guidelines provide strategic direction for SwiftUI development in ContextK
 - ❌ **Avoid**: `Color(.secondarySystemGroupedBackground)` and UIKit color wrapping
 
 ### Dark Mode and Accessibility
+
 - ✅ **Automatic adaptation**: Use semantic colors that adapt to appearance
 - ✅ **Dynamic Type support**: All text should scale with user preferences
 - ✅ **High contrast**: Consider accessibility requirements in color choices
@@ -83,12 +90,14 @@ These guidelines provide strategic direction for SwiftUI development in ContextK
 ## Navigation Preferences
 
 ### Modern Navigation Patterns
+
 - ✅ **NavigationStack**: For hierarchical navigation (iOS 16+)
 - ✅ **NavigationSplitView**: For macOS and iPad split interfaces
 - ✅ **Modal presentation**: `.sheet()` and `.fullScreenCover()` appropriately
 - ❌ **Avoid**: Legacy `NavigationView` for new development
 
 ### Platform-Specific Navigation
+
 - ✅ **iOS**: Stack-based navigation with clear hierarchy
 - ✅ **macOS**: Split view with sidebar, content, and detail panes
 - ✅ **Cross-platform**: Design for abundant horizontal space first
@@ -98,12 +107,14 @@ These guidelines provide strategic direction for SwiftUI development in ContextK
 ## Layout and Performance Strategy
 
 ### Layout Preferences
+
 - ✅ **Frame alignment**: `.frame(maxHeight: .infinity, alignment: .bottom)`
 - ✅ **Lazy loading**: `LazyVStack`/`LazyHStack` for large datasets
 - ✅ **Composition**: Break complex views into focused components
 - ❌ **Avoid**: `VStack + Spacer` when frame alignment is clearer
 
 ### Performance Considerations
+
 - ✅ **Constants over functions**: `let cornerRadius: CGFloat = 12`
 - ✅ **Multiplier constants**: For simple mathematical relationships
 - ✅ **Extract expensive computations**: From view body calculations
@@ -114,9 +125,11 @@ These guidelines provide strategic direction for SwiftUI development in ContextK
 ## Framework and Package Preferences
 
 ### FlineDev Ecosystem for SwiftUI
+
 FlineDev frameworks provide SwiftUI-specific tools (find all at https://github.com/FlineDev):
 
 **Auto-imported via `FlineDevKit`:**
+
 - **`HandySwiftUI`**: SwiftUI tools for async states, UI components, styles, and common patterns
 - **`TranslateKitSDK`**: 2000+ pre-localized common UI strings via TK.Action, TK.Label, TK.Message, etc.
 - **`FreemiumKit`**: In-app purchases with native paywalls and subscription management
@@ -124,20 +137,24 @@ FlineDev frameworks provide SwiftUI-specific tools (find all at https://github.c
 ### HandySwiftUI Utilities
 
 **New Types:**
+
 - ✅ **Prefer**: `AsyncState<Error>` for async operation tracking with loading/success/failure states
 - ✅ **Prefer**: `Platform.value()` for platform-specific values (iOS vs macOS vs visionOS)
 - ✅ **Prefer**: `VPicker`/`HPicker` for vertical/horizontal picker layouts with custom styling
 - ✅ **Prefer**: `Emoji` for type-safe emoji handling and random emoji generation
 
 **View Modifiers:**
+
 - ✅ **Prefer**: `.onFirstAppear { }` for one-time setup actions vs repeated onAppear calls
 
 **Styles:**
+
 - ✅ **Prefer**: `.primary()` and `.secondary()` button styles for consistent UI (HandySwiftUI)
 - ✅ **Prefer**: `.checkboxUniversal` toggle style for cross-platform checkbox behavior (HandySwiftUI)
 - ✅ **Prefer**: `.vertical()` labeled content style for form layouts (HandySwiftUI)
 
 ### Common UI Strings
+
 - ✅ **Prefer**: `Button(TK.Action.save) { }` for common actions (TranslateKitSDK)
 - ✅ **Prefer**: `Text(TK.Label.settings)` for common labels (TranslateKitSDK)
 
@@ -146,6 +163,7 @@ FlineDev frameworks provide SwiftUI-specific tools (find all at https://github.c
 ## Xcode Project Management
 
 ### Target and Project Configuration
+
 - ✅ **Manual target creation**: Guide developers to create new targets manually through Xcode UI
 - ✅ **Simple modifications**: Allow automated changes to Info.plist entries and known entitlements
 - ✅ **Build settings**: Allow automated updates to straightforward build configuration settings
@@ -153,7 +171,9 @@ FlineDev frameworks provide SwiftUI-specific tools (find all at https://github.c
 - ❌ **Avoid**: Automated target dependency management through project file modification
 
 ### Manual User Action Protocol
+
 When Xcode UI actions are required, use the standardized user instruction format:
+
 ```
 ═══════════════════════════════════════════════════
 ║ 🎯 MANUAL XCODE ACTION REQUIRED
@@ -170,6 +190,7 @@ When Xcode UI actions are required, use the standardized user instruction format
 ### AI Testing Capabilities & Limitations
 
 **What AI can validate automatically:**
+
 - ✅ **Build validation**: Compile code, resolve build errors, check dependencies
 - ✅ **Unit/integration tests**: Execute automated test suites and analyze results
 - ✅ **Static code analysis**: Use ContextKit agents for pattern validation, accessibility code checks
@@ -177,6 +198,7 @@ When Xcode UI actions are required, use the standardized user instruction format
 - ✅ **Code quality**: ErrorKit patterns, modern API usage, architectural compliance
 
 **What requires manual user testing:**
+
 - 🧪 **Running app interactions**: Any task involving launching and using the actual app
 - 🧪 **User experience validation**: Navigation flows, visual design, interaction feedback
 - 🧪 **Device-specific testing**: Restart behavior, network conditions, multi-device scenarios
@@ -185,6 +207,7 @@ When Xcode UI actions are required, use the standardized user instruction format
 - 🧪 **Integration testing**: Third-party services, in-app purchases, platform-specific features
 
 **Implementation in Steps.md:**
+
 - **Phase 5**: Automated integration (AI executes builds, tests, agents)
 - **Phase 6**: Manual user testing (structured instructions with standardized response format)
 - **Phase 7**: Release preparation (mix of automated file updates and manual external processes)
@@ -194,12 +217,14 @@ When Xcode UI actions are required, use the standardized user instruction format
 ## Component Architecture
 
 ### Reusability Strategy
+
 - ✅ **Universal components**: Work across iOS, macOS, and visionOS
 - ✅ **ViewModifier patterns**: For consistent styling across components
 - ✅ **Environment injection**: For shared services and configuration
 - ✅ **Generic design**: Components that adapt to different contexts
 
 ### Component Hierarchy
+
 - ✅ **Atomic components**: Small, focused, single-purpose
 - ✅ **Composite views**: Combine atomic components meaningfully
 - ✅ **Screen-level views**: Coordinate multiple composite views
@@ -210,18 +235,21 @@ When Xcode UI actions are required, use the standardized user instruction format
 ## Development Philosophy
 
 ### Value-First Development
+
 - ✅ **Core value first**: Build the minimal workflow that solves user problems
 - ✅ **Risk-first milestones**: Tackle hardest, most uncertain parts first
 - ✅ **Alpha-ready mindset**: Focus on complete, testable workflows quickly
 - ❌ **Avoid**: Building infrastructure before proving core value
 
 ### Platform Priority Strategy
+
 - ✅ **Primary platforms**: macOS, visionOS, iPadOS (abundant horizontal space)
 - ✅ **Secondary platforms**: iPhone (optimize larger screens first, then adapt)
 - ✅ **Horizontal-first design**: Utilize space effectively, minimize vertical stacking
 - ✅ **Multi-platform from day 1**: Build components to work everywhere
 
 ### Implementation Approach
+
 - ✅ **Universal component strategy**: Reusable across multiple contexts
 - ✅ **Single concern milestones**: Each milestone focuses on one primary challenge
 - ✅ **Validation-driven complexity**: Simple first, layer complexity iteratively
@@ -232,12 +260,14 @@ When Xcode UI actions are required, use the standardized user instruction format
 ## Error Handling and User Feedback
 
 ### ErrorKit Integration
+
 - ✅ **User-friendly messages**: Use `ErrorKit.userFriendlyMessage(for: error)` for both system and custom errors
 - ✅ **String interpolation**: Use `"Save failed: \(error)"` - automatic ErrorKit enhancement
 - ✅ **Throwable errors**: Custom error types should conform to `Throwable` protocol
 - ✅ **Typed throws**: Use `throws(SpecificError)` with `Catching` protocol for error nesting
 
 ### User Feedback Collection
+
 - ✅ **Feedback buttons**: Use `.mailComposer()` modifier with `ErrorKit.logAttachment()`
 - ✅ **Automatic log collection**: Include system logs from last 10-30 minutes for context via Logger()
 - ✅ **Device context**: Include device model, iOS version, and app version in reports
@@ -248,11 +278,13 @@ When Xcode UI actions are required, use the standardized user instruction format
 ## Testing Strategy
 
 ### UI Testing Approach
+
 - ✅ **Swift Testing**: Use Swift Testing framework (`@Test`, `#expect`) over XCTest for new unit tests
 - ❌ **Avoid**: UI testing (unnecessary complexity and maintenance overhead)
 - ❌ **Avoid**: Testing SwiftUI view hierarchies directly
 
 ### Focus Areas
+
 - ✅ **Test ViewModels**: Business logic and state management
 - ✅ **Test data transformations**: Model conversions and formatting logic
 - ✅ **Test validation logic**: Input validation and error states
@@ -264,18 +296,21 @@ When Xcode UI actions are required, use the standardized user instruction format
 All SwiftUI development must support:
 
 ### Accessibility First
+
 - Dynamic Type support in all UI text
 - Semantic colors that adapt to system appearance
 - VoiceOver labels and hints for interactive elements
 - Keyboard navigation support
 
-### Privacy by Design  
+### Privacy by Design
+
 - Minimal data collection with explicit purpose
 - Secure storage patterns (Keychain for sensitive data)
 - Privacy manifest updates when needed
 - No tracking and privacy-preserving analytics
 
 ### Localization Ready
+
 - No hardcoded user-facing strings in model layer
 - Use TranslateKitSDK for common UI strings: `TK.Action.save`, `TK.Label.settings`
 - Generation of localization string comments for context (in String Catalog)
@@ -283,12 +318,14 @@ All SwiftUI development must support:
 - String Catalog integration (auto-added by Xcode upon builds)
 
 ### Platform Appropriate
+
 - Follow Human Interface Guidelines
 - Use system conventions and patterns
 - Integrate properly with platform features
 - Optimize for target platform screen size & UX
 
 ### Maintainability
+
 - Prevent overly lengthy functions/views and split logically
 - Prefer self-explaining code/components naming & structure over comments
 - Comment only complex logic / calculations explaining the WHY
@@ -299,10 +336,12 @@ All SwiftUI development must support:
 ## Trusted Research Sources
 
 ### Apple Official Domains
+
 - **developer.apple.com** - SwiftUI framework docs, tutorials, HIG, design resources, accessibility guidelines
 - **SF Symbols, sample code, platform-specific guidelines, performance documentation**
 
 ### Community-Trusted Domains
+
 - **wwdcnotes.com** - Community WWDC session summaries, especially SwiftUI-focused content
 - **swiftui-lab.com** - Advanced SwiftUI techniques, performance insights, and deep technical analysis
 - **hackingwithswift.com** - Practical SwiftUI tutorials, project-based learning, quick reference guides
@@ -317,10 +356,12 @@ All SwiftUI development must support:
 - **natasharobot.com** - SwiftUI community perspectives and development experiences
 
 ### Indie Developer Perspectives
+
 - **fline.dev** - Independent SwiftUI developer insights and real-world implementation experiences
 - **Other established indie blogs** - Look for consistent SwiftUI content with practical examples
 
 ### Research Best Practices
+
 - **Official First**: Start with developer.apple.com for authoritative guidance
 - **Dual Search Strategy**: Use both WebSearch AND iosfeeds.com/archive search for SwiftUI community articles
 - **iosfeeds.com Usage**: Search iosfeeds.com/archive?query=SwiftUI to find recent blog posts across the iOS community
@@ -338,22 +379,26 @@ All SwiftUI development must support:
 **Common Error Patterns Indicating Target Membership Problems**:
 
 **"Cannot find type 'TypeName' in scope"**:
+
 - Most common when source files aren't included in the building target
 - Often occurs after AI creates new files or renames existing ones
 - Type exists in codebase but isn't accessible to the failing target
 
 **"No such module 'ModuleName'"**:
+
 - Framework/dependency not linked to the target
 - Module available to app target but not to extension targets
 - Swift Package Manager modules not properly configured for all targets
 
 **Duplicate symbol errors**:
+
 - Same file accidentally included in multiple targets
 - Shared code included when it should be target-specific
 
 ### Automated Target Membership Investigation
 
 **Step 1: Parse Project Structure**
+
 ```bash
 # Ensure cleanup of temporary files on exit
 trap 'rm -f project.json' EXIT
@@ -372,6 +417,7 @@ rm -f project.json
 ```
 
 **Step 2: Analyze Target Membership for Failing Files**
+
 ```bash
 # For modern Xcode 16+ projects with synchronized groups
 # Check if file exists in membershipExceptions
@@ -384,6 +430,7 @@ TARGET_ID=$(grep -B 2 -A 5 "name = $TARGET_NAME" *.xcodeproj/project.pbxproj | g
 ```
 
 **Step 3: Identify Missing Dependencies**
+
 ```bash
 # Check what frameworks/modules are linked to each target
 grep -A 50 "\"$TARGET_ID\" /\* PBXFrameworksBuildPhase \*/" *.xcodeproj/project.pbxproj
@@ -423,6 +470,7 @@ fi
 **Modern Projects (Xcode 16+ with PBXFileSystemSynchronizedRootGroup)**:
 
 Add file to additional target by creating membership exception:
+
 ```bash
 # Find the target ID that needs the file
 TARGET_ID=$(grep -B 2 -A 5 "name = $TARGET_NAME" *.xcodeproj/project.pbxproj | grep -o "[A-F0-9]\{24\}")
@@ -440,6 +488,7 @@ TARGET_ID=$(grep -B 2 -A 5 "name = $TARGET_NAME" *.xcodeproj/project.pbxproj | g
 **Legacy Projects (Traditional PBXGroup structure)**:
 
 Add file to target's sources build phase:
+
 ```bash
 # Find sources build phase for target
 SOURCES_PHASE_ID=$(grep -A 20 "\"$TARGET_ID\" /\* PBXSourcesBuildPhase \*/" *.xcodeproj/project.pbxproj | grep -o "[A-F0-9]\{24\}")
@@ -451,12 +500,14 @@ SOURCES_PHASE_ID=$(grep -A 20 "\"$TARGET_ID\" /\* PBXSourcesBuildPhase \*/" *.xc
 ### Validation and Rollback Protocol
 
 **After Each Modification**:
+
 1. **Immediate syntax check**: `xcodebuild -list` validates pbxproj structure
 2. **Build test**: Attempt to build the affected target
 3. **Error analysis**: If build fails, determine if it's the intended error fix or a new issue
 4. **Rollback decision**: Revert if new errors introduced, keep if original error resolved
 
 **Common pbxproj Corruption Signs**:
+
 - `xcodebuild -list` returns error
 - Xcode refuses to open project
 - Missing target references
@@ -500,11 +551,13 @@ fi
 ### Best Practices for AI Target Membership Management
 
 **Prevention Strategies**:
+
 - ✅ **Template-based file creation**: When creating new shared files, use patterns that automatically include appropriate target membership
 - ✅ **Post-creation validation**: Always build all targets after creating new files
 - ✅ **Shared folder conventions**: Place truly shared code in `Shared/` folders with clear naming
 
 **Repair Strategies**:
+
 - ✅ **Conservative modifications**: Make minimal changes to pbxproj structure
 - ✅ **Immediate validation**: Test every change before proceeding
 - ✅ **Rollback readiness**: Keep backups and be prepared to revert
@@ -512,6 +565,7 @@ fi
 
 **Emergency Recovery**:
 If pbxproj becomes corrupted and backups fail, the safest approach is to request manual user intervention:
+
 ```
 ═══════════════════════════════════════════════════
 ║ 🚨 PBXPROJ CORRUPTION DETECTED

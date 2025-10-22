@@ -1,8 +1,8 @@
 # Initialize Project with ContextKit
-<!-- Template Version: 14 | ContextKit: 0.2.6 | Updated: 2025-10-22 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 14 | ContextKit: 0.2.7 | Updated: 2025-10-22 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -40,7 +40,9 @@ Initialize current project with ContextKit development workflow system. Sets up 
    ```
 
    - If uncommitted changes exist:
+
      - Display warning and auto-continue:
+
        ```
        ═══════════════════════════════════════════════════
        ⚠️ WARNING - Uncommitted Changes Detected
@@ -54,9 +56,13 @@ Initialize current project with ContextKit development workflow system. Sets up 
        Auto-continuing anyway...
        ═══════════════════════════════════════════════════
        ```
+
      - Continue automatically (no user prompt, no exit)
+
    - If not a git repository:
+
      - Display warning and auto-continue:
+
        ```
        ═══════════════════════════════════════════════════
        ⚠️ WARNING - Not a Git Repository
@@ -70,6 +76,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
        Auto-continuing without git integration...
        ═══════════════════════════════════════════════════
        ```
+
      - Continue automatically (no user prompt, no exit)
 
 3. **Initialize Git Submodules (if present)**
@@ -85,10 +92,12 @@ Initialize current project with ContextKit development workflow system. Sets up 
    - Must be done early before component analysis
 
 4. **Check Current Project Structure**
+
    - Use `Glob` tool to list project files: `Glob . *` to see all files and directories
    - Use `Glob . **/*.md` to find all markdown files in subdirectories
 
 5. **Detect Existing ContextKit Installation**
+
    - Look for `Context.md` in project root
    - Check for `Context/` directory with subdirectories using `Glob Context *`
    - Check for `.claude/commands/ctxk/` directory using `Glob .claude/commands/ctxk *`
@@ -102,6 +111,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
    ```
 
 7. **CRITICAL: Configure Settings for Permissions (HIGHEST PRIORITY)**
+
    - Use `Read` tool to check if `.claude/settings.json` exists
    - If doesn't exist: Copy complete template to get immediate permissions
 
@@ -119,8 +129,10 @@ Initialize current project with ContextKit development workflow system. Sets up 
 ### Phase 2: Automatic Configuration with Smart Defaults
 
 6. **Auto-Configure Model Setting**
+
    - Use `Read` tool to examine current model setting in `.claude/settings.json`
    - If missing or different from "sonnet":
+
      - Display info message:
 
        ```
@@ -129,11 +141,14 @@ Initialize current project with ContextKit development workflow system. Sets up 
        ```
 
      - Use `Edit` tool to update model setting to "sonnet" immediately
+
    - If already "sonnet": Skip silently
 
 7. **Auto-Configure Status Line**
+
    - Check current statusLine configuration in `.claude/settings.json`
    - If missing or different from "./Context/Scripts/CustomStatusline.sh":
+
      - Display info message:
 
        ```
@@ -143,10 +158,12 @@ Initialize current project with ContextKit development workflow system. Sets up 
        ```
 
      - Auto-configure with Pro plan default: `"command": "./Context/Scripts/CustomStatusline.sh --plan Pro"`
+
    - If already configured: Skip silently
    - **Note**: Users can manually change plan in `.claude/settings.json` to `--plan Max5` or `--plan Max20` if needed
 
 8. **Auto-Discover and Inherit Workspace Context**
+
    - Start from current directory and traverse parent directories
    - Use absolute paths for checking: `ls "$(pwd)/../Context.md" 2>/dev/null`
    - Continue checking parent directories until reaching root `/` or finding workspace Context.md
@@ -168,6 +185,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
      ```
 
    - If workspace context found:
+
      - Display info message:
 
        ```
@@ -176,12 +194,14 @@ Initialize current project with ContextKit development workflow system. Sets up 
        ```
 
      - Automatically configure inheritance (no user prompt)
+
    - If multiple workspace contexts found:
      - Auto-select closest parent (nearest in directory tree)
      - Display which one was selected
    - Store workspace path for Context.md generation
 
 9. **Apply Automatic Configurations**
+
    - Apply model setting: "sonnet" (already updated in step 6)
    - Configure status line with Pro plan default (already set in step 7)
    - Add ContextKit hooks:
@@ -201,50 +221,50 @@ Initialize current project with ContextKit development workflow system. Sets up 
 
 11. **Create Directory Structure**
 
-   ```bash
-   mkdir -p .claude/commands/ctxk .claude/agents/ctxk Context/Features Context/Backlog Context/Scripts
-   ```
+```bash
+mkdir -p .claude/commands/ctxk .claude/agents/ctxk Context/Features Context/Backlog Context/Scripts
+```
 
 12. **Copy Workflow Command Templates (Local Only)**
 
-   ```bash
-   cp -r ~/.ContextKit/Templates/Commands/plan .claude/commands/ctxk/
-   cp -r ~/.ContextKit/Templates/Commands/impl .claude/commands/ctxk/
-   cp -r ~/.ContextKit/Templates/Commands/bckl .claude/commands/ctxk/
-   echo "✅ Copied workflow command templates (plan/, impl/, bckl/)"
-   echo "ℹ️ Project commands (proj/) remain global and auto-update"
-   ```
+```bash
+cp -r ~/.ContextKit/Templates/Commands/plan .claude/commands/ctxk/
+cp -r ~/.ContextKit/Templates/Commands/impl .claude/commands/ctxk/
+cp -r ~/.ContextKit/Templates/Commands/bckl .claude/commands/ctxk/
+echo "✅ Copied workflow command templates (plan/, impl/, bckl/)"
+echo "ℹ️ Project commands (proj/) remain global and auto-update"
+```
 
-   > **Note**: Only workflow commands are copied locally. Project management commands (proj/) stay global for auto-updates.
+> **Note**: Only workflow commands are copied locally. Project management commands (proj/) stay global for auto-updates.
 
 13. **Copy Agent Templates**
 
-   ```bash
-   cp ~/.ContextKit/Templates/Agents/* .claude/agents/ctxk/
-   echo "✅ Copied agent templates (build-project, check-accessibility, etc.)"
-   ```
+```bash
+cp ~/.ContextKit/Templates/Agents/* .claude/agents/ctxk/
+echo "✅ Copied agent templates (build-project, check-accessibility, etc.)"
+```
 
-   > **Note**: `/*` means copy ALL .md files from Agents/ directory individually
+> **Note**: `/*` means copy ALL .md files from Agents/ directory individually
 
 14. **Copy Script Templates**
 
-   ```bash
-   cp -p ~/.ContextKit/Templates/Scripts/* Context/Scripts/
-   chmod +x Context/Scripts/*.sh
-   echo "✅ Copied script templates (AutoFormat.sh, VersionStatus.sh, etc.)"
-   ```
+```bash
+cp -p ~/.ContextKit/Templates/Scripts/* Context/Scripts/
+chmod +x Context/Scripts/*.sh
+echo "✅ Copied script templates (AutoFormat.sh, VersionStatus.sh, etc.)"
+```
 
-   > **Note**: `-p` preserves permissions during copy, `chmod +x` ensures all .sh files are executable
+> **Note**: `-p` preserves permissions during copy, `chmod +x` ensures all .sh files are executable
 
 15. **Detect Relevant Guidelines**
 
-   ```bash
-   # Ensure we're in project root before detection
-   echo "Detecting guidelines from project root: $(pwd)"
-   ```
+```bash
+# Ensure we're in project root before detection
+echo "Detecting guidelines from project root: $(pwd)"
+```
 
 - Use simple file detection to determine project type (no deep component analysis needed):
-  - Look for Package.swift or *.xcodeproj → Swift project
+  - Look for Package.swift or \*.xcodeproj → Swift project
   - Look for SwiftUI imports in Swift files → SwiftUI project
   - Look for package.json → JavaScript project (if exists)
   - Look for requirements.txt/pyproject.toml → Python project (if exists)
@@ -258,37 +278,37 @@ Initialize current project with ContextKit development workflow system. Sets up 
 
 16. **Copy Relevant Guidelines Only**
 
-   ```bash
-   # CRITICAL: Verify we're in project root before copying
-   echo "Copying guidelines from project root: $(pwd)"
-   mkdir -p Context/Guidelines
-   # Copy only guidelines relevant to detected project type
-   # Guidelines array determined by project analysis above
-   SELECTED_GUIDELINES=(Swift SwiftUI)  # Example - actual array based on detection
+```bash
+# CRITICAL: Verify we're in project root before copying
+echo "Copying guidelines from project root: $(pwd)"
+mkdir -p Context/Guidelines
+# Copy only guidelines relevant to detected project type
+# Guidelines array determined by project analysis above
+SELECTED_GUIDELINES=(Swift SwiftUI)  # Example - actual array based on detection
 
-   for guideline in "${SELECTED_GUIDELINES[@]}"; do
-       if [[ -f "$HOME/.ContextKit/Templates/Guidelines/${guideline}.md" ]]; then
-           cp "$HOME/.ContextKit/Templates/Guidelines/${guideline}.md" Context/Guidelines/
-           echo "✅ Copied guideline: ${guideline}.md"
-       else
-           echo "⚠️ Guideline not found: ${guideline}.md (skipping)"
-       fi
-   done
+for guideline in "${SELECTED_GUIDELINES[@]}"; do
+    if [[ -f "$HOME/.ContextKit/Templates/Guidelines/${guideline}.md" ]]; then
+        cp "$HOME/.ContextKit/Templates/Guidelines/${guideline}.md" Context/Guidelines/
+        echo "✅ Copied guideline: ${guideline}.md"
+    else
+        echo "⚠️ Guideline not found: ${guideline}.md (skipping)"
+    fi
+done
 
-   if [ ${#SELECTED_GUIDELINES[@]} -eq 0 ]; then
-       echo "✅ No specific guidelines needed for this project type"
-   fi
-   ```
+if [ ${#SELECTED_GUIDELINES[@]} -eq 0 ]; then
+    echo "✅ No specific guidelines needed for this project type"
+fi
+```
 
 17. **Copy Backlog Templates**
 
-   ```bash
-   # CRITICAL: Verify we're in project root before copying
-   echo "Copying backlog from project root: $(pwd)"
-   mkdir -p Context/Backlog
-   cp ~/.ContextKit/Templates/Backlog/* Context/Backlog/
-   echo "✅ Copied backlog templates (Ideas-Inbox.md, Bugs-Backlog.md, etc.)"
-   ```
+```bash
+# CRITICAL: Verify we're in project root before copying
+echo "Copying backlog from project root: $(pwd)"
+mkdir -p Context/Backlog
+cp ~/.ContextKit/Templates/Backlog/* Context/Backlog/
+echo "✅ Copied backlog templates (Ideas-Inbox.md, Bugs-Backlog.md, etc.)"
+```
 
 18. **Copy Project Context Template**
 
@@ -302,6 +322,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 ### Phase 4: Deep Project Investigation & Build Validation
 
 19. **Discover Project Components & Repositories**
+
     - Use `Bash` command to find ALL git repositories within project: `find "$(pwd)" -name ".git" -type d`
     - For each .git directory found, identify the repository root and purpose
     - Use `Read` tool to examine `.gitmodules` files to understand submodule structure
@@ -316,18 +337,20 @@ Initialize current project with ContextKit development workflow system. Sets up 
     For EVERY component found, perform comprehensive analysis:
 
     **A. Component Identity & Purpose Analysis**
+
     - Use `Read` tool on README.md, README.txt, or similar files to understand component purpose
     - Use `Bash` to check component type: app, server, package, documentation, tool, etc.
     - Use `Bash` to check git remote origins to understand component relationships
     - Determine component role within the larger project
 
     **B. Build System Detection & Command Discovery**
+
     - **Swift Projects**:
-      - Use `Glob` for Package.swift, *.xcodeproj,*.xcworkspace files
+      - Use `Glob` for Package.swift, _.xcodeproj,_.xcworkspace files
       - For Xcode projects: Use `Bash` to list available schemes: `xcodebuild -list -project *.xcodeproj` or `xcodebuild -list -workspace *.xcworkspace`
       - For Package.swift: Use `Read` to detect executable products and dependencies
       - Detect if it's Vapor server: `Grep "import Vapor" --glob "*.swift"`
-      - Detect if it's DocC documentation: `Glob` for *.docc folders
+      - Detect if it's DocC documentation: `Glob` for \*.docc folders
     - **JavaScript/Node Projects**:
       - Use `Glob` for package.json, yarn.lock, npm-shrinkwrap.json
       - Use `Read` on package.json to detect build scripts and dependencies
@@ -336,6 +359,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
       - Use `Read` to detect build and test configurations
 
     **C. Build Command Discovery & Validation**
+
     - **For Xcode Projects**: Construct and test build commands:
 
       ```bash
@@ -348,6 +372,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 
       - Try multiple destinations if first fails: macOS, iOS Simulator, etc.
       - Document the working command format
+
     - **For Swift Packages**: Validate with:
 
       ```bash
@@ -363,6 +388,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
     - **IMPORTANT**: Use simple paths for single-component projects, full paths only for multi-component
 
     **D. Test Command Discovery & Validation**
+
     - **For Xcode Projects**: Construct and test test commands:
 
       ```bash
@@ -388,6 +414,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
     - **IMPORTANT**: Use simple commands for single-component projects, directory changes only for multi-component
 
     **E. Dependency & Version Analysis**
+
     - For Swift: Parse Package.swift dependencies and version constraints
     - For Node: Parse package.json dependencies and versions
     - For Python: Parse requirements.txt or pyproject.toml dependencies
@@ -395,6 +422,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
     - Note any local/workspace dependencies between components
 
     **F. File Structure Mapping**
+
     - Use `Bash` to map key directory structure:
 
       ```bash
@@ -410,6 +438,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 
     **G. Code Style Detection**
     ONLY report what is ACTUALLY FOUND, never guess or assume:
+
     - Use `Read` on formatter config files: .swift-format, .swiftformat, .prettierrc, .eslintrc
     - Use `Bash` to detect actual indentation in source files: `head -10 Sources/**/*.swift | sed 's/\t/<TAB>/g'` (for Swift)
     - Use `Read` on .editorconfig files if present
@@ -418,6 +447,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 ### Phase 5: Context Integration & Final Setup
 
 21. **Create/Update CLAUDE.md with Context References**
+
     - Check if `CLAUDE.md` exists using `Read` tool
     - If `CLAUDE.md` exists:
       - Use `Read` to check current content
@@ -435,6 +465,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
     - **CRITICAL**: Ensure both project Context.md AND workspace Context.md (if found in Phase 1) are referenced
 
 22. **Copy Project-Specific Formatters** (for Swift projects only)
+
     - For Swift projects detected during investigation:
 
       ```bash
@@ -460,6 +491,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
 ### Phase 6: Verification & Completion
 
 24. **Verify Installation**
+
     - Use `Read` tool to confirm `Context.md` exists and contains project-specific content
     - Use `Glob` tool to verify workflow commands exist: `.claude/commands/ctxk/plan/1-spec.md`, `.claude/commands/ctxk/impl/start-working.md`, `.claude/commands/ctxk/bckl/add-idea.md`
     - Use `Bash` tool to verify global proj commands accessible: `ls ~/.claude/commands/ctxk/proj/init.md`
@@ -469,6 +501,7 @@ Initialize current project with ContextKit development workflow system. Sets up 
     - Use `Read` tool to confirm `.claude/settings.json` contains ContextKit configuration
 
 25. **Update Workspace Context (if applicable)**
+
     - If workspace Context.md was discovered in Phase 1:
       - Use `Read` tool to read the workspace Context.md file
       - Look for current project name in the "Repository Structure" or "Project Inventory" section
@@ -610,10 +643,13 @@ This section is preserved during ContextKit updates.
 Add project-specific setup customizations below.
 
 ## Additional Setup Steps
+
 <!-- Add extra steps like Docker configs, additional formatters, or CI/CD files -->
 
 ## Skip or Override Steps
+
 <!-- Document workflow modifications like skipping workspace discovery or using custom locations -->
 
 ## Custom Template Locations
+
 <!-- Define alternative sources like company-specific templates or team workflows -->

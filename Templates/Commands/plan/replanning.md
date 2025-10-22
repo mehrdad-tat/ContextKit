@@ -1,8 +1,8 @@
 # Re-Plan or Update Existing Feature
-<!-- Template Version: 0 | ContextKit: 0.2.6 | Updated: 2025-10-21 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 0 | ContextKit: 0.2.7 | Updated: 2025-10-21 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -34,6 +34,7 @@ Smart replanning command that adapts based on what exists:
 ### Phase 1: Detect Current State
 
 1. **Verify ContextKit Setup**
+
    - Use `Glob` to verify Context.md exists: `Glob . Context.md`
    - If missing:
 
@@ -46,6 +47,7 @@ Smart replanning command that adapts based on what exists:
      → END (exit with error)
 
 2. **Detect Feature and Existing Documents**
+
    - Use `Bash` tool to check current git branch: `git branch --show-current`
    - If on feature/[prefix]-[name] branch: Extract feature name
    - If not on feature branch: Use most recent feature from Context/Features/
@@ -62,7 +64,9 @@ Smart replanning command that adapts based on what exists:
    - Store list of existing documents
 
 3. **Determine Replanning Strategy**
+
    - **If NO documents exist**:
+
      - Display:
 
        ```
@@ -71,7 +75,9 @@ Smart replanning command that adapts based on what exists:
        ```
 
      - Proceed to Phase 2 (Fresh Planning)
+
    - **If SOME/ALL documents exist**:
+
      - Display:
 
        ```
@@ -115,6 +121,7 @@ Smart replanning command that adapts based on what exists:
    ```
 
 6. **Regenerate Phase 1: Specification**
+
    - If Spec.md exists: Delete it
    - Use `SlashCommand` tool to execute: `/ctxk:plan:1-spec`
    - Wait for completion
@@ -127,6 +134,7 @@ Smart replanning command that adapts based on what exists:
      ```
 
 7. **Regenerate Phase 2: Research**
+
    - If Research.md exists: Delete it
    - Use `SlashCommand` tool to execute: `/ctxk:plan:2-research`
    - Wait for completion
@@ -139,6 +147,7 @@ Smart replanning command that adapts based on what exists:
      ```
 
 8. **Regenerate Phase 3: Architecture**
+
    - If Tech.md exists: Delete it
    - Use `SlashCommand` tool to execute: `/ctxk:plan:3-tech`
    - Wait for completion
@@ -151,6 +160,7 @@ Smart replanning command that adapts based on what exists:
      ```
 
 9. **Regenerate Phase 4: Task Breakdown**
+
    - If Steps.md exists: Delete it (preserves old task progress in backup)
    - Use `SlashCommand` tool to execute: `/ctxk:plan:4-steps`
    - Wait for completion

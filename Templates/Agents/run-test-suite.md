@@ -1,5 +1,5 @@
 ---
-meta: "Template Version: 3 | ContextKit: 0.2.6 | Updated: 2025-10-02"
+meta: "Template Version: 3 | ContextKit: 0.2.7 | Updated: 2025-10-02"
 name: run-test-suite
 description: Execute complete test suite with build validation and structured failure reporting
 tools: Bash, Read, Grep, Glob
@@ -8,8 +8,7 @@ color: yellow
 
 # Agent: run-test-suite
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -18,6 +17,7 @@ color: yellow
 **Purpose**: Execute complete test suite with build validation and structured reporting focused on actionable test results.
 
 **Context Requirements**:
+
 - Project test files and configuration
 - Test framework setup (XCTest, Swift Testing, etc.)
 - Target platform configuration
@@ -25,6 +25,7 @@ color: yellow
 ## Execution Flow (agent)
 
 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
+
    - Use `Grep` tool to find the start of the section
    - Read everything below that line contained in this document til the end of the file
    - Make sure to consider what was said there with high priority
@@ -38,7 +39,7 @@ color: yellow
 
 2. **Detect Project Type and Test Framework**
    → Use Glob to find project indicators and test targets
-   → Look for Xcode test plans (*.xctestplan files) for organized test execution
+   → Look for Xcode test plans (\*.xctestplan files) for organized test execution
    → Identify test framework from project structure and dependencies
    → Locate test targets and test files based on project type
    → If no tests found: WARN "No test targets detected - recommend adding tests"
@@ -71,6 +72,7 @@ color: yellow
 ## Output Format
 
 ### Successful Test Run
+
 ```
 ✅ TEST SUITE PASSED
 
@@ -81,6 +83,7 @@ All tests completed successfully.
 ```
 
 ### Failed Test Run
+
 ```
 ❌ TEST SUITE FAILED
 
@@ -112,17 +115,20 @@ All tests completed successfully.
 Use Context.md information when available, otherwise detect from project structure:
 
 **Swift Package Projects**:
+
 - Look for Package.swift file in project root
 - Use `swift test --parallel` for optimal unit test performance
 - Parse XCTest output for test results and failures
 
 **iOS/macOS App Projects**:
-- Look for *.xcodeproj or *.xcworkspace files and *.xctestplan files
+
+- Look for _.xcodeproj or _.xcworkspace files and \*.xctestplan files
 - Use test plans when available: `xcodebuild test -testPlan TestPlan`
 - Otherwise use scheme-based testing: `xcodebuild test -scheme App`
 - Parse xcodebuild test output for results
 
 **Example SwiftUI Test Output Patterns**:
+
 ```
 Test Suite 'All tests' started
 Test Case '-[MyAppTests.UserModelTests testEmailValidation]' started.
@@ -147,6 +153,7 @@ Testing failed:
 - **"Test framework not configured"** → Verify test dependencies and setup
 
 **Common SwiftUI Testing Issues**:
+
 - Missing accessibility identifiers for UI testing
 - XCTest framework not properly imported in test files
 - Test target not properly configured in Xcode project
@@ -155,15 +162,18 @@ Testing failed:
 ## Integration with ContextKit Workflow
 
 **Used by Implementation Commands**:
+
 - `/ctxk:impl:start-working` can validate current test status
 - Quality validation before feature completion
 
 **Works with Other Agents**:
+
 - Optimized to run after `build-project` agent (skips redundant build verification)
 - Complements `run-specific-test` agent for focused debugging
 - Provides validation before release workflows
 
 **Performance Optimizations**:
+
 - Uses parallel execution for Swift package unit tests (`--parallel` flag)
 - Leverages Xcode test plans for organized and efficient test execution
 - Reports progress during long test runs to maintain development flow

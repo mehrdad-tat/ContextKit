@@ -1,14 +1,15 @@
 # Initialize Workspace Context
-<!-- Template Version: 5 | ContextKit: 0.2.6 | Updated: 2025-10-18 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 5 | ContextKit: 0.2.7 | Updated: 2025-10-18 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
+
 Initialize workspace-level context configuration. Copies workspace template and executes interactive setup for multi-project workspace standards.
 
 ## Execution Flow (main)
@@ -24,8 +25,10 @@ Initialize workspace-level context configuration. Copies workspace template and 
 ### Phase 1: Workspace Status Check
 
 1. **Check Existing Workspace Setup**
+
    - Use `Glob` tool to find existing Context.md: `Glob . Context.md`
    - If `Context.md` exists:
+
      ```
      🎉 Workspace already initialized with ContextKit!
 
@@ -40,6 +43,7 @@ Initialize workspace-level context configuration. Copies workspace template and 
      • Run /ctxk:proj:init to setup ContextKit in that project (inherits workspace config)
      • Begin your first feature with /ctxk:plan:1-spec
      ```
+
      → END (exit successfully)
 
 2. **Verify ContextKit Global Installation**
@@ -50,6 +54,7 @@ Initialize workspace-level context configuration. Copies workspace template and 
 ### Phase 2: Template Installation & Execution
 
 3. **Copy Workspace Template**
+
    ```bash
    cp ~/.ContextKit/Templates/Contexts/Workspace.md Context.md
    echo "✅ Copied workspace context template"
@@ -58,6 +63,7 @@ Initialize workspace-level context configuration. Copies workspace template and 
 4. **Collect User Preferences for Workspace Configuration**
 
    **A. Workspace Type Selection**:
+
    - Use AskUserQuestion tool with these parameters:
      ```json
      {
@@ -91,12 +97,14 @@ Initialize workspace-level context configuration. Copies workspace template and 
    - Wait for user response
 
    **B. Follow-up Details**:
+
    - If user selected "Client/Contract" or "Enterprise/Company":
      - Ask for company name using "Other" option or text input
    - For all workspace types:
      - Ask for brief workspace description using text input
 
    **C. Coding Standards**:
+
    - Use AskUserQuestion tool with these parameters:
      ```json
      {
@@ -131,12 +139,15 @@ Initialize workspace-level context configuration. Copies workspace template and 
    - Note: "Tabs" option available via "Other" selection
 
    **D. Development Principles**:
+
    - For Client/Enterprise workspaces, ask about principle overrides using text input or "Other" option
 
    **E. Configuration Summary**:
+
    - Display all collected preferences to user for confirmation
 
 5. **Execute Context.md Template Instructions with User Preferences**
+
    - Use `Read` tool to read the copied `Context.md` file
    - Follow the **system instructions** section (boxed area) step by step
    - Pass collected user preferences to template execution
@@ -150,6 +161,7 @@ Initialize workspace-level context configuration. Copies workspace template and 
    - **At completion**: Use `Edit` tool to remove the system instructions section entirely
 
 6. **Display Success Message**
+
    ```
    🎉 Workspace initialization complete!
 
@@ -208,10 +220,13 @@ This section is preserved during ContextKit migrations and updates.
 Add project-specific instructions, examples, and overrides below.
 
 ## Additional Setup Steps
+
 <!-- Add extra workspace initialization like shared CI/CD configs or team agreements -->
 
 ## Skip or Override Steps
+
 <!-- Document workflow modifications like using preset configurations -->
 
 ## Custom Template Locations
+
 <!-- Define alternative workspace templates like company-specific standards -->

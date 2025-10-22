@@ -1,7 +1,9 @@
 # Project Context Template
-<!-- Template Version: 3 | ContextKit: 0.2.6 | Updated: 2025-10-02 -->
+
+<!-- Template Version: 3 | ContextKit: 0.2.7 | Updated: 2025-10-02 -->
 
 ## Description
+
 Project-level Context.md template providing project-specific investigation, development commands, project structure analysis, and ContextKit workflow configuration.
 
 ════════════════════════════════════════════════════════════════════════════════
@@ -9,14 +11,14 @@ Project-level Context.md template providing project-specific investigation, deve
 ════════════════════════════════════════════════════════════════════════════════
 ║
 ║ ## Execution Flow (main)
-║ 
+║
 ║ ### Phase 0: Check Customization
-║ 
+║
 ║ 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
-║    - Use `Grep` tool to find the start of the section
-║    - Read everything below that line contained in this document til the end of the file
-║    - Make sure to consider what was said there with high priority
-║    - If anything conflicts with the rest of the workflow, prioritize the "developer customizations"
+║ - Use `Grep` tool to find the start of the section
+║ - Read everything below that line contained in this document til the end of the file
+║ - Make sure to consider what was said there with high priority
+║ - If anything conflicts with the rest of the workflow, prioritize the "developer customizations"
 ║
 ║ ### Phase 1: Comprehensive Project Component Analysis
 ║
@@ -24,67 +26,67 @@ Project-level Context.md template providing project-specific investigation, deve
 ║ the init.md Phase 3 investigation. Do not re-investigate - use provided findings!
 ║
 ║ 1. **Use Investigation Results from Init Phase**
-║    - Component hierarchy and relationships (from init.md investigation)
-║    - Validated build commands for each component (from init.md timeout testing)
-║    - Validated test commands for each component (from init.md timeout testing)
-║    - Dependencies and their purposes (from Package.swift/package.json analysis)
-║    - File structure mappings (from init.md directory analysis)
-║    - Code style patterns (from init.md source file analysis)
-║    - Framework usage detection (from init.md import scanning)
+║ - Component hierarchy and relationships (from init.md investigation)
+║ - Validated build commands for each component (from init.md timeout testing)
+║ - Validated test commands for each component (from init.md timeout testing)
+║ - Dependencies and their purposes (from Package.swift/package.json analysis)
+║ - File structure mappings (from init.md directory analysis)
+║ - Code style patterns (from init.md source file analysis)
+║ - Framework usage detection (from init.md import scanning)
 ║
 ║ 2. **Generate Component Overview Section**
-║    - Create hierarchical component map similar to workspace format
-║    - Show parent-child relationships between components
-║    - Include for each: name, type, purpose, tech stack, file location
-║    - Use emoji indicators: 📱 (app), 🖥️ (server), 📦 (package), 📚 (docs), 🔧 (tool)
-║    - Format: Component Name (Type) - Purpose - Tech Stack - Location
+║ - Create hierarchical component map similar to workspace format
+║ - Show parent-child relationships between components
+║ - Include for each: name, type, purpose, tech stack, file location
+║ - Use emoji indicators: 📱 (app), 🖥️ (server), 📦 (package), 📚 (docs), 🔧 (tool)
+║ - Format: Component Name (Type) - Purpose - Tech Stack - Location
 ║
 ║ 3. **Generate Detailed Component Sections**
-║    For each component discovered, create detailed section with:
-║    - **File Structure**: Actual directories and key files found
-║    - **Dependencies**: Dependencies with purposes and providers from config files
-║    - **Build Commands**: Validated commands from timeout testing (exact, not generic)
-║    - **Test Commands**: Validated commands from timeout testing (exact, not generic)
-║    - **Code Style**: Actual findings from formatter configs and source analysis
-║    - **Framework Usage**: Import patterns detected from source code scanning
+║ For each component discovered, create detailed section with:
+║ - **File Structure**: Actual directories and key files found
+║ - **Dependencies**: Dependencies with purposes and providers from config files
+║ - **Build Commands**: Validated commands from timeout testing (exact, not generic)
+║ - **Test Commands**: Validated commands from timeout testing (exact, not generic)
+║ - **Code Style**: Actual findings from formatter configs and source analysis
+║ - **Framework Usage**: Import patterns detected from source code scanning
 ║
 ║ ### Phase 2: Workspace Integration & Standards
 ║
 ║ 4. **Apply Workspace Context** (if discovered by init.md)
-║    - Use workspace inheritance information from init.md findings
-║    - Apply workspace coding standards and architectural preferences
-║    - Document workspace relationship and inheritance rules
-║    - Note any workspace-level constitutional principle overrides
+║ - Use workspace inheritance information from init.md findings
+║ - Apply workspace coding standards and architectural preferences
+║ - Document workspace relationship and inheritance rules
+║ - Note any workspace-level constitutional principle overrides
 ║
 ║ 5. **Constitutional Principles Integration**
-║    - Apply core constitutional principles with workspace adjustments
-║    - Document any workspace-level principle modifications
-║    - Ensure principles are applied to all project components
+║ - Apply core constitutional principles with workspace adjustments
+║ - Document any workspace-level principle modifications
+║ - Ensure principles are applied to all project components
 ║
 ║ ### Phase 3: Content Generation & Completion
 ║
 ║ 6. **Generate Project Context Content**
-║    - Use `Edit` tool to replace this template with new structure:
-║      A) Project Overview (basic project info and component count)
-║      B) Component Architecture (hierarchical component map)
-║      C) Detailed Component Sections (one per component with build/test commands)
-║      D) Development Workflow (ContextKit integration)
-║      E) Constitutional Principles (applied with workspace inheritance)
-║    - **CRITICAL**: All information must be based on init.md findings, not assumptions
-║    - Include validated build/test commands for each component
-║    - Document actual file structures and dependencies found
+║ - Use `Edit` tool to replace this template with new structure:
+║ A) Project Overview (basic project info and component count)
+║ B) Component Architecture (hierarchical component map)
+║ C) Detailed Component Sections (one per component with build/test commands)
+║ D) Development Workflow (ContextKit integration)
+║ E) Constitutional Principles (applied with workspace inheritance)
+║ - **CRITICAL**: All information must be based on init.md findings, not assumptions
+║ - Include validated build/test commands for each component
+║ - Document actual file structures and dependencies found
 ║
 ║ 7. **Final Validation**
-║    - Verify all information is based on actual init.md investigation results
-║    - Confirm all build/test commands are validated and documented correctly
-║    - Ensure component hierarchy matches actual project structure
-║    - Check that workspace inheritance is properly documented
-║    - Verify no placeholder content remains
+║ - Verify all information is based on actual init.md investigation results
+║ - Confirm all build/test commands are validated and documented correctly
+║ - Ensure component hierarchy matches actual project structure
+║ - Check that workspace inheritance is properly documented
+║ - Verify no placeholder content remains
 ║
 ║ 8. **COMPLETION**
-║    - Use `Edit` tool to remove this entire boxed system instructions section
-║    - Leave only the clean project context content for development use
-║    - Final document enables immediate component-aware development
+║ - Use `Edit` tool to remove this entire boxed system instructions section
+║ - Leave only the clean project context content for development use
+║ - Final document enables immediate component-aware development
 ║
 ║ ## Success Criteria
 ║ - Complete component hierarchy with purpose and tech stack for each component
@@ -113,6 +115,7 @@ Project-level Context.md template providing project-specific investigation, deve
 **Project Structure**:
 
 [Component Hierarchy from Investigation - Example Format:]
+
 ```
 📁 [Project Name]
 ├── 📱 [App Component] ([Type]) - [Purpose from README] - [Tech Stack] - ./[path]
@@ -122,6 +125,7 @@ Project-level Context.md template providing project-specific investigation, deve
 ```
 
 **Component Summary**:
+
 - **[X] Swift components** - [Versions and frameworks found]
 - **[Y] Other components** - [Languages and technologies found]
 - **Dependencies**: [X] unique dependencies across components
@@ -138,6 +142,7 @@ Project-level Context.md template providing project-specific investigation, deve
 
 **File Structure**:
 [Actual directory structure found:]
+
 ```
 [Component]/
 ├── [key directories found]
@@ -149,6 +154,7 @@ Project-level Context.md template providing project-specific investigation, deve
 [Key dependencies with purposes and providers found in config files]
 
 **Development Commands**:
+
 ```bash
 # Build (validated during setup)
 [Exact command tested during init - with full path and parameters]
@@ -185,11 +191,13 @@ Project-level Context.md template providing project-specific investigation, deve
 ## Development Guidelines
 
 **Applied Guidelines**: [List guidelines copied during project setup]
+
 - Guidelines automatically loaded by all planning commands (`/ctxk:plan:*`)
 - Implementation commands apply guideline standards during development
 - Quality agents validate against guideline requirements
 
 **Guidelines Integration**:
+
 - All planning phases reference active guidelines for architecture decisions
 - Implementation phases apply guideline patterns and API preferences
 - Migration only updates guidelines that exist in project
@@ -197,6 +205,7 @@ Project-level Context.md template providing project-specific investigation, deve
 ## Constitutional Principles
 
 **Core Principles**:
+
 - ✅ Accessibility-first design (UI supports all assistive technologies)
 - ✅ Privacy by design (minimal data collection, explicit consent)
 - ✅ Localizability from day one (externalized strings, cultural adaptation)
@@ -208,11 +217,13 @@ Project-level Context.md template providing project-specific investigation, deve
 ## ContextKit Workflow
 
 **Systematic Feature Development**:
+
 - `/ctxk:plan:1-spec` - Create business requirements specification (prompts interactively)
 - `/ctxk:plan:2-research-tech` - Define technical research, architecture and implementation approach
 - `/ctxk:plan:3-steps` - Break down into executable implementation tasks
 
 **Development Execution**:
+
 - `/ctxk:impl:start-working` - Continue development within feature branch (requires completed planning phases)
 - `/ctxk:impl:commit-changes` - Auto-format code and commit with intelligent messages
 
@@ -222,6 +233,7 @@ Project-level Context.md template providing project-specific investigation, deve
 ## Development Automation
 
 **Quality Agents Available**:
+
 - `build-project` - Execute builds with constitutional compliance validation
 - `check-accessibility` - VoiceOver, contrast, keyboard navigation validation
 - `check-localization` - String Catalog and cultural adaptation validation
@@ -234,10 +246,12 @@ Project-level Context.md template providing project-specific investigation, deve
 **Inheritance**: [Workspace Context] → **This Project**
 
 **This Project Inherits From**:
+
 - **Workspace**: [Workspace name and standards or "None (standalone project)"]
 - **Project**: Component-specific configurations documented above
 
 **Override Precedence**: Project component settings override workspace settings
 
 ---
-*Generated by ContextKit with comprehensive component analysis. Manual edits preserved during updates.*
+
+_Generated by ContextKit with comprehensive component analysis. Manual edits preserved during updates._

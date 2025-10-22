@@ -1,13 +1,12 @@
 ---
-meta: "Template Version: 6 | ContextKit: 0.2.6 | Updated: 2025-10-02"
+meta: "Template Version: 6 | ContextKit: 0.2.7 | Updated: 2025-10-02"
 name: check-error-handling
 description: [INCOMPLETE] Validate and fix error handling compliance - needs rework for read-only reporting
 tools: Read, Edit, MultiEdit, Grep, Glob, Task
 color: cyan
 ---
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -16,9 +15,11 @@ color: cyan
 # Agent: check-error-handling
 
 ## Purpose
+
 Validate and automatically fix error handling framework compliance. Detects anti-patterns and applies framework-specific improvements directly to source files. Specializes in ErrorKit compliance for Swift/SwiftUI projects.
 
 ## Context Requirements
+
 - Source files containing error handling code
 - Project Context.md for framework preferences and architecture
 - Error handling framework usage (ErrorKit, Result types, standard exceptions)
@@ -35,6 +36,7 @@ FILES:
 ```
 
 **Structure Interpretation**:
+
 - **File path**: Relative to project root
 - **Line ranges**: `12-67` = lines 12 through 67
 - **Multiple ranges**: `34-89,156-203` = lines 34-89 AND lines 156-203
@@ -48,6 +50,7 @@ FILES:
 **Error Analysis Requires Related Type Context**: Unlike other agents, error handling analysis needs to understand complete error type hierarchies and related error cases to make proper recommendations.
 
 ### Error Context Expansion Rules
+
 - **Error type analysis**: If lines contain error handling, expand to include complete error type definitions
 - **Related error cases**: Include sibling error cases in enums for consistency analysis
 - **Error propagation chains**: Follow error propagation up/down the call stack within the file
@@ -55,6 +58,7 @@ FILES:
 - **User message consistency**: Expand to analyze all related error messages for consistent UX
 
 ### Examples
+
 ```swift
 // Input: Sources/NetworkService.swift:45-67 (contains `throw NetworkError.timeout`)
 // → Expand to include complete NetworkError enum definition
@@ -66,7 +70,9 @@ FILES:
 ```
 
 ## Execution Flow (agent)
+
 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
+
    - Use `Grep` tool to find the start of the section
    - Read everything below that line contained in this document til the end of the file
    - Make sure to consider what was said there with high priority
@@ -123,6 +129,7 @@ FILES:
 9. **Return: SUCCESS (compliance fixes applied and verified) or ERROR (with specific guidance)**
 
 ## Input Format
+
 ```
 Project Type: [PROJECT_TYPE]
 Language/Framework: [LANGUAGE_FRAMEWORK]
@@ -139,27 +146,32 @@ Fixed 4 protocol migrations, 3 message patterns across 6 files
 Build validated: SUCCESS
 
 Manual review needed:
+
 - Persistence/Data.swift:45 - Complex Catching protocol design (multiple services)
 
 Files modified: ValidationError.swift, NetworkService.swift, AuthService.swift
 ```
 
 ## Validation Gates (Auto-executed)
-*Checked by execution flow before returning SUCCESS*
+
+_Checked by execution flow before returning SUCCESS_
 
 ### Automatic Fix Application Gates
+
 - [ ] Framework protocol migrations applied safely (Error → Throwable)?
 - [ ] Built-in type replacements implemented correctly?
 - [ ] Modern error propagation patterns updated appropriately?
 - [ ] Framework-specific anti-patterns resolved where possible?
 
 ### Message Enhancement Gates
+
 - [ ] User-facing message patterns updated to framework standards?
 - [ ] System error handling migrated to framework helpers?
 - [ ] Framework string interpolation benefits applied?
 - [ ] Localization patterns updated to framework recommendations?
 
 ### Safe Modification Gates
+
 - [ ] All edits preserve existing functionality and semantics?
 - [ ] Complex migrations flagged for manual review?
 - [ ] Before/after examples documented for all changes?
@@ -169,45 +181,55 @@ Files modified: ValidationError.swift, NetworkService.swift, AuthService.swift
 **If all gates pass**: SUCCESS (framework compliance fixes applied successfully)
 
 ## Error Conditions
+
 - "No source files provided" → Agent requires source files for framework compliance analysis
 - "No error handling patterns found" → Files must contain error types, throws, or catch blocks
 - "Framework not detected" → Agent provides general guidance when specific framework usage unclear
 - "Analysis incomplete" → All framework compliance gates must pass before returning results
 
 ## Automatic Fix Patterns (ErrorKit Framework)
+
 ### Protocol Migration Fixes
+
 - **Detect**: `: Error` in custom error type definitions
 - **Fix**: Replace with `: Throwable` and add `userFriendlyMessage` implementation
 - **Safety**: Preserve existing error cases and functionality
 
 ### Framework Type Adoption Fixes
+
 - **Detect**: Custom `NetworkError`, `DatabaseError`, `FileError` implementations
 - **Fix**: Replace with ErrorKit built-in imports and usage
 - **Safety**: Update all references to use ErrorKit case names
 
 ### Message Pattern Fixes
+
 - **Detect**: `error.localizedDescription` usage in display code
 - **Fix**: Replace with ErrorKit string interpolation `"\(error)"`
 - **Safety**: Maintain existing error display behavior
 
 ### Error Propagation Fixes
+
 - **Detect**: Manual error wrapping patterns in do-catch blocks
 - **Fix**: Apply `Catching` protocol and `.catch { }` helper methods
 - **Safety**: Preserve error propagation semantics and information
 
 ### Complex Cases (Manual Review Required)
+
 - **Detect**: Mixed error type hierarchies requiring design decisions
 - **Flag**: Cases where automatic fixes could change intended behavior
 - **Document**: Provide migration guidance for developer review
 
 ### Context.md Integration
+
 The agent reads Context.md to understand:
+
 - **Error Framework**: ErrorKit usage, import patterns, architectural decisions
 - **Fix Scope**: Which files and patterns are safe to automatically modify
 - **Migration Goals**: Target error handling approach and compliance level
 - **Project Standards**: Framework compliance requirements and team preferences
 
 ## Safety Considerations
+
 - **Backup Warning**: Changes are applied directly to source files - ensure git status is clean
 - **Compilation Safety**: Fixes preserve compilation and runtime behavior
 - **Semantic Preservation**: Error meanings and user-facing messages maintained
@@ -215,7 +237,7 @@ The agent reads Context.md to understand:
 
 ---
 
-*This agent automatically applies framework-specific error handling improvements with specialized ErrorKit compliance fixes for Swift/SwiftUI projects.*
+_This agent automatically applies framework-specific error handling improvements with specialized ErrorKit compliance fixes for Swift/SwiftUI projects._
 
 ════════════════════════════════════════════════════════════════════════════════
 👩‍💻 DEVELOPER CUSTOMIZATIONS - EDITABLE SECTION

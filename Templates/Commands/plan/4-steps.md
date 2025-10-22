@@ -1,8 +1,8 @@
 # Create Implementation Task Breakdown
-<!-- Template Version: 9 | ContextKit: 0.2.6 | Updated: 2025-10-22 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 9 | ContextKit: 0.2.7 | Updated: 2025-10-22 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -25,12 +25,14 @@ Generate implementation task breakdown by detecting current feature, validating 
 ### Phase 1: Feature Detection & Validation
 
 1. **Detect Current Feature**
+
    - Use `Bash` tool to check current git branch: `git branch --show-current`
    - If on feature/[prefix]-[name] branch: Extract feature name from branch
    - If not on feature branch: Use text input to ask user which feature to work on
    - Use `Glob` tool to find numbered feature directory: `Glob Context/Features/???-[FeatureName]`
 
 2. **Validate Prerequisites**
+
    - Use `Bash` tool to check planning files exist:
 
      ```bash
@@ -64,6 +66,7 @@ Generate implementation task breakdown by detecting current feature, validating 
    ```
 
 4. **Execute Steps Template**
+
    - Use `Read` tool to read the copied Steps.md: `Read [numbered-feature-directory]/Steps.md`
    - Follow the **system instructions** section (boxed area) step by step
    - The template contains task generation logic with S### enumeration and parallel markers
@@ -72,10 +75,13 @@ Generate implementation task breakdown by detecting current feature, validating 
    - **Progress tracking**: User can see checkboxes being completed in the copied file
 
 5. **Auto-Resolve Clarification Points with Reasonable Defaults**
+
    - Use `Grep` tool to find clarification markers in Steps.md: `Grep "🚨 \\[NEEDS CLARIFICATION:" [numbered-feature-directory]/Steps.md`
    - If clarification points found:
+
      - Parse each clarification point to extract the specific question and line context
      - **FOR EACH CLARIFICATION**:
+
        - Analyze the extracted clarification question
        - Generate most reasonable answer based on:
          - Project Context.md understanding

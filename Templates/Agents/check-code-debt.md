@@ -1,13 +1,12 @@
 ---
-meta: "Template Version: 6 | ContextKit: 0.2.6 | Updated: 2025-10-02"
+meta: "Template Version: 6 | ContextKit: 0.2.7 | Updated: 2025-10-02"
 name: check-code-debt
 description: [INCOMPLETE] Clean up technical debt from AI code - needs rework for read-only reporting
 tools: Read, Edit, MultiEdit, Grep, Glob, Task
 color: cyan
 ---
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -16,9 +15,11 @@ color: cyan
 # Agent: check-code-debt
 
 ## Purpose
+
 Identify and clean up technical debt accumulated during AI-assisted development sessions. Focuses on removing AI communication artifacts, consolidating duplicate patterns, and breaking down overly complex code into maintainable components across any programming language.
 
 ## Context Requirements
+
 - Source code files from any programming language
 - Project files generated across multiple AI sessions
 - Recent development history and iteration context
@@ -37,6 +38,7 @@ FILES:
 ```
 
 **Structure Interpretation**:
+
 - **File path**: Relative to project root
 - **Line ranges**: `12-156` = lines 12 through 156
 - **Multiple ranges**: `45-89,120-167` = lines 45-89 AND lines 120-167
@@ -50,6 +52,7 @@ FILES:
 **Complexity Analysis Requires Full Context**: Unlike other agents that can work with line ranges, code-debt analysis needs complete function/type boundaries to make proper refactoring decisions.
 
 ### Boundary Expansion Rules
+
 - **Function modifications**: If specified lines fall within a function, analyze the entire function scope
 - **Type definitions**: If specified lines are within a class/struct, analyze the complete type definition
 - **Component boundaries**: For UI components, expand to include the complete component structure
@@ -57,6 +60,7 @@ FILES:
 - **Variable scope**: Expand to include complete variable lifecycle for unused variable detection
 
 ### Examples
+
 ```swift
 // Input: Sources/UserService.swift:45-67
 // But function spans lines 30-120
@@ -68,7 +72,9 @@ FILES:
 ```
 
 ## Execution Flow (agent)
+
 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
+
    - Use `Grep` tool to find the start of the section
    - Read everything below that line contained in this document til the end of the file
    - Make sure to consider what was said there with high priority
@@ -83,16 +89,17 @@ FILES:
 2. **AI Artifact Detection in Specified Areas**
    → **If FILES provided**: Focus scan only on specified files and line ranges
    → **If no FILES provided**:
-     - WARN "No FILES specified - scanning uncommitted changes instead"
-     - WARN "Run code debt cleanup during feature development for targeted analysis"
-     - Use Bash to get uncommitted files: `git diff --name-only HEAD`
-     - If git not available: ERROR "Git repository required for automatic file detection"
-     - If no uncommitted files: INFO "No uncommitted changes found - nothing to analyze"
-     - Use Read to examine uncommitted files only for AI artifacts
-   → Scan for temporary AI communication comments and debugging remnants
-   → Identify TODO comments that reference AI implementation
-   → Find leftover iteration markers and session communication
-   → If no artifacts found: INFO "No AI artifacts detected"
+
+   - WARN "No FILES specified - scanning uncommitted changes instead"
+   - WARN "Run code debt cleanup during feature development for targeted analysis"
+   - Use Bash to get uncommitted files: `git diff --name-only HEAD`
+   - If git not available: ERROR "Git repository required for automatic file detection"
+   - If no uncommitted files: INFO "No uncommitted changes found - nothing to analyze"
+   - Use Read to examine uncommitted files only for AI artifacts
+     → Scan for temporary AI communication comments and debugging remnants
+     → Identify TODO comments that reference AI implementation
+     → Find leftover iteration markers and session communication
+     → If no artifacts found: INFO "No AI artifacts detected"
 
 3. **Code Complexity Analysis with Context Expansion**
    → **Smart boundary detection**: When specified lines fall within functions/types, analyze the complete enclosing scope
@@ -122,10 +129,13 @@ FILES:
    → Return: SUCCESS (cleanup completed and verified) or INFO (no significant debt found)
 
 ## Universal AI Artifact Detection Patterns
-*These patterns appear across all programming languages during AI-assisted development*
+
+_These patterns appear across all programming languages during AI-assisted development_
 
 ### AI Communication Comments
-*AI responding to user requests via comments instead of chat*
+
+_AI responding to user requests via comments instead of chat_
+
 ```swift
 // I've updated the authentication logic as requested
 // Changed this based on your feedback
@@ -136,7 +146,9 @@ FILES:
 ```
 
 ### Debug Remnants and Artifacts
-*Temporary debugging code left by AI across languages*
+
+_Temporary debugging code left by AI across languages_
+
 ```swift
 // Debug: Testing this approach
 // FIXME: AI generated placeholder
@@ -145,7 +157,9 @@ print("DEBUG: Checking value: \(someValue)")
 ```
 
 ### Iteration Markers
-*AI tracking changes across sessions*
+
+_AI tracking changes across sessions_
+
 ```swift
 // Updated in response to your feedback
 // This replaces the previous implementation
@@ -153,10 +167,13 @@ print("DEBUG: Checking value: \(someValue)")
 ```
 
 ## Universal Code Complexity Detection
-*These patterns indicate technical debt across all programming languages*
+
+_These patterns indicate technical debt across all programming languages_
 
 ### Overgrown Functions with Mixed Responsibilities
-*Functions that handle multiple concerns - common in all languages*
+
+_Functions that handle multiple concerns - common in all languages_
+
 ```swift
 // DETECTED: Mixed concerns in single function
 func handleUserAuthentication(email: String, password: String) {
@@ -173,7 +190,9 @@ func updateAuthenticationUI(state: AuthState)
 ```
 
 ### Complex UI Components with Multiple Sections
-*UI components grown too large - pattern exists in all UI frameworks*
+
+_UI components grown too large - pattern exists in all UI frameworks_
+
 ```swift
 // DETECTED: Monolithic view with multiple sections
 struct UserProfileView: View {
@@ -201,10 +220,13 @@ struct UserProfileView: View {
 ```
 
 ## Universal Duplicate Pattern Detection
-*Similar code appearing across multiple files - occurs in all programming languages*
+
+_Similar code appearing across multiple files - occurs in all programming languages_
 
 ### Repeated Async Operations Pattern
-*Common async handling patterns duplicated across components*
+
+_Common async handling patterns duplicated across components_
+
 ```swift
 // FOUND IN: LoginView.swift, RegisterView.swift, ResetPasswordView.swift
 Button("Submit") {
@@ -229,7 +251,9 @@ Button("Submit") {
 ```
 
 ### Common Validation Logic Pattern
-*Validation rules repeated across multiple files*
+
+_Validation rules repeated across multiple files_
+
 ```swift
 // DUPLICATED: Email validation in 4+ files
 guard email.contains("@"), email.contains(".") else {
@@ -248,6 +272,7 @@ Removed 8 AI artifacts, cleaned 5 unused variables across 7 files
 Build validated: SUCCESS
 
 Manual review needed:
+
 - AuthenticationController.swift - Split 127-line function (mixed concerns)
 - DashboardView.swift - Decompose 156-line view (5 sections)
 
@@ -255,7 +280,8 @@ Files modified: UserService.swift, LoginView.swift, ProfileViewModel.swift
 ```
 
 ## Validation Gates
-*Agent execution refuses to complete if these fail*
+
+_Agent execution refuses to complete if these fail_
 
 - [ ] Source code files provided for analysis?
 - [ ] Project type/language detected or specified?
@@ -264,6 +290,7 @@ Files modified: UserService.swift, LoginView.swift, ProfileViewModel.swift
 - [ ] All recommendations are actionable with clear priorities?
 
 ## Error Conditions
+
 - "No source files provided" → User must specify files to analyze
 - "Language detection failed" → Cannot determine appropriate detection patterns
 - "Insufficient code context" → Need more than single file snippets

@@ -1,22 +1,25 @@
 # Release App to App Store
-<!-- Template Version: 4 | ContextKit: 0.2.6 | Updated: 2025-10-22 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 4 | ContextKit: 0.2.7 | Updated: 2025-10-22 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
+
 Execute iOS/macOS app release workflow with constitutional compliance validation and App Store Connect preparation
 
 ## Parameters
+
 - `version` (required): Semantic version for release (e.g., "1.2.0")
 
 ## Execution Flow (main)
 
 ### Phase 0: Check Customization
+
 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
    - Use `Grep` tool to find the start of the section
    - Read everything below that line contained in this document til the end of the file
@@ -24,6 +27,7 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
    - If anything conflicts with the rest of the workflow, prioritize the "developer customizations"
 
 ### Phase 1: Prerequisites Validation
+
 1. **Verify project readiness**
    - Use `Glob` to check for `*.xcodeproj`: If missing, ERROR "Not an iOS/macOS app project - use /ctxk:impl:release-package for Swift packages" → EXIT
    - Use `Bash` to check git status: `git status --porcelain`
@@ -31,7 +35,9 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
    - Use `Read` to verify `Context.md` exists: If missing, ERROR "Run /ctxk:proj:init to set up ContextKit first" → EXIT
 
 ### Phase 2: Change Analysis and Version Planning
+
 2. **Analyze all changes since last release**
+
    - Use `Bash` to find latest release tag: `git tag --sort=-version:refname | head -1`
    - If no tags found: Set LAST_TAG to initial commit for full history analysis
    - Use `Bash` to get commit overview: `git log --oneline LAST_TAG..HEAD`
@@ -43,33 +49,37 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
 
 3. **Auto-determine next version based on change analysis**
    Analyze code changes and automatically select version bump:
+
    - **MAJOR**: Breaking changes, removed features, major UX overhauls
    - **MINOR**: New features, significant improvements, new user-facing functionality
    - **PATCH**: Bug fixes, minor improvements, performance optimizations
 
    Display auto-selected version:
-     ```
-     ════════════════════════════════════════════════════════════════
-     📦 AUTO-SELECTED VERSION
-     ════════════════════════════════════════════════════════════════
 
-     Current Version: [current version from project]
+   ```
+   ════════════════════════════════════════════════════════════════
+   📦 AUTO-SELECTED VERSION
+   ════════════════════════════════════════════════════════════════
 
-     Changes Found:
-     [Summary of changes since last release]
+   Current Version: [current version from project]
 
-     Auto-Selected Version: [suggested version] ([MAJOR/MINOR/PATCH])
-     Reasoning: [why this version bump was selected]
+   Changes Found:
+   [Summary of changes since last release]
 
-     Proceeding with this version...
-     ════════════════════════════════════════════════════════════════
-     ```
+   Auto-Selected Version: [suggested version] ([MAJOR/MINOR/PATCH])
+   Reasoning: [why this version bump was selected]
+
+   Proceeding with this version...
+   ════════════════════════════════════════════════════════════════
+   ```
+
    - Auto-continue with suggested version (no user prompt)
 
 4. **Auto-generate release notes as simple prioritized list**
    Analyze changes and create sorted list following Keep a Changelog order:
 
    **Include in release notes (sorted by importance within each category):**
+
    - **Added**: New features, functionality, UI elements users can access
    - **Changed**: Behavior changes, improved features, UX enhancements
    - **Deprecated**: Features marked for future removal (rare for apps)
@@ -78,26 +88,31 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
    - **Security**: Security improvements affecting user privacy or app security
 
    **Exclude from release notes:**
+
    - Internal refactoring, code cleanup, dependency updates
    - Developer tooling, build system changes, tests
    - Code formatting, documentation, comments
 
    Display generated release notes:
-     ```
-     ════════════════════════════════════════════════════════════════
-     📝 AUTO-GENERATED RELEASE NOTES
-     ════════════════════════════════════════════════════════════════
 
-     [Generated release notes as simple bullet list organized by category]
+   ```
+   ════════════════════════════════════════════════════════════════
+   📝 AUTO-GENERATED RELEASE NOTES
+   ════════════════════════════════════════════════════════════════
 
-     Using these release notes for App Store submission...
-     ════════════════════════════════════════════════════════════════
-     ```
+   [Generated release notes as simple bullet list organized by category]
+
+   Using these release notes for App Store submission...
+   ════════════════════════════════════════════════════════════════
+   ```
+
    - Auto-continue with generated notes (no user prompt)
    - Developer can manually edit release notes in App Store Connect if needed
 
 ### Phase 3: Version Management and Git Operations
+
 5. **Update project version**
+
    - Use `Read` to examine project.pbxproj file structure
    - Use `Edit` to update MARKETING_VERSION to provided version parameter
    - Keep CURRENT_PROJECT_VERSION at "1" (Xcode Cloud manages build numbers)
@@ -113,6 +128,7 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
    - Tag push will trigger Xcode Cloud build automatically
 
 ### Phase 4: App Store Connect Preparation
+
 7. **Display What's New text for App Store Connect**
    - Use `Read` to get App Store URL from Context.md configuration
    - Extract Apple ID from App Store URL (pattern: `/id(\d+)`)
@@ -121,7 +137,9 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
    - Provide direct App Store Connect URL using extracted Apple ID
 
 ### Phase 5: Completion and Next Steps
+
 8. **Finalize and provide guidance**
+
    - Summarize constitutional compliance results
    - List files created and modified
    - Provide clear next steps for user:
@@ -135,6 +153,7 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
 ## Success Message
 
 ### Release Prepared
+
 ```
 🚀 Release [Version] prepared for [ProjectName]
 
@@ -160,6 +179,7 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
 ```
 
 ## Error Conditions
+
 - "Not an app project" → Use /ctxk:impl:release-package for Swift packages → EXIT
 - "Uncommitted changes" → Commit all changes first using /ctxk:impl:commit-changes → EXIT
 - "No Context.md found" → Run /ctxk:proj:init to set up ContextKit first → EXIT
@@ -167,7 +187,8 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
 - "No meaningful changes" → Consider if maintenance release is necessary
 
 ## Validation Gates
-- [ ] Project is iOS/macOS app with *.xcodeproj file?
+
+- [ ] Project is iOS/macOS app with \*.xcodeproj file?
 - [ ] Git repository is clean with all changes committed?
 - [ ] User-facing changes identified and documented?
 - [ ] Version number confirmed by user?
@@ -177,6 +198,7 @@ Execute iOS/macOS app release workflow with constitutional compliance validation
 - [ ] Next steps provided for user (push, monitor, submit)?
 
 ## Integration Points
+
 - **Commands**: Integrates with /ctxk:impl:commit-changes and /ctxk:impl:start-working
 - **Guidelines**: References Guidelines/Release.md for detailed App Store Connect procedures
 

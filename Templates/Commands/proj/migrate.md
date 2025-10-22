@@ -1,23 +1,26 @@
 # Upgrade to Latest
-<!-- Template Version: 18 | ContextKit: 0.2.6 | Updated: 2025-10-18 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 18 | ContextKit: 0.2.7 | Updated: 2025-10-18 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
+
 Update ContextKit templates to latest versions while preserving user customizations.
 
 **Key Features:**
+
 - **Parallel Version Checking**: Uses Task tool with subagents to check all template versions simultaneously for maximum speed
 - **Smart Merge Logic**: Only processes files that actually need updates (newer template versions)
 - **Efficient Content Detection**: Skips complex merges when user customization sections contain no meaningful content
 - **Comprehensive Preservation**: Maintains all user content below "👩‍💻 DEVELOPER CUSTOMIZATIONS" sections
 
 Updates both:
+
 - **Global project management commands** (proj/) in ~/.claude/commands/ctxk/proj/
 - **Local project templates** (plan/, impl/, bckl/, agents, scripts, etc.) in current project
 
@@ -36,11 +39,13 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
 ### Phase 1: Automated Global Update & Version Scanning
 
 1. **Comprehensive ContextKit Update & Analysis**
+
    - Use Bash tool: `Context/Scripts/VersionStatus.sh --verbose`
    - Capture stderr output to see OUTDATED and NEW file listings
    - Status messages go to stdout, file data goes to stderr
 
 2. **Early Exit Check: Already Up to Date**
+
    - If stderr output contains no OUTDATED or NEW lines:
      - Display message: "✅ **Migration Complete**: All ContextKit templates are already up to date. No changes needed."
      - **EXIT IMMEDIATELY** - do not proceed to Phase 2 or any further processing
@@ -62,7 +67,9 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
 ### Phase 1.5: Update Global Commands (Always Run)
 
 4. **Ensure Global Commands Are Up-to-Date**
+
    - Use Bash tool to copy global commands from ContextKit to ~/.claude/commands/ctxk/:
+
      ```bash
      # Copy all proj commands
      cp -R ~/.ContextKit/Templates/Commands/proj/*.md ~/.claude/commands/ctxk/proj/ 2>/dev/null || true
@@ -78,6 +85,7 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
 
      echo "✅ Global commands updated"
      ```
+
    - This ensures users always have the latest `/ctxk:proj:*` and `/ctxk:version` commands
    - **Why needed**: Global commands in ~/.claude/commands/ctxk/ don't auto-update like local project templates
 
@@ -89,6 +97,7 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
 2. Use Read tool to read ~/.ContextKit/Templates/settings.json for latest template
 
 3. StatusLine Configuration:
+
    - If user has statusLine setting with path containing "CustomStatusline.sh":
      - Check if path is correct (should be "./Context/Scripts/CustomStatusline.sh")
      - Check if command includes plan parameter (should have "--plan Pro|Max5|Max20")
@@ -98,9 +107,11 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
    - If user has no statusLine setting or different script: Skip (user opted out)
 
 4. Model Setting:
+
    - Skip entirely - never update user's model preference
 
 5. Permissions Array Merge:
+
    - Read current allow/deny arrays from user settings
    - Read template allow/deny arrays from ContextKit template
    - For allow list: Smart merge avoiding duplicates, keep alphabetically sorted
@@ -108,6 +119,7 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
    - Use Edit tool to update only if arrays changed
 
 6. Hooks Configuration:
+
    - Identify ContextKit hooks: PostToolUse="./Context/Scripts/AutoFormat.sh", SessionStart="./Context/Scripts/VersionStatus.sh"
    - Keep all user-specific hooks unchanged
    - Add missing ContextKit hooks
@@ -122,6 +134,7 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
 #### Phase 2.2: Other Complex Merge Cases
 
 1. For each file needing update:
+
    - If new file: Use Bash tool cp to copy directly to project location
    - If existing file:
      - Use Read tool to examine project file
@@ -142,6 +155,7 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
 ### Phase 3: Summary Report - SKIP IF EARLY EXIT IN PHASE 1
 
 Display results organized by:
+
 - Global proj commands updated (count and version changes)
 - Local project files updated (count and version changes)
 - New files added (count and list)
@@ -180,10 +194,13 @@ This section is preserved during ContextKit migrations and updates.
 Add migration-specific customizations below.
 
 ## Custom Migration Steps
+
 <!-- Add extra steps like CI/CD configs, custom agents, or company workflows -->
 
 ## Skip Migration Files
+
 <!-- Document files to exclude like custom settings or company statuslines -->
 
 ## Custom Template Sources
+
 <!-- Define alternative sources like company-specific templates or internal repositories -->

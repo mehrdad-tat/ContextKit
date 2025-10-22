@@ -1,5 +1,5 @@
 ---
-meta: "Template Version: 4 | ContextKit: 0.2.6 | Updated: 2025-10-02"
+meta: "Template Version: 4 | ContextKit: 0.2.7 | Updated: 2025-10-02"
 name: run-specific-test
 description: Execute specific test with build validation and focused failure analysis
 tools: Bash, Read, Grep, Glob
@@ -8,8 +8,7 @@ color: yellow
 
 # Agent: run-specific-test
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -18,13 +17,16 @@ color: yellow
 **Purpose**: Execute a specific test or test class with build validation and focused failure analysis for debugging.
 
 **Context Requirements**:
+
 - Test name or pattern to execute
 - Project type detection (Swift Package, iOS/macOS app)
 - Test framework detection (XCTest vs Swift Testing with @Test)
 - Build environment validation
 
 ## Execution Flow (agent)
+
 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
+
    - Use `Grep` tool to find the start of the section
    - Read everything below that line contained in this document til the end of the file
    - Make sure to consider what was said there with high priority
@@ -40,12 +42,13 @@ color: yellow
    → Parse test specification from user input (class, method, or file path)
    → Detect test framework type (XCTest vs Swift Testing @Test functions)
    → Extract test components:
-     - **XCTest**: Test class name, method name, full identifier
-     - **Swift Testing**: Function name (no class structure required)
-     - **Test file path**: `Tests/UserModelTests.swift`
-   → Detect project type using Context.md info or auto-detection (Package.swift vs .xcodeproj)
-   → Verify test exists in project test targets using extracted components
-   → If test not found: ERROR "Test '[parsed identifier]' not found in project"
+
+   - **XCTest**: Test class name, method name, full identifier
+   - **Swift Testing**: Function name (no class structure required)
+   - **Test file path**: `Tests/UserModelTests.swift`
+     → Detect project type using Context.md info or auto-detection (Package.swift vs .xcodeproj)
+     → Verify test exists in project test targets using extracted components
+     → If test not found: ERROR "Test '[parsed identifier]' not found in project"
 
 3. **Pre-Test Build Validation**
    → Execute build for test target first
@@ -55,12 +58,13 @@ color: yellow
 4. **Execute Specific Test**
    → **From Context.md**: Use documented test command pattern with extracted test components
    → **Swift Package**: Use `swift test --filter [ClassName.methodName]`
-     - XCTest: `swift test --filter UserModelTests.testEmailValidation`
-     - Swift Testing: `swift test --enable-swift-testing --filter [testFunctionName]`
-   → **iOS/macOS App**: Use `xcodebuild test -only-testing [TargetName/ClassName/methodName]`
-     - Example: `xcodebuild test -scheme App -only-testing AppTests/UserModelTests/testEmailValidation`
-   → **Auto-detected**: Document working command for Context.md if auto-detected
-   → Capture test execution output and results
+
+   - XCTest: `swift test --filter UserModelTests.testEmailValidation`
+   - Swift Testing: `swift test --enable-swift-testing --filter [testFunctionName]`
+     → **iOS/macOS App**: Use `xcodebuild test -only-testing [TargetName/ClassName/methodName]`
+   - Example: `xcodebuild test -scheme App -only-testing AppTests/UserModelTests/testEmailValidation`
+     → **Auto-detected**: Document working command for Context.md if auto-detected
+     → Capture test execution output and results
 
 5. **Analyze Results**
    → Extract test status (passed/failed) and duration
@@ -77,6 +81,7 @@ color: yellow
 ## Output Format
 
 ### Success Report
+
 ```markdown
 # Test Result: ✅ PASSED
 
@@ -87,6 +92,7 @@ Test executed successfully without issues.
 ```
 
 ### Success Report (Auto-Detected Command)
+
 ```markdown
 # Test Result: ✅ PASSED
 
@@ -96,16 +102,20 @@ Test executed successfully without issues.
 
 Test executed successfully without issues.
 
-⚠️  CONTEXT.MD UPDATE RECOMMENDED
+⚠️ CONTEXT.MD UPDATE RECOMMENDED
 Add this to your Context.md file for faster future test execution:
 
 ## Test Commands
 ```
+
 [detected-test-command]
+
 ```
+
 ```
 
 ### Failure Report
+
 ```markdown
 # Test Result: ❌ FAILED
 
@@ -114,9 +124,11 @@ Add this to your Context.md file for faster future test execution:
 **Location**: [file path]:[line number]
 
 ## Failure Details
+
 [specific failure message and assertion]
 
 ## Suggested Resolution
+
 [actionable steps to fix the test failure]
 ```
 
@@ -125,12 +137,14 @@ Add this to your Context.md file for faster future test execution:
 Parse user input to extract test components for precise execution:
 
 ### Input Format Examples
+
 - **Class only**: `UserModelTests` → Run entire test class
 - **Method specific**: `UserModelTests.testEmailValidation` → Run specific method
 - **File path**: `Tests/UserModelTests.swift` → Extract class name and run entire class
 - **Full path + method**: `Tests/UserModelTests.swift:testEmailValidation` → Extract and run specific method
 
 ### Component Extraction
+
 ```
 Input: "UserModelTests.testEmailValidation" (XCTest)
 → Test Class: "UserModelTests"
@@ -155,45 +169,57 @@ Input: "Tests/Models/UserModelTests.swift"
 When reading Context.md, look for these test command patterns:
 
 ### Swift Package Projects
+
 ```markdown
 ## Test Commands
+
 # XCTest
+
 swift test --filter UserModelTests
 swift test --filter UserModelTests.testEmailValidation
 
 # Swift Testing
+
 swift test --enable-swift-testing --filter validateUserEmail
 swift test --enable-swift-testing --filter UserModelTests
 ```
 
 ### Xcode Projects
+
 ```markdown
 ## Test Commands
+
 xcodebuild test -scheme App -only-testing AppTests/UserModelTests
 xcodebuild test -scheme App -only-testing AppTests/UserModelTests/testEmailValidation
 ```
 
 ### Multi-Platform Tests
+
 ```markdown
 ## Test Commands
+
 xcodebuild test -scheme App -destination "platform=iOS Simulator,name=iPhone 17" -only-testing AppTests/UserModelTests
 ```
 
 ## Build Validation (Fallback)
-*Executed before test run to ensure compilation succeeds*
+
+_Executed before test run to ensure compilation succeeds_
 
 ### Swift Package Build
+
 ```bash
 swift build --build-tests
 ```
 
 ### iOS/macOS App Build
+
 ```bash
 xcodebuild build-for-testing -scheme [scheme] -destination [destination]
 ```
 
 ## Validation Gates
-*Agent execution refuses to complete if these fail*
+
+_Agent execution refuses to complete if these fail_
 
 - [ ] Test specification provided and parsed successfully?
 - [ ] Project type detected (Swift Package or Xcode project)?
@@ -202,12 +228,14 @@ xcodebuild build-for-testing -scheme [scheme] -destination [destination]
 - [ ] Results include actionable information?
 
 ## Error Conditions
+
 - "Test not found" → Verify test name spelling and target configuration
 - "Build failed for test target" → Fix compilation errors before running tests
 - "Test execution timeout" → Check for infinite loops or hanging operations
 - "Test infrastructure failure" → Verify test framework setup and dependencies
 
 ## Integration with ContextKit Workflow
+
 - Called by `/ctxk:impl:start-working` for focused test validation during development
 - Complements `build-project` agent for comprehensive validation
 - Enables rapid iteration on specific failing tests during TDD workflows

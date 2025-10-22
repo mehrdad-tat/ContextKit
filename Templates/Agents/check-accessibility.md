@@ -1,5 +1,5 @@
 ---
-meta: "Template Version: 8 | ContextKit: 0.2.6 | Updated: 2025-10-02"
+meta: "Template Version: 8 | ContextKit: 0.2.7 | Updated: 2025-10-02"
 name: check-accessibility
 description: [INCOMPLETE] Detect and fix accessibility issues in UI code - needs rework for read-only reporting
 tools: Read, Edit, MultiEdit, Grep, Glob, Task
@@ -8,14 +8,14 @@ color: cyan
 
 # Agent: check-accessibility
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Purpose
+
 Detect and automatically fix accessibility issues in UI code including missing screen reader labels, text scaling gaps, and keyboard navigation problems. Applies universal accessibility principles with automatic framework-specific fixes.
 
 **⚡ AI Capabilities**: Static code analysis, automatic label insertion, Dynamic Type support detection, missing accessibility label detection, color contrast pattern validation (code-level)
@@ -32,6 +32,7 @@ FILES:
 ```
 
 **Structure Interpretation**:
+
 - **File path**: Relative to project root
 - **Line ranges**: `34-156` = lines 34 through 156
 - **Multiple ranges**: `23-89,145-201` = lines 23-89 AND lines 145-201
@@ -41,6 +42,7 @@ FILES:
 ## Execution Flow (agent)
 
 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
+
    - Use `Grep` tool to find the start of the section
    - Read everything below that line contained in this document til the end of the file
    - Make sure to consider what was said there with high priority
@@ -54,15 +56,16 @@ FILES:
 2. **Scan Specified UI Code Files**
    → **If FILES provided**: Use Read to examine only specified files and line ranges
    → **If no FILES provided**:
-     - WARN "No FILES specified - scanning uncommitted changes instead"
-     - WARN "Run accessibility checks during feature development for targeted analysis"
-     - Use Bash to get uncommitted files: `git diff --name-only HEAD`
-     - If git not available: ERROR "Git repository required for automatic file detection"
-     - If no uncommitted files: INFO "No uncommitted changes found - nothing to analyze"
-     - Filter for UI files based on project context (.swift, .jsx, .tsx, .vue, etc.)
-     - Use Read to examine uncommitted UI files only
-   → Focus analysis only on specified areas when FILES format is used
-   → If no UI files found: ERROR "No UI code files to analyze"
+
+   - WARN "No FILES specified - scanning uncommitted changes instead"
+   - WARN "Run accessibility checks during feature development for targeted analysis"
+   - Use Bash to get uncommitted files: `git diff --name-only HEAD`
+   - If git not available: ERROR "Git repository required for automatic file detection"
+   - If no uncommitted files: INFO "No uncommitted changes found - nothing to analyze"
+   - Filter for UI files based on project context (.swift, .jsx, .tsx, .vue, etc.)
+   - Use Read to examine uncommitted UI files only
+     → Focus analysis only on specified areas when FILES format is used
+     → If no UI files found: ERROR "No UI code files to analyze"
 
 3. **Detect Universal Accessibility Issues**
    → **Missing Labels**: Interactive elements without screen reader labels
@@ -94,24 +97,28 @@ FILES:
 ## Universal Accessibility Principles
 
 ### Screen Reader Labels
+
 **Concept**: All interactive elements need descriptive labels for screen readers
 **Impact**: Users with visual impairments cannot understand element purpose
 
 **Detection Approach**: Search for interactive elements (buttons, images, inputs) without accessibility labels
 
 ### Text Scaling Support
+
 **Concept**: Text must scale with user's font size preferences
 **Impact**: Users with vision difficulties cannot enlarge text to readable sizes
 
 **Detection Approach**: Find hardcoded font sizes instead of relative/semantic sizing
 
 ### Color Independence
+
 **Concept**: Information cannot rely solely on color to convey meaning
 **Impact**: Users with color blindness or visual impairments miss critical information
 
 **Detection Approach**: Identify status indicators, alerts, or data that use only color differentiation
 
 ### Keyboard Navigation
+
 **Concept**: All interactive elements must be reachable and usable via keyboard
 **Impact**: Users with motor impairments or who cannot use pointing devices are blocked
 
@@ -120,12 +127,14 @@ FILES:
 ## Detection Patterns (SwiftUI Examples)
 
 ### Missing Screen Reader Labels
+
 ```bash
 # Find buttons and images without accessibility labels
 grep -n "Button\|Image" *.swift | grep -v "accessibilityLabel"
 ```
 
 ### Fixed Font Sizes
+
 ```bash
 # Find hardcoded font sizes that prevent scaling
 grep -n "\.font.*size:" *.swift
@@ -133,12 +142,14 @@ grep -n "Font\.system(size:" *.swift
 ```
 
 ### Color-Only Information
+
 ```bash
 # Find potential color-only status indicators
 grep -n "\.foregroundColor\|\.background.*Color" *.swift
 ```
 
 ### Missing Accessibility Elements
+
 ```bash
 # Find custom controls that might need accessibility support
 grep -n "TapGesture\|onTapGesture" *.swift | grep -v "accessibilityAction"
@@ -153,6 +164,7 @@ Fixed 5 missing labels, 2 dynamic type issues across 4 files
 Build validated: SUCCESS
 
 Manual review needed:
+
 - StatusView.swift:67 - Color-only status indicator (add text/icon)
 - CustomTabView.swift:45 - Complex gesture needs **manual VoiceOver testing by user**
 

@@ -1,8 +1,8 @@
 # Research & Knowledge Acquisition
-<!-- Template Version: 0 | ContextKit: 0.2.6 | Updated: 2025-10-21 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 0 | ContextKit: 0.2.7 | Updated: 2025-10-21 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -25,9 +25,11 @@ Conduct comprehensive research for feature implementation: analyze codebase inte
 ### Phase 1: Feature Detection & Validation
 
 1. **Detect Current Feature (Auto-Continue with Fallback)**
+
    - Use `Bash` tool to check current git branch: `git branch --show-current`
    - If on feature/[prefix]-[name] branch: Extract feature name from branch
    - If not on feature branch:
+
      - Display warning:
 
        ```
@@ -35,10 +37,12 @@ Conduct comprehensive research for feature implementation: analyze codebase inte
        ```
 
      - Use most recent feature directory from Context/Features/
+
    - Use `Glob` tool to find numbered feature directory: `Glob Context/Features/???-*`
    - Store the found directory path for use in subsequent steps
 
 2. **Validate Prerequisites**
+
    - Use `Bash` tool to check Spec.md exists: `ls [numbered-feature-directory]/Spec.md`
    - If Spec.md missing:
 
@@ -61,20 +65,24 @@ Conduct comprehensive research for feature implementation: analyze codebase inte
    ```
 
 4. **Execute Research Template**
+
    - Use `Read` tool to read the **ENTIRE** copied Research.md template: `Read [numbered-feature-directory]/Research.md`
    - **CRITICAL**: Follow the Research.md template's **🤖 EXECUTION FLOW** instructions step by step:
 
    **Phase 1: Context Loading** (Steps 1-2 in Research.md)
+
    - Load feature specification (Spec.md)
    - Load project context (Context.md)
    - Understand what needs to be researched
 
    **Phase 2: Codebase Analysis** (Steps 3-4 in Research.md)
+
    - Launch codebase integration agent using `Task` tool
    - Identify existing patterns, similar features, integration points
    - Document codebase findings
 
    **Phase 3: Technology Research** (Steps 5-7 in Research.md)
+
    - Launch technology research agents using `Task` tool (if needed)
    - Research relevant frameworks, APIs, tools
    - **CRITICAL**: Instruct ALL agents to RETURN findings as text responses, NOT create files
@@ -82,11 +90,13 @@ Conduct comprehensive research for feature implementation: analyze codebase inte
    - Document technology findings
 
    **Phase 4: Architecture Pattern Research** (Steps 8-10 in Research.md)
+
    - Launch architecture pattern research agents using `Task` tool (if needed)
    - Explore design patterns, best practices
    - Document pattern findings
 
    **Phase 5: Consolidation** (Steps 11-12 in Research.md)
+
    - Consolidate all research findings into structured sections
    - Identify key decisions that need to be made
    - Use `Edit` tool to **remove the entire boxed system instructions section**
@@ -94,10 +104,13 @@ Conduct comprehensive research for feature implementation: analyze codebase inte
    **Template execution**: You must populate Research.md with actual findings from agents and analysis
 
 5. **Auto-Resolve Clarification Points with Reasonable Defaults**
+
    - Use `Grep` tool to find clarification markers: `Grep "🚨 \\[NEEDS CLARIFICATION:" [numbered-feature-directory]/Research.md`
    - If clarification points found:
+
      - Parse each clarification point
      - **FOR EACH CLARIFICATION**:
+
        - Analyze the question
        - Generate most reasonable answer based on:
          - Project Context.md

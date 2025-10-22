@@ -1,17 +1,19 @@
 # Remove Fixed Bugs from Backlog
-<!-- Template Version: 4 | ContextKit: 0.2.6 | Updated: 2025-10-18 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 4 | ContextKit: 0.2.7 | Updated: 2025-10-18 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
+
 Remove fixed or resolved bugs from the backlog database. Identifies target bug through search and calls database removal operations defined in Bugs-Backlog.md.
 
 ## Parameters
+
 - `description` (required): The bug description or ID (e.g., "login crash" or "BUG-001")
 
 ## Execution Flow (main)
@@ -27,36 +29,45 @@ Remove fixed or resolved bugs from the backlog database. Identifies target bug t
 ### Phase 1: Setup & Infrastructure Check
 
 1. **Check Bug Infrastructure**
+
    - Use `Glob` tool to verify: `Glob Context/Backlog Bugs-Backlog.md`
    - If Bugs-Backlog.md missing:
+
      ```
      ❌ Bug backlog not found!
 
      Expected: Context/Backlog/Bugs-Backlog.md
      Run /ctxk:proj:init to setup ContextKit backlog system first.
      ```
+
      → END (exit with error)
 
 ### Phase 2: Bug Identification
 
 2. **Parse User Input**
+
    - Extract search term from command parameter
    - If no description provided: ERROR "Description required: /ctxk:bckl:remove-bug 'search term or BUG-001'"
 
 3. **Search Existing Backlog**
+
    - Use `Read` tool to read Bugs-Backlog.md: `Read Context/Backlog/Bugs-Backlog.md`
    - Search Priority Index and Bug Details sections for matches
    - **Perfect ID match**: If input exactly matches "BUG-###" format and exists, skip to confirmation
    - **Partial matches**: Search titles and descriptions for keywords
 
 4. **Present Search Results**
+
    - If no matches found:
+
      - Display message: "🐛 No matching bugs found for: '[search term]'. Check Context/Backlog/Bugs-Backlog.md for available bugs. Use exact ID like 'BUG-001' or keywords from the bug title."
-     → END (no matches)
+       → END (no matches)
 
    - If single match found: Skip to confirmation step
    - If multiple matches found:
+
      - Display matches in chat:
+
        ```
        ════════════════════════════════════════════════════════════════
        🔍 SEARCH RESULTS - Multiple Bugs Found
@@ -70,6 +81,7 @@ Remove fixed or resolved bugs from the backlog database. Identifies target bug t
 
        ════════════════════════════════════════════════════════════════
        ```
+
      - Use AskUserQuestion tool with dynamically generated options based on search results:
        ```json
        {
@@ -102,7 +114,9 @@ Remove fixed or resolved bugs from the backlog database. Identifies target bug t
 ### Phase 3: Confirmation & Removal
 
 5. **Confirm Removal Intent**
+
    - Display selected bug details in chat:
+
      ```
      ────────────────────────────────────────────────────────────────
      🗑️ CONFIRM REMOVAL - Are you sure?
@@ -117,6 +131,7 @@ Remove fixed or resolved bugs from the backlog database. Identifies target bug t
 
      ────────────────────────────────────────────────────────────────
      ```
+
    - Use AskUserQuestion tool with these parameters:
      ```json
      {
@@ -143,6 +158,7 @@ Remove fixed or resolved bugs from the backlog database. Identifies target bug t
    - If user selects "No, cancel": Cancel and exit gracefully
 
 6. **Execute REMOVE_FIXED Operation**
+
    - **Call REMOVE_FIXED operation from Bugs-Backlog.md** with:
      - Confirmed bug ID
      - Resolution status (fixed/resolved/duplicate/won't-fix)
@@ -150,6 +166,7 @@ Remove fixed or resolved bugs from the backlog database. Identifies target bug t
    - Preserve operation result for success message
 
 7. **Display Removal Confirmation**
+
    ```
    ✅ Bug removed successfully!
 
@@ -168,11 +185,13 @@ Remove fixed or resolved bugs from the backlog database. Identifies target bug t
 ## Search Strategy Details
 
 ### ID-Based Search
+
 - **Exact match**: "BUG-001" → Direct match if exists
 - **Partial ID**: "001" → Search for "BUG-001"
 - **Case insensitive**: "bug-001" → Matches "BUG-001"
 
 ### Keyword Search
+
 - **Title matching**: Search bug titles for keywords
 - **Description content**: Search context and triage notes
 - **Severity matching**: Search by "critical", "high", "medium", "low"
@@ -180,6 +199,7 @@ Remove fixed or resolved bugs from the backlog database. Identifies target bug t
 - **Multi-word**: "login crash" → Matches titles containing both words
 
 ### Search Results Priority
+
 1. **Exact ID matches** (highest priority)
 2. **Title keyword matches** (high priority)
 3. **Severity level matches** (medium-high priority)
@@ -197,16 +217,19 @@ Remove fixed or resolved bugs from the backlog database. Identifies target bug t
 ## Validation Gates
 
 **Prerequisites:**
+
 - Bug backlog infrastructure exists and is readable?
 - User provided meaningful search term or ID?
 - Bugs-Backlog.md contains REMOVE_FIXED operation?
 
 **Processing:**
+
 - Search identified at least one matching bug?
 - User confirmed removal of correct bug?
 - REMOVE_FIXED operation executed successfully?
 
 **Output:**
+
 - Bug removed from all backlog database sections?
 - Critical bug count updated if applicable?
 - Database integrity maintained after removal?

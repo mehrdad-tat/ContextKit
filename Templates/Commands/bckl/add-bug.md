@@ -1,17 +1,19 @@
 # Capture Bug Reports with Quick Dump
-<!-- Template Version: 2 | ContextKit: 0.2.6 | Updated: 2025-10-02 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 2 | ContextKit: 0.2.7 | Updated: 2025-10-02 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
+
 Quick bug capture with minimal overhead. Takes description as parameter and dumps to inbox immediately with source extraction if mentioned.
 
 ## Parameters
+
 - `description` (required): The bug description (e.g., "Login crashes on iOS 18" or "Customer reported export button broken")
 
 ## Execution Flow (main)
@@ -38,6 +40,7 @@ Quick bug capture with minimal overhead. Takes description as parameter and dump
 ### Phase 2: Quick Processing
 
 2. **Parse Description and Extract Source**
+
    - Take description from command parameter
    - If no description provided: ERROR "Description required: /ctxk:bckl:add-bug 'Bug description here'"
    - **Extract source if mentioned**: Look for patterns like:
@@ -47,15 +50,18 @@ Quick bug capture with minimal overhead. Takes description as parameter and dump
      - If not found: Source = "Me"
 
 3. **Generate ID and Create Entry**
+
    - Use `Read` tool to read Bugs-Inbox.md: `Read Context/Backlog/Bugs-Inbox.md`
    - Generate next sequential ID: BUG-001, BUG-002, etc.
    - Create title from description (fix obvious typos, keep intent)
    - Generate current date
 
 4. **Add to Bug Inbox**
+
    - Use `Edit` tool to add entry at top of "Bugs Awaiting Triage" section:
      ```markdown
      ## [BUG-###] [Title from description]
+
      **Added**: YYYY-MM-DD
      **Source**: [Extracted source or "Me"]
      **Context**: [Full description if longer than title]
@@ -77,6 +83,7 @@ Quick bug capture with minimal overhead. Takes description as parameter and dump
 ## Source Extraction Patterns
 
 Look for these patterns in description and extract as source:
+
 - "Customer reported login crashes" → Source: "Customer", Description: "Login crashes"
 - "QA found export button broken" → Source: "QA team", Description: "Export button broken"
 - "Jack mentioned dark mode issues" → Source: "Jack", Description: "Dark mode issues"

@@ -1,14 +1,15 @@
 # Begin Development with Context
-<!-- Template Version: 17 | ContextKit: 0.2.6 | Updated: 2025-10-21 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 17 | ContextKit: 0.2.7 | Updated: 2025-10-21 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
+
 Begin systematic development with context-aware setup, task analysis, and guided implementation initiation based on completed planning phases.
 
 ## Execution Flow (main)
@@ -24,14 +25,18 @@ Begin systematic development with context-aware setup, task analysis, and guided
 ### Phase 1: Prerequisites & Feature Detection
 
 1. **Detect Current Feature from Git Branch**
+
    ```bash
    git branch --show-current || echo "⚠️ Not in git repository or no current branch"
    ```
+
    - If branch format is `feature/[prefix]-[kebab-case-name]`:
      - Extract full name from branch (e.g., `feature/001-visionos26-modernization` → `001-visionos26-modernization`)
      - Set FEATURE_NAME variable for directory matching
    - If not on feature branch:
+
      - Display warning in chat and auto-continue:
+
        ```
        ═══════════════════════════════════════════════════
        ⚠️ WARNING - Not on Feature Branch
@@ -45,10 +50,12 @@ Begin systematic development with context-aware setup, task analysis, and guided
        Auto-continuing to search for feature by branch name pattern...
        ═══════════════════════════════════════════════════
        ```
+
      - Attempt to extract feature name from current branch pattern
      - If extraction fails: Use most recent feature directory from Context/Features/
 
 2. **Validate Feature Planning Completion**
+
    - Use `Bash` tool to find numbered feature directory with flexible matching:
      ```bash
      # Try exact full name match first
@@ -69,6 +76,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
      ```
    - Use `Read` tool to verify Steps.md contains task breakdown (not empty placeholder)
    - If any file missing or empty:
+
      ```
      ❌ Feature planning incomplete!
 
@@ -85,11 +93,13 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
      Cannot proceed with development until planning is complete.
      ```
+
      → END (exit with error)
 
 ### Phase 2: Context Loading & Environment Setup
 
 3. **Load Development Context**
+
    - Use `Read` tool to read project Context.md: `Read Context.md`
    - **DEEP ANALYSIS REQUIRED**: Understand project type, architecture patterns, coding standards, and constitutional principles
    - Use `Bash` tool to check for workspace context:
@@ -100,11 +110,15 @@ Begin systematic development with context-aware setup, task analysis, and guided
    - **CRITICAL**: This context forms the foundation for understanding how to execute all Steps.md tasks
 
 4. **Verify Development Environment (Auto-Continue with Warnings)**
+
    ```bash
    git status --porcelain || echo "⚠️ Git not available"
    ```
+
    - If uncommitted changes exist:
+
      - Display warning in chat and auto-continue:
+
        ```
        ═══════════════════════════════════════════════════
        ⚠️ WARNING - Uncommitted Changes Detected
@@ -116,12 +130,13 @@ Begin systematic development with context-aware setup, task analysis, and guided
        Auto-continuing anyway...
        ═══════════════════════════════════════════════════
        ```
-     - Continue automatically (no user prompt)
 
+     - Continue automatically (no user prompt)
 
 ### Phase 3: Steps.md-Driven Development Execution
 
 5. **Load Complete Feature Context - DEEP UNDERSTANDING REQUIRED**
+
    - Use `Read` tool to read all planning files for complete understanding:
      ```
      Read [numbered-feature-directory]/Spec.md       # Business requirements and user stories
@@ -140,6 +155,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
      - Extract file paths and specific requirements for each task
 
 6. **Execute Steps.md Tasks Sequentially - NO SHORTCUTS ALLOWED**
+
    - **PRIMARY OBJECTIVE**: Follow Steps.md step-by-step as the definitive task list
    - Find the **first uncompleted task** in S001, S002, S003... sequence from Steps.md
    - **ABSOLUTE REQUIREMENT**: Do NOT skip tasks, do NOT choose "easier" tasks, do NOT take shortcuts
@@ -156,6 +172,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
    - **Steps.md drives everything** - it's not just a reference, it's the execution plan
 
    **🚨 CRITICAL: TOKEN LIMITS ARE IRRELEVANT**
+
    - **NEVER optimize for token limits** - quality and thoroughness are paramount
    - **NEVER rush through steps** to fit within a session - take the time each step needs
    - **Session boundaries don't matter** - progress is tracked in Steps.md
@@ -172,6 +189,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
    **For MANUAL REQUIRED Tasks** (marked with ⚠️ MANUAL REQUIRED in Steps.md):
 
    - Display manual task details in chat:
+
      ```
      ═══════════════════════════════════════════════════
      👤 MANUAL TASK - [TaskNumber from Steps.md]
@@ -195,6 +213,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
      ⏸️ Pausing for manual completion. Run /ctxk:impl:start-working again when done.
      ═══════════════════════════════════════════════════
      ```
+
    - EXIT and wait for user to complete manual task
    - User re-runs command when ready to continue
 
@@ -203,6 +222,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
    **CRITICAL**: Execute exactly as specified in Steps.md - no shortcuts or assumptions
 
    - Display automated task details in chat:
+
      ```
      ═══════════════════════════════════════════════════
      🚀 AUTO-EXECUTING TASK - [TaskNumber from Steps.md]
@@ -231,9 +251,11 @@ Begin systematic development with context-aware setup, task analysis, and guided
      Starting implementation now...
      ═══════════════════════════════════════════════════
      ```
+
    - Auto-execute immediately (no user prompt)
 
    **IMPORTANT**:
+
    - Task details come DIRECTLY from Steps.md - never modify or interpret
    - Use complete context from Spec.md and Tech.md (which contains research + architecture) for implementation
    - Do NOT skip steps or take shortcuts - follow Steps.md exactly
@@ -241,6 +263,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
 ### Phase 4: Task Execution with Steps.md as Central Progress Tracker
 
 8. **Execute Task Implementation with Complete Context**
+
    - **For Manual Tasks**: User delegation complete, immediately mark as done in Steps.md
    - **For Automated Tasks**: Implement using complete context understanding:
      - **Use ALL context from planning files**: Apply complete understanding from Spec.md and Tech.md (research + architecture)
@@ -253,28 +276,32 @@ Begin systematic development with context-aware setup, task analysis, and guided
      - Ensure implementation meets all criteria specified in Steps.md
 
 9. **Update Steps.md Progress Tracking - CENTRAL TO WORKFLOW**
-    - **IMMEDIATELY after task completion**: Use `Edit` tool to mark completed task as checked in Steps.md:
-      ```
-      OLD: - [ ] **S001** [task description]
-      NEW: - [x] **S001** [task description]
-      ```
-    - **Add completion timestamp**: Update task notes with completion time
-    - **🚨 CRITICAL**: Steps.md is THE authoritative progress tracker
-    - **Even if using TodoWrite**: Steps.md is the real source of truth, not the todo list
-    - TodoWrite is just for temporary session tracking - Steps.md persists across all sessions
-    - Verify the checkbox update was successful before proceeding
-    - **This enables session continuity**: Any new session can resume by reading Steps.md
+
+   - **IMMEDIATELY after task completion**: Use `Edit` tool to mark completed task as checked in Steps.md:
+     ```
+     OLD: - [ ] **S001** [task description]
+     NEW: - [x] **S001** [task description]
+     ```
+   - **Add completion timestamp**: Update task notes with completion time
+   - **🚨 CRITICAL**: Steps.md is THE authoritative progress tracker
+   - **Even if using TodoWrite**: Steps.md is the real source of truth, not the todo list
+   - TodoWrite is just for temporary session tracking - Steps.md persists across all sessions
+   - Verify the checkbox update was successful before proceeding
+   - **This enables session continuity**: Any new session can resume by reading Steps.md
 
 10. **Continue Sequential Execution - No Exit Until All Done**
+
     - **IMMEDIATELY after updating Steps.md**: Check for next sequential task
     - **Do NOT exit** - continue with next task in sequence according to Steps.md
     - Display progress update based on Steps.md status:
+
     ```
     ✅ Task [TaskNumber] completed and marked in Steps.md!
 
     📊 Progress: [completed_tasks+1]/[total_tasks] tasks done per Steps.md
     🔄 Loading next task from Steps.md...
     ```
+
     - Return to Phase 3, Step 6 to determine next task from Steps.md
     - **Only exit when**:
       - ALL Steps.md tasks completed (all checkboxes checked)
@@ -283,12 +310,14 @@ Begin systematic development with context-aware setup, task analysis, and guided
     - **The goal**: Complete the entire Steps.md task list systematically
 
 11. **Quality Assurance Integration with Primary Agents**
+
     - **PRIMARY AGENTS FOR IMPLEMENTATION**: Use these agents throughout development as specified in Steps.md
       - `build-project` - **Use whenever Steps.md mentions "build" or "compile"**
       - `commit-changes` - **Use at ALL milestone markers in Steps.md** (🏁 MILESTONE)
       - `run-test-suite` / `run-specific-test` - **Use when Steps.md specifies test execution**
 
     **Primary Agent Usage Examples**:
+
     ```
     # When Steps.md task says "build" or at Phase 5 validation tasks:
     Use Task tool with build-project:
@@ -308,19 +337,22 @@ Begin systematic development with context-aware setup, task analysis, and guided
     ```
 
     - **When to use build-project**:
+
       - After implementing significant functionality (service layer, UI components)
       - Before milestone commits to ensure code compiles
       - When Steps.md tasks explicitly mention "build validation"
       - After resolving dependency or integration issues
 
     - **When to use commit-changes agent**:
+
       - At EVERY 🏁 MILESTONE marker in Steps.md (use Task tool)
       - After completing a logical phase of work (data layer, UI layer, etc.)
       - When directed by Steps.md milestone instructions
       - The agent handles git analysis, formatting, and commit message generation
       - Users can also manually run /ctxk:impl:commit-changes command
 
-    - **When to use run-test-* agents**:
+    - **When to use run-test-\* agents**:
+
       - When Steps.md Phase 5 tasks specify test execution
       - After implementing new test files
       - Before milestone commits when tests exist
@@ -346,7 +378,6 @@ Begin systematic development with context-aware setup, task analysis, and guided
 - **"Build environment broken"** → Resolve dependency issues before starting development
 - **"All tasks complete"** → No pending work, consider `/ctxk:impl:commit-changes` or new feature
 
-
 ## Integration Points
 
 - **Planning Commands**: Requires completed planning workflow: `/ctxk:plan:1-spec` (Spec.md), `/ctxk:plan:2-research` (Research.md), `/ctxk:plan:3-tech` (Tech.md), `/ctxk:plan:4-steps` (Steps.md) - or use `/ctxk:plan:planning` for automatic execution
@@ -360,6 +391,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
 ## Success Messages
 
 ### Development Session Started
+
 ```
 🚀 Development session started for [FeatureName]
 
@@ -376,6 +408,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
 ```
 
 ### All Tasks Complete
+
 ```
 🎉 Feature [FeatureName] implementation complete!
 
@@ -394,10 +427,13 @@ This section is preserved during ContextKit migrations and updates.
 Add project-specific instructions, examples, and overrides below.
 
 ## Custom Task Selection Logic
+
 <!-- Override automatic task selection with project-specific priority rules -->
 
 ## Additional Environment Checks
+
 <!-- Add project-specific dependency or tool verification steps -->
 
 ## Custom Constitutional Reminders
+
 <!-- Add project-specific architectural principles or coding standards -->

@@ -1,8 +1,8 @@
 # Swift Development Guidelines
-<!-- Template Version: 4 | ContextKit: 0.2.6 | Updated: 2025-09-26 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 4 | ContextKit: 0.2.7 | Updated: 2025-09-26 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -17,12 +17,14 @@ These guidelines provide strategic direction for Swift development in ContextKit
 ## Modern API Preferences
 
 ### Temporal APIs
+
 - ✅ **Prefer**: `Date.now` over `Date()`
 - ✅ **Prefer**: `Duration` over `TimeInterval`
 - ✅ **Prefer**: `ContinuousClock.now` for timing measurements
 - ✅ **Prefer**: `Logger().debug/info/warnings/error` over `print` for logging/debugging messages
 
 ### Language Features
+
 - ✅ **Prefer**: Switch expressions over switch statements
 - ✅ **Prefer**: `if` expressions for conditional assignment
 - ✅ **Prefer**: `replacing()` over `replacingOccurrences(of:with:)`
@@ -30,12 +32,14 @@ These guidelines provide strategic direction for Swift development in ContextKit
 - ✅ **Prefer**: Modern shorthand: `[if/guard] let value else {}` over `[if/guard] let value = self.value else {}`
 
 ### String/Data Conversion
+
 - ✅ **Prefer**: `Data(string.utf8)` for String to Data conversion (non-optional)
 - ✅ **Prefer**: `String(decoding: data, as: UTF8.self)` for Data to String conversion (non-optional, replaces invalid bytes with �)
 - ❌ **Avoid**: `string.data(using: .utf8)` (returns optional)
 - ❌ **Avoid**: `String(data: data, encoding: .utf8)` (returns optional)
 
 ### Concurrency
+
 - ✅ **Prefer**: `async/await` over completion handlers
 - ✅ **Prefer**: Structured concurrency (`TaskGroup`, `async let`)
 - ❌ **Avoid**: Manual thread management
@@ -46,12 +50,14 @@ These guidelines provide strategic direction for Swift development in ContextKit
 ## Architecture Preferences
 
 ### UI Framework Choice
+
 - ✅ **SwiftUI first**: For new development and modern UI patterns
 - ✅ **MVVM patterns**: With `@Observable` view models or services
 - ❌ **Avoid**: UIKit except for specific platform requirements
 - ❌ **Avoid**: UIViewRepresentable unless absolutely necessary
 
 ### Error Handling Strategy
+
 - ✅ **Typed throws**: Use `throws(SpecificError)` for better error handling
 - ✅ **ErrorKit patterns**: For user-friendly error messages and chains
 - ✅ **Early returns**: Use `guard` statements for preconditions
@@ -62,22 +68,27 @@ These guidelines provide strategic direction for Swift development in ContextKit
 ## Framework and Package Preferences
 
 ### FlineDev Ecosystem Overview
+
 FlineDev frameworks provide a cohesive development experience (find all at https://github.com/FlineDev):
 
 **Auto-imported via `FlineDevKit`:**
+
 - **`ErrorKit`**: Enhanced error handling with typed throws, user-friendly messages, and error chain debugging
 - **`HandySwift`**: Essential utilities missing from Foundation (RESTClient, Debouncer, date/time types)
 - **`TranslateKitSDK`**: 2000+ pre-localized common UI strings via TK.Action, TK.Label, TK.Message, etc.
 - **`TelemetryDeck`**: Privacy-preserving analytics and app insights
 
 **Additional frameworks (manual import needed):**
+
 - **`IntelligenceKit`**: OpenAI GPT integration with structured responses and error handling - add to Package.swift and import separately when needed for AI features
 
 ### Import Strategy
+
 - ✅ **Primary**: Always import `FlineDevKit` first in new files
 - ✅ **Selective**: Only import additional frameworks when FlineDevKit insufficient
 
 ### Networking
+
 - ✅ **Prefer**: `RESTClient` from HandySwift for REST APIs
 - ✅ **Prefer**: `IntelligenceKit` for AI service integration (OpenAI, etc.)
 - ❌ **Avoid**: Custom URLSession implementations
@@ -86,20 +97,25 @@ FlineDev frameworks provide a cohesive development experience (find all at https
 ### HandySwift Utilities
 
 **New Types:**
+
 - ✅ **Prefer**: `Debouncer` for input throttling and preventing rapid-fire operations
 - ✅ **Prefer**: `GregorianDay/GregorianTime` for date/time-only storage without timezone confusion
 
 **String Extensions:**
+
 - ✅ **Prefer**: `.isBlank` for checking empty or whitespace-only strings
 
 **Numeric Extensions:**
+
 - ✅ **Prefer**: `5.times { }`/`5.timesMake { }` for clean fixed times repetition/creation
 
 ### Common UI Strings
+
 - ✅ **Prefer**: `Button(TK.Action.save) { }` for common actions (TranslateKitSDK)
 - ✅ **Prefer**: `Text(TK.Label.settings)` for common labels (TranslateKitSDK)
 
 ### Testing Strategy
+
 - ✅ **Swift Testing**: Use Swift Testing framework (`@Test`, `#expect`) over XCTest for new unit tests
 - ✅ **Minimal testing**: Only for complex algorithms with many edge cases
 - ❌ **Avoid**: Testing simple CRUD operations
@@ -109,16 +125,19 @@ FlineDev frameworks provide a cohesive development experience (find all at https
 ## Code Style Essentials
 
 ### Formatting Standards
+
 - **3-space indentation** (enforced by formatters)
 - **Trailing commas** in multi-line collections
 - **No header comments** or file-level documentation
 - **No MARK sections** - use separate files instead
 
 ### Self Usage
+
 - ✅ **Always use `self.`** for property access
 - ✅ **Consistent pattern**: Makes property references explicit
 
 ### Naming Conventions
+
 - ✅ **Descriptive names**: Clarity over brevity
 - ✅ **Collection literals**: `var items: [Type] = []` over `Array<Type>()`
 - ❌ **Avoid**: Redundant type information in method names
@@ -128,6 +147,7 @@ FlineDev frameworks provide a cohesive development experience (find all at https
 ## Project Organization Patterns
 
 ### Directory Structure
+
 ```
 App/
 ├── Sources/
@@ -148,11 +168,13 @@ Tests/
 ```
 
 ### File Organization
+
 - **One primary type per file** for substantial types (>10 lines)
 - **Extensions in Extensions/ folder** with `TypeNameExt.swift` pattern
 - **Related small types together** when closely coupled
 
 ### Build Configuration
+
 - **Standard scheme**: `App` for all projects
 - **Build command**: `xcodebuild -scheme App build -quiet`
 - **Formatter sequence**: SwiftFormat first, then swift-format
@@ -162,12 +184,15 @@ Tests/
 ## Quality Assurance Integration
 
 ### Automated Formatting
+
 - **Dual formatters**: SwiftFormat (self insertion) + swift-format (general formatting)
 - **Execution order**: SwiftFormat first, swift-format last
 - **Required timing**: Before commits, after milestones, after successful builds
 
 ### Code Quality Gates
+
 Quality validation is handled by specialized agents:
+
 - **`check-modern-code`**: Validates modern API usage
 - **`check-accessibility`**: Ensures accessibility compliance
 - **`check-localization`**: Verifies string externalization
@@ -179,18 +204,21 @@ Quality validation is handled by specialized agents:
 ## Official Apple Resources
 
 ### Swift Language Documentation
+
 - **Swift Language Guide**: https://docs.swift.org/swift-book/documentation/the-swift-programming-language/
 - **Swift API Design Guidelines**: https://swift.org/documentation/api-design-guidelines/
 - **Swift Evolution**: https://apple.github.io/swift-evolution/ - Track upcoming language features
 - **Swift Package Manager**: https://swift.org/getting-started/#using-the-package-manager
 
 ### Apple Developer Documentation
+
 - **Foundation Framework**: https://developer.apple.com/documentation/foundation
 - **Swift Concurrency**: https://developer.apple.com/documentation/swift/concurrency
 - **Testing in Xcode**: https://developer.apple.com/documentation/xcode/testing-your-apps-in-xcode
 - **App Store Connect**: https://developer.apple.com/documentation/appstoreconnectapi
 
 ### Community-Trusted Domains
+
 - **wwdcnotes.com** - Community WWDC session summaries with practical examples
 - **swiftbysundell.com** - Modern Swift patterns, best practices, and architectural guidance
 - **avanderlee.com** - Practical iOS development, debugging, and performance insights
@@ -205,6 +233,7 @@ Quality validation is handled by specialized agents:
 - **pointfree.co** - Advanced Swift concepts, functional programming, and architecture
 
 ### Performance and Debugging
+
 - **Xcode Instruments**: https://developer.apple.com/documentation/instruments
 - **Swift Performance**: https://github.com/apple/swift/blob/main/docs/OptimizationTips.rst
 - **Memory Management**: https://developer.apple.com/documentation/swift/automaticreferencecounting

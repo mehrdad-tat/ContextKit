@@ -1,14 +1,15 @@
 # Triage Bugs with Severity-Based Prioritization
-<!-- Template Version: 4 | ContextKit: 0.2.6 | Updated: 2025-10-18 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 4 | ContextKit: 0.2.7 | Updated: 2025-10-18 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
+
 Process bugs from inbox through systematic 5-step triage with severity-based binary search positioning. Orchestrates user interaction and calls database operations defined in Bugs-Backlog.md.
 
 ## Execution Flow (main)
@@ -24,26 +25,32 @@ Process bugs from inbox through systematic 5-step triage with severity-based bin
 ### Phase 1: Setup & Inventory
 
 1. **Check Bug Infrastructure**
+
    - Use `Glob` tool to verify: `Glob Context/Backlog Bugs-Inbox.md Bugs-Backlog.md`
    - If missing files:
+
      ```
      ❌ Bug infrastructure incomplete!
 
      Missing files detected. Run /ctxk:proj:init to setup complete backlog system.
      Required: Context/Backlog/Bugs-Inbox.md and Bugs-Backlog.md
      ```
+
      → END (exit with error)
 
 2. **Load Bug Inventory**
+
    - Use `Read` tool to read Bugs-Inbox.md: `Read Context/Backlog/Bugs-Inbox.md`
    - Parse all bugs awaiting triage (look for `## [BUG-###]` entries)
    - If no bugs in inbox:
+
      ```
      🐛 Bug inbox is empty!
 
      All bugs have been triaged. Use /ctxk:bckl:add-bug to capture new bug reports.
      Current state: Ready for development with existing backlog.
      ```
+
      → END (success - no work needed)
 
 3. **Load Existing Bug Backlog Database**
@@ -54,9 +61,11 @@ Process bugs from inbox through systematic 5-step triage with severity-based bin
 ### Phase 2: Systematic Bug Triage
 
 4. **Process Each Bug from Inbox Using 5-Step Triage**
+
    - For each bug in Bugs-Inbox.md, execute systematic triage:
 
    **Step 1: Severity Assessment**
+
    ```
    ────────────────────────────────────────────────────────────────
    **🔥 SEVERITY: How severe is this bug's impact?**
@@ -74,9 +83,11 @@ Process bugs from inbox through systematic 5-step triage with severity-based bin
    Choose A, B, C, or D:
    ────────────────────────────────────────────────────────────────
    ```
+
    - Document detailed impact analysis based on user input
 
    **Step 2: Effort Estimation**
+
    ```
    ────────────────────────────────────────────────────────────────
    **⏱️ EFFORT: How much human review/testing time would this fix require with AI assistance?**
@@ -94,12 +105,15 @@ Process bugs from inbox through systematic 5-step triage with severity-based bin
    Choose A, B, C, or D:
    ────────────────────────────────────────────────────────────────
    ```
+
    - If Major complexity: Ask if bug should be converted to feature specification
    - Document effort reasoning and any clarifications
 
    **Step 3: Binary Search Priority Placement (Severity-Effort Matrix)**
+
    - **Call SEVERITY_BINARY_SEARCH_INSERT operation from Bugs-Backlog.md**
    - Present exactly 3 reference bugs from existing Priority Index:
+
    ```
    ────────────────────────────────────────────────────────────────
    **📍 PRIORITY: Where does this bug rank for fixing?**
@@ -119,10 +133,12 @@ Process bugs from inbox through systematic 5-step triage with severity-based bin
 
    ────────────────────────────────────────────────────────────────
    ```
+
    - **Continue narrowing** until exact insertion point identified
    - **Never stop** until position between two consecutive bugs found
 
    **Step 4: Impact Analysis & Dependencies**
+
    ```
    ────────────────────────────────────────────────────────────────
    **🔗 IMPACT: Does this bug block other work or affect multiple areas?**
@@ -140,9 +156,11 @@ Process bugs from inbox through systematic 5-step triage with severity-based bin
 
    ────────────────────────────────────────────────────────────────
    ```
+
    - Document blocking relationships and cascade effects for metadata tables
 
    **Step 5: Finalize Using ADD_BUG_ENTRY Operation**
+
    - **Call ADD_BUG_ENTRY operation from Bugs-Backlog.md** with collected information:
      - Priority score from severity-effort matrix binary search
      - Severity assessment
@@ -156,16 +174,19 @@ Process bugs from inbox through systematic 5-step triage with severity-based bin
 ### Phase 3: Session Completion & Database Maintenance
 
 5. **Execute Session Management Operations**
+
    - **Call CRITICAL_ESCALATION operation** to handle any critical bugs
    - **Call SEVERITY_REBALANCE operation** if priority gaps have become too small
    - Update triage tracking information in Bugs-Backlog.md
 
 6. **Clean Inbox and Update Status**
+
    - Use `Edit` tool to remove all processed bugs from Bugs-Inbox.md
    - Update "Last Triage Session" date in Bugs-Backlog.md
    - Update critical bug count and next triage due triggers
 
 7. **Display Triage Summary**
+
    ```
    🐛 Bug triage complete!
 
@@ -194,17 +215,20 @@ Process bugs from inbox through systematic 5-step triage with severity-based bin
 ## Severity-Effort Matrix Implementation
 
 ### Reference Bug Selection Strategy
+
 - **Pick 3 bugs** from different severity-effort combinations in existing Priority Index
 - **Include meaningful context**: severity, effort, user impact, source
 - **Example format**: "Login crash (Critical, 4h, affects all users)" not just "Login bug"
 
 ### User Interaction Flow
+
 - If user picks "A) Higher priority": Select references from higher priority range and continue
 - If user picks "C) Lower priority": Select references from lower priority range and continue
 - **Never terminate** until exact insertion point between consecutive bugs identified
 - **Calculate severity-weighted score** using formula from SEVERITY_BINARY_SEARCH_INSERT operation
 
 ### Database Operation Calls
+
 - **SEVERITY_BINARY_SEARCH_INSERT**: For finding exact priority position using severity-effort matrix
 - **ADD_BUG_ENTRY**: For adding bug with complete triage metadata
 - **CRITICAL_ESCALATION**: For handling critical bugs requiring immediate attention
@@ -214,18 +238,21 @@ Process bugs from inbox through systematic 5-step triage with severity-based bin
 ## Severity-Effort Priority Rules
 
 ### Severity Levels
+
 - **Critical**: App crashes, data loss, security issues, complete feature failures
 - **High**: Core functionality broken, significant user impact, difficult workarounds
 - **Medium**: Feature degraded but usable, minor user impact, workarounds available
 - **Low**: Cosmetic issues, minor UI problems, edge cases, polish items
 
 ### Effort Classifications
+
 - **Simple**: 1-3 hours - UI fixes, text changes, obvious bugs
 - **Medium**: 4-12 hours - Logic fixes, single component changes
 - **Complex**: 1-3 days - Architecture issues, multiple system fixes
 - **Major**: 1+ weeks - Fundamental redesigns (consider converting to feature)
 
 ### Priority Matrix Application
+
 - **Critical + Any Effort** = Negative scores (immediate attention via CRITICAL_ESCALATION)
 - **High + Simple** = 1-10 range
 - **High + Medium/Complex** = 10-20 range
@@ -243,16 +270,19 @@ Process bugs from inbox through systematic 5-step triage with severity-based bin
 ## Validation Gates
 
 **Prerequisites:**
+
 - Bug infrastructure files exist and are readable?
 - At least one bug exists in inbox for triage?
 - Bugs-Backlog.md contains documented database operations?
 
 **Processing:**
+
 - Each bug goes through complete 5-step triage evaluation?
 - Severity and effort assessments completed for all bugs?
 - Binary search continues until exact position identified?
 
 **Output:**
+
 - Bugs moved from inbox to backlog using documented operations?
 - Priority Index maintained in correct severity-weighted order?
 - Critical bugs properly flagged for immediate attention?

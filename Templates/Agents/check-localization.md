@@ -1,13 +1,12 @@
 ---
-meta: "Template Version: 5 | ContextKit: 0.2.6 | Updated: 2025-10-02"
+meta: "Template Version: 5 | ContextKit: 0.2.7 | Updated: 2025-10-02"
 name: check-localization
 description: [INCOMPLETE] Detect and fix localization issues - needs rework for read-only reporting
 tools: Read, Edit, MultiEdit, Grep, Glob, Task
 color: cyan
 ---
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -16,9 +15,11 @@ color: cyan
 # Agent: check-localization
 
 ## Purpose
+
 Detect and automatically fix common localization issues in source code. Applies universal internationalization patterns with automatic framework-specific fixes and localization key generation.
 
 ## Context Requirements
+
 - Project Context.md file for understanding project type, tech stack, and localization setup
 - Source code files for analysis (Swift/SwiftUI preferred)
 - Localization resource files if available (.xcstrings, .strings, etc.)
@@ -36,6 +37,7 @@ FILES:
 ```
 
 **Structure Interpretation**:
+
 - **File path**: Relative to project root
 - **Line ranges**: `45-67` = lines 45 through 67
 - **Multiple ranges**: `23-89,134-178` = lines 23-89 AND lines 134-178
@@ -49,6 +51,7 @@ FILES:
 **Localization Analysis Requires Usage Context**: Unlike other agents, localization analysis needs surrounding code context to generate proper localization keys and meaningful translator comments.
 
 ### Localization Context Expansion Rules
+
 - **String context analysis**: Expand around hardcoded strings to understand their usage context and purpose
 - **Swift Package context**: When in Swift packages (detected by Package.swift), analyze bundle parameter requirements for Text/Image
 - **Variable type context**: Expand around String variable declarations to determine if they're used in UI contexts requiring LocalizedStringKey
@@ -58,6 +61,7 @@ FILES:
 - **Error message context**: Expand to include complete error handling context for proper error message localization
 
 ### Examples
+
 ```swift
 // Input: Sources/LoginView.swift:45-67 (contains Text("Enter password"))
 // → Expand to include complete login form context
@@ -77,7 +81,9 @@ FILES:
 ```
 
 ## Execution Flow (agent)
+
 0. **Read the "👩‍💻 DEVELOPER CUSTOMIZATIONS" section**
+
    - Use `Grep` tool to find the start of the section
    - Read everything below that line contained in this document til the end of the file
    - Make sure to consider what was said there with high priority
@@ -91,16 +97,17 @@ FILES:
 2. **Input Validation and Context Setup**
    → **If FILES provided**: Use Read to examine only specified files and line ranges
    → **If no FILES provided**:
-     - WARN "No FILES specified - scanning uncommitted changes instead"
-     - WARN "Run localization checks during feature development for targeted analysis"
-     - Use Bash to get uncommitted files: `git diff --name-only HEAD`
-     - If git not available: ERROR "Git repository required for automatic file detection"
-     - If no uncommitted files: INFO "No uncommitted changes found - nothing to analyze"
-     - Filter for source files that may contain user-facing strings
-     - Use Read to examine uncommitted files for localization issues
-   → Focus analysis only on specified areas when FILES format is used
-   → Validate source code files are accessible for analysis
-   → If no source files provided: ERROR "No source code files specified for localization analysis"
+
+   - WARN "No FILES specified - scanning uncommitted changes instead"
+   - WARN "Run localization checks during feature development for targeted analysis"
+   - Use Bash to get uncommitted files: `git diff --name-only HEAD`
+   - If git not available: ERROR "Git repository required for automatic file detection"
+   - If no uncommitted files: INFO "No uncommitted changes found - nothing to analyze"
+   - Filter for source files that may contain user-facing strings
+   - Use Read to examine uncommitted files for localization issues
+     → Focus analysis only on specified areas when FILES format is used
+     → Validate source code files are accessible for analysis
+     → If no source files provided: ERROR "No source code files specified for localization analysis"
 
 3. **Hardcoded String Detection with Context Expansion**
    → **Smart context expansion**: When hardcoded strings are found, expand to include surrounding code context for proper key generation
@@ -151,12 +158,14 @@ FILES:
 ## Universal Localization Concepts
 
 ### Hardcoded User-Facing Strings (High Priority)
+
 **Concept**: Text displayed to users should never be embedded directly in source code
 **Impact**: Prevents translation and internationalization of the application
 
 **Detection Approach**: Search for string literals in UI components, error messages, and user feedback
 
 **Swift/SwiftUI Examples**:
+
 ```swift
 // Problematic patterns
 Text("Login") → Text(LocalizedStringKey("auth.login.title"))
@@ -166,12 +175,14 @@ Button("Save") → Button(LocalizedStringKey("action.save"))
 ```
 
 ### Regional Formatting Dependencies (High Priority)
+
 **Concept**: Numbers, dates, and currency should adapt to user's locale preferences
 **Impact**: Users see inappropriate formats for their region (e.g., MM/DD/YYYY vs DD/MM/YYYY)
 
 **Detection Approach**: Find hardcoded regional symbols and format strings
 
 **Swift/SwiftUI Examples**:
+
 ```swift
 // Problematic patterns
 Text("$\(price)") → Text("\(price, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))")
@@ -180,12 +191,14 @@ DateFormatter with fixed format → Use .dateTime() or locale-aware formats
 ```
 
 ### Swift Package Bundle Issues (High Priority)
+
 **Concept**: In Swift packages, localized strings and assets need explicit bundle parameters to work correctly
 **Impact**: Localization fails in Swift packages when Text/Image don't specify bundle parameter
 
 **Detection Approach**: Analyze package structure (Package.swift presence) and examine Text/Image usage for missing bundle parameters
 
 **Swift/SwiftUI Examples**:
+
 ```swift
 // Problematic patterns in Swift packages
 Text("Hello World") → Text("Hello World", bundle: .module)
@@ -194,12 +207,14 @@ Text(LocalizedStringKey("greeting")) → Text("greeting", bundle: .module)
 ```
 
 ### Variable Type Localization Issues (High Priority)
+
 **Concept**: String variables used for UI display should be LocalizedStringKey type for proper localization
 **Impact**: UI text stored in String variables won't be automatically localized, even when displayed in Text()
 
 **Detection Approach**: Analyze variable declarations and their usage in UI contexts to identify type mismatches
 
 **Swift/SwiftUI Examples**:
+
 ```swift
 // Problematic patterns
 let title: String = "Settings" → let title: LocalizedStringKey = "Settings"
@@ -208,12 +223,14 @@ var message: String = "Welcome" → var message: LocalizedStringKey = "Welcome"
 ```
 
 ### Accessibility Text Not Localized (Medium Priority)
+
 **Concept**: Screen reader labels and hints must be translated for international users
 **Impact**: Non-English speaking users with disabilities cannot understand interface
 
 **Detection Approach**: Find accessibility labels using hardcoded strings instead of localized keys
 
 **Swift/SwiftUI Examples**:
+
 ```swift
 // Problematic patterns
 .accessibilityLabel("Delete") → .accessibilityLabel(LocalizedStringKey("action.delete"))
@@ -230,6 +247,7 @@ Build validated: SUCCESS
 
 Generated keys: auth.signin.button, settings.title, package.welcome.title
 Manual review needed:
+
 - ItemListView.swift:33 - Pluralization rules (use stringsdict)
 - DateView.swift:33 - Cultural date format preferences
 
@@ -239,33 +257,41 @@ Files modified: LoginView.swift, SettingsView.swift, PackageViews/WelcomeView.sw
 ## LLM-Based Analysis Approach
 
 ### Intelligent Code Analysis Method
+
 Instead of using basic pattern matching, perform semantic code analysis by reading and understanding the complete file context:
 
 ### Swift Package Detection
+
 **Analysis**: Read Package.swift file to detect if project is a Swift package, then analyze Text/Image usage throughout codebase
 **Intelligence**: Understand when bundle parameters are required vs optional based on package structure and resource usage
 
 ### Variable Type Analysis
+
 **Analysis**: Read variable declarations and trace their usage in UI contexts to identify String vs LocalizedStringKey mismatches
 **Intelligence**: Understand data flow from variable declaration to UI component usage, detecting when String variables are passed to Text()
 
 ### Hardcoded String Context Analysis
+
 **Analysis**: Read complete UI components to understand string context, purpose, and generate appropriate localization keys
 **Intelligence**: Understand UI hierarchy, component purpose, and user interaction patterns to generate semantic keys
 
 ### Regional Formatting Intelligence
+
 **Analysis**: Read formatting code and understand locale-dependent vs hardcoded formatting patterns
 **Intelligence**: Detect implicit regional assumptions in date/currency/number formatting and suggest locale-aware alternatives
 
 ### Accessibility Context Understanding
+
 **Analysis**: Read accessibility modifier usage and understand component purpose for proper localization
 **Intelligence**: Generate contextual accessibility keys that provide meaningful descriptions for screen readers in multiple languages
 
 ### Data Model Semantic Analysis
+
 **Analysis**: Read enum definitions and understand which cases represent user-facing vs internal values
 **Intelligence**: Distinguish between data values and display values, suggesting proper separation of concerns
 
 ## Implementation Steps
+
 1. **Read Project Context**: Use Context.md to understand project type, tech stack, and localization requirements
 2. **Intelligent File Analysis**: Use Read tool to examine complete source files and understand code semantically
 3. **Apply LLM Intelligence**: Analyze code patterns using semantic understanding rather than basic pattern matching
@@ -273,12 +299,15 @@ Instead of using basic pattern matching, perform semantic code analysis by readi
 5. **Apply Universal Concepts**: Tag each finding with the violated internationalization principle and provide semantic fixes
 
 ## Localization Concept Application
+
 The universal concepts above apply to any programming language and framework. The SwiftUI examples demonstrate how these principles work in practice and serve as concrete illustrations that can guide similar localization improvements in other technologies.
 
 ## Validation Gates
-*Checked by execution flow before returning SUCCESS*
+
+_Checked by execution flow before returning SUCCESS_
 
 ### Technical Gates
+
 - [ ] Project Context.md successfully read and analyzed?
 - [ ] Source files successfully scanned using detection patterns?
 - [ ] Hardcoded string detection completed?
@@ -286,6 +315,7 @@ The universal concepts above apply to any programming language and framework. Th
 - [ ] Accessibility localization gaps found?
 
 ### Quality Gates
+
 - [ ] Specific file locations and line numbers provided?
 - [ ] Before/after code examples use correct Swift/SwiftUI syntax?
 - [ ] Universal concepts clearly explained with violations?
@@ -295,6 +325,7 @@ The universal concepts above apply to any programming language and framework. Th
 **If all gates pass**: SUCCESS (localization analysis complete)
 
 ## Error Conditions
+
 - "Context.md not found" → Project context file missing, proceeding with auto-detection
 - "No source files specified" → User must provide source code files for analysis
 - "No localizable content found" → Project may not have user-facing UI components

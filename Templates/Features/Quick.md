@@ -1,7 +1,9 @@
 # Quick Task Template
-<!-- Template Version: 3 | ContextKit: 0.2.6 | Updated: 2025-01-17 -->
+
+<!-- Template Version: 3 | ContextKit: 0.2.7 | Updated: 2025-01-17 -->
 
 ## Description
+
 Quick task planning template for smaller tasks, bug fixes, and focused improvements that need planning but don't require the full multi-file workflow (Spec/Tech/Steps). Includes interactive validation, codebase analysis, and may include online research.
 
 ════════════════════════════════════════════════════════════════════════════════
@@ -25,44 +27,44 @@ Quick task planning template for smaller tasks, bug fixes, and focused improveme
 ║ - Generating this file with confirmed understanding
 ║
 ║ 2. Populate Input section
-║    - Use Edit to replace "[User's original description - verbatim]"
-║    - Keep the original description exactly as provided
-║    - Use triple quotes to preserve formatting
+║ - Use Edit to replace "[User's original description - verbatim]"
+║ - Keep the original description exactly as provided
+║ - Use triple quotes to preserve formatting
 ║
 ║ 3. Populate Understanding section
-║    - Use Edit to replace summary with confirmed understanding
-║    - Be as detailed as necessary - these tasks are smaller but substantial
-║    - Fill In Scope items (as many as needed for clarity)
-║    - Fill Out of Scope items (clearly define boundaries)
-║    - Fill Edge Cases (all relevant edge cases to consider)
-║    - This section was already validated with user in chat
+║ - Use Edit to replace summary with confirmed understanding
+║ - Be as detailed as necessary - these tasks are smaller but substantial
+║ - Fill In Scope items (as many as needed for clarity)
+║ - Fill Out of Scope items (clearly define boundaries)
+║ - Fill Edge Cases (all relevant edge cases to consider)
+║ - This section was already validated with user in chat
 ║
 ║ 4. Populate Code Context section
-║    - Use Edit to add relevant file paths with line numbers
-║    - Document current patterns found in codebase
-║    - Note integration points and dependencies
-║    - Include as much context as needed for understanding
-║    - **If online research was conducted**: Populate Research Sources subsection with:
-║      - Technology/framework names with URLs and versions
-║      - Documentation or article URLs with access dates
-║    - **If NO online research was needed**: Remove Research Sources subsection entirely
+║ - Use Edit to add relevant file paths with line numbers
+║ - Document current patterns found in codebase
+║ - Note integration points and dependencies
+║ - Include as much context as needed for understanding
+║ - **If online research was conducted**: Populate Research Sources subsection with:
+║ - Technology/framework names with URLs and versions
+║ - Documentation or article URLs with access dates
+║ - **If NO online research was needed**: Remove Research Sources subsection entirely
 ║
 ║ 5. Populate Implementation Approach section
-║    - Use Edit to add detailed technical approach
-║    - Document key decisions and rationale
-║    - Reference architectural patterns from Context.md
-║    - Include any research findings or online resources consulted
-║    - Be thorough - if the task needed ContextKit, it needs proper planning
+║ - Use Edit to add detailed technical approach
+║ - Document key decisions and rationale
+║ - Reference architectural patterns from Context.md
+║ - Include any research findings or online resources consulted
+║ - Be thorough - if the task needed ContextKit, it needs proper planning
 ║
 ║ 6. Populate Tasks section
-║    - Use Edit to generate specific tasks (as many as needed)
-║    - Each task should be actionable with clear acceptance criteria
-║    - Include file paths where applicable
-║    - Optionally add build validation task (using Task tool with build-project agent)
+║ - Use Edit to generate specific tasks (as many as needed)
+║ - Each task should be actionable with clear acceptance criteria
+║ - Include file paths where applicable
+║ - Optionally add build validation task (using Task tool with build-project agent)
 ║
 ║ 7. Clean up template
-║    - Use Edit to remove this entire boxed section
-║    - Leave only the content sections
+║ - Use Edit to remove this entire boxed section
+║ - Leave only the content sections
 ║
 ║ Phase 2: Manual Execution (User-driven)
 ║ ─────────────────────────────────────────────────────────────────────────────
@@ -127,21 +129,25 @@ Quick task planning template for smaller tasks, bug fixes, and focused improveme
 ## 🔍 Code Context
 
 **Relevant Files:**
+
 - `path/to/file.swift:123` - [Why this file is relevant]
 - `path/to/another.swift:45` - [Why this file is relevant]
 
 **Current Patterns:**
+
 - [How the relevant code currently works]
 - [Existing patterns to follow or avoid]
 
 **Integration Points:**
+
 - [Where this change connects to other parts of the codebase]
 - [Dependencies or impacts to be aware of]
 
 **Research Sources** (if online research was conducted):
+
 - [Technology/Framework Name]: [URL] - [Version/Date if applicable]
 - [Documentation/Article]: [URL] - [Date accessed]
-(Remove this subsection entirely if no online research was needed)
+  (Remove this subsection entirely if no online research was needed)
 
 ---
 

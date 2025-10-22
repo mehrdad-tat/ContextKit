@@ -1,8 +1,8 @@
 # Create Feature Specification
-<!-- Template Version: 17 | ContextKit: 0.2.6 | Updated: 2025-10-22 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 17 | ContextKit: 0.2.7 | Updated: 2025-10-22 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
@@ -25,6 +25,7 @@ Initialize feature specification by validating setup, confirming feature naming,
 ### Phase 1: Setup Validation & Prerequisites
 
 1. **Check Project Setup**
+
    - Use `Glob` tool to verify Context.md exists: `Glob . Context.md`
    - If Context.md missing:
 
@@ -47,6 +48,7 @@ Initialize feature specification by validating setup, confirming feature naming,
    ```
 
    - If uncommitted changes exist:
+
      - Display warning in chat and auto-continue:
 
        ```
@@ -66,12 +68,14 @@ Initialize feature specification by validating setup, confirming feature naming,
      - Continue automatically (no user prompt)
 
 3. **Get Feature or App Description from User**
+
    - Ask user for feature/app description via text input
    - Wait for user input
    - **CRITICAL**: Store description exactly verbatim for specification Input field - do NOT summarize or paraphrase
    - Continue with description-based processing
 
 4. **Auto-Detect Components (Default: Root Only)**
+
    - **CRITICAL: DO NOT ask user about components - always default to root only**
    - Use `Bash` tool to check for multi-component structure:
 
@@ -87,6 +91,7 @@ Initialize feature specification by validating setup, confirming feature naming,
 
    - **Always default to "root only"** (most common case)
    - If multiple components detected:
+
      - Display info message:
 
        ```
@@ -104,12 +109,14 @@ Initialize feature specification by validating setup, confirming feature naming,
    - **NO USER PROMPT - proceed immediately to next step**
 
 5. **Generate Names**
+
    - Parse user description for key concepts
    - Create PascalCase name (e.g., "user authentication" → "UserAuthentication", "recipe app" → "RecipeApp")
    - Create kebab-case name for branch suffix (e.g., "user-authentication", "recipe-app")
    - Focus on user value, not implementation details
 
 6. **Auto-Generate and Confirm Names**
+
    - **CRITICAL: DO NOT ask user for confirmation - auto-accept generated names**
    - Display generated names to user in a summary:
 
@@ -125,6 +132,7 @@ Initialize feature specification by validating setup, confirming feature naming,
    - **NO USER PROMPT - proceed immediately to next step**
 
 7. **Generate Understanding Summary (Auto-Continue)**
+
    - **CRITICAL: DO NOT ask user for confirmation - this is informational only**
    - Based on user's original description, generate CONCISE understanding summary
    - Display summary in chat:
@@ -196,6 +204,7 @@ Initialize feature specification by validating setup, confirming feature naming,
     - For multi-component projects: Use manual git commands in other components if needed
 
 11. **Execute Specification Template**
+
     - Use `Read` tool to read the copied Spec.md: `Read Context/Features/[numbered-feature-directory]/Spec.md`
     - Follow the **system instructions** section (boxed area) step by step
     - The template contains specification generation logic and progress tracking
@@ -205,10 +214,13 @@ Initialize feature specification by validating setup, confirming feature naming,
     - **Progress tracking**: User can see checkboxes being completed in the copied file
 
 12. **Auto-Resolve Clarification Points with Reasonable Defaults**
+
     - Use `Grep` tool to find clarification markers in final Spec.md: `Grep "🚨 \\[NEEDS CLARIFICATION:" [numbered-feature-directory]/Spec.md`
     - If clarification points found:
+
       - Parse each clarification point to extract the specific question and line context
       - **FOR EACH CLARIFICATION**:
+
         - Analyze the extracted clarification question
         - Generate most reasonable answer based on:
           - Project Context.md understanding
@@ -304,10 +316,13 @@ This section is preserved during ContextKit migrations and updates.
 Add project-specific instructions, examples, and overrides below.
 
 ## Custom Feature Examples
+
 <!-- Add examples of feature/app descriptions that work well with your project type -->
 
 ## Naming Overrides
+
 <!-- Document project-specific naming conventions or automatic name generation rules -->
 
 ## Validation Rules
+
 <!-- Add extra specification validation steps or quality gates specific to your project -->

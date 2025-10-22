@@ -1,5 +1,5 @@
 #!/bin/bash
-# Template Version: 2 | ContextKit: 0.2.6 | Updated: 2025-09-16
+# Template Version: 2 | ContextKit: 0.2.7 | Updated: 2025-09-16
 
 # auto-format.sh - Auto-format edited files
 # Called by PostToolUse hook after Claude Code edits files

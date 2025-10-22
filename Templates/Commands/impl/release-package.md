@@ -1,18 +1,21 @@
 # Release Swift Package
-<!-- Template Version: 4 | ContextKit: 0.2.6 | Updated: 2025-10-22 -->
 
-> [!WARNING]
-> **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
+<!-- Template Version: 4 | ContextKit: 0.2.7 | Updated: 2025-10-22 -->
+
+> [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
 > For project-specific customizations, use the designated section at the bottom of this file.
 >
 > Found a bug or improvement for everyone? Please report it: https://github.com/mehrdad-tat/ContextKit/issues
 
 ## Description
+
 Execute Swift Package release workflow with version management, release notes generation, and GitHub integration.
 
 ## Parameters
+
 **Usage**: `/ctxk:impl:release-package [version]`
+
 - `version` (optional): Specific version like "1.2.0" or "major"/"minor"/"patch" for semantic bumping
 
 ## Execution Flow (main)
@@ -28,19 +31,24 @@ Execute Swift Package release workflow with version management, release notes ge
 ### Phase 1: Prerequisites Validation
 
 1. **Verify Swift Package Project**
+
    ```bash
    ls Package.swift || echo "❌ Not a Swift package project"
    ```
+
    - If Package.swift not found: ERROR "This command is for Swift packages. Use /ctxk:impl:release-app for iOS/macOS apps."
 
 2. **Check Git Repository Status**
+
    ```bash
    git status --porcelain
    ```
+
    - If uncommitted changes exist: ERROR "Uncommitted changes detected. Commit all changes before release."
    - If not in git repository: ERROR "Git repository required for package releases."
 
 3. **Validate Package Builds and Tests**
+
    - Use `Task` tool to launch `build-project` agent: "Execute release build validation"
    - Use `Task` tool to launch `run-test-suite` agent: "Execute complete test suite for release validation"
    - If build fails: ERROR "Package must build successfully before release."
@@ -55,48 +63,60 @@ Execute Swift Package release workflow with version management, release notes ge
 ### Phase 2: Version Management
 
 5. **Extract Package Information**
+
    - Use `Read` tool to read Package.swift: `Read Package.swift`
    - Parse package name from manifest (extract from `name:` field)
    - Determine repository URL from git remote: `git remote get-url origin`
 
 6. **Determine Current Version and Get User Input**
+
    ```bash
    git tag --list --sort=-version:refname | head -1
    ```
+
    - Extract current version from latest git tag (e.g., "v1.4.2" → "1.4.2")
    - If no tags exist: current version is "none" (first release)
 
 7. **Comprehensive Change Analysis Since Last Release**
    **Step 7a: Commit Message Analysis**
+
    ```bash
    git log [LAST_TAG]..HEAD --oneline
    ```
+
    - Count commits since last release
    - Look for conventional commit patterns (feat:, fix:, BREAKING:)
 
    **Step 7b: File Change Analysis**
+
    ```bash
    git diff --name-status [LAST_TAG]..HEAD
    ```
+
    - Identify added (A), modified (M), deleted (D), renamed (R) files
    - Categorize files by type: Sources/, Tests/, Package.swift, README.md, etc.
 
    **Step 7c: Code Diff Analysis**
+
    ```bash
    git diff [LAST_TAG]..HEAD
    ```
+
    - Analyze actual code changes line by line
    - Focus on public API changes in Sources/ directory
    - Examine Package.swift for dependency changes
    - Check README.md and documentation updates
 
 8. **Auto-Select Version Number**
+
    - Analyze changes from step 7 to auto-select version bump type:
+
      - **MAJOR**: If breaking changes detected (public API removals, signature changes)
      - **MINOR**: If new features added (new public APIs, significant functionality)
      - **PATCH**: If only bug fixes, documentation, internal improvements, performance optimizations
 
    - Display auto-selected version:
+
      ```
      ════════════════════════════════════════════════════════════════
      📦 AUTO-SELECTED VERSION
@@ -114,12 +134,14 @@ Execute Swift Package release workflow with version management, release notes ge
      Proceeding with this version...
      ════════════════════════════════════════════════════════════════
      ```
+
    - Auto-continue with selected version (no user prompt)
 
 ### Phase 3: Release Notes Generation
 
 9. **Analyze Changes and Generate Release Notes**
    **Step 9a: Review Conversation Context**
+
    - Analyze current chat conversation for work performed and context
    - Understand the intent behind changes made during this development session
    - Cross-reference with git changes to ensure accuracy
@@ -148,6 +170,7 @@ Execute Swift Package release workflow with version management, release notes ge
    ❌ Commit message fixes or typos in non-user-facing text
 
    **Step 9c: Generate Simple Release Notes List**
+
    - Create a simple list of bullet points (no file created)
    - Sort by Keep A Changelog order: Added, Changed, Deprecated, Removed, Fixed, Security
    - Within each type, sort by importance (most impactful first)
@@ -156,7 +179,9 @@ Execute Swift Package release workflow with version management, release notes ge
    - If no meaningful user-facing changes found: Ask "Create maintenance release anyway?"
 
 10. **Auto-Generate Release Notes**
+
     - Display generated release notes:
+
       ```
       ════════════════════════════════════════════════════════════════
       📝 AUTO-GENERATED RELEASE NOTES
@@ -167,6 +192,7 @@ Execute Swift Package release workflow with version management, release notes ge
       Using these release notes for GitHub release...
       ════════════════════════════════════════════════════════════════
       ```
+
     - Auto-continue with generated notes (no user prompt)
     - Developer can manually edit release on GitHub if needed
 
@@ -179,19 +205,22 @@ Execute Swift Package release workflow with version management, release notes ge
 ### Phase 5: GitHub Release Creation
 
 12. **Create Git Tag**
+
     ```bash
     git tag -a "v[NEW_VERSION]" -m "Release [NEW_VERSION]"
     git push origin "v[NEW_VERSION]"
     ```
 
-14. **Create GitHub Release**
+13. **Create GitHub Release**
+
     - Use the confirmed release notes from step 10
     - Format as simple markdown list for GitHub release body
+
     ```bash
     gh release create "v[NEW_VERSION]" --title "[PACKAGE_NAME] [NEW_VERSION]" --notes "[FORMATTED_RELEASE_NOTES]"
     ```
 
-15. **Verify Release Creation**
+14. **Verify Release Creation**
     ```bash
     gh release view "v[NEW_VERSION]" --web
     ```
