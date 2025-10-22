@@ -1,6 +1,6 @@
 # Upgrade to Latest
 
-<!-- Template Version: 19 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
+<!-- Template Version: 19 | ContextKit: 0.2.9 | Updated: 2025-10-22 -->
 
 > [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >

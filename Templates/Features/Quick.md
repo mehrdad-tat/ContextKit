@@ -1,6 +1,6 @@
 # Quick Task Template
 
-<!-- Template Version: 3 | ContextKit: 0.2.8 | Updated: 2025-01-17 -->
+<!-- Template Version: 3 | ContextKit: 0.2.9 | Updated: 2025-01-17 -->
 
 ## Description
 

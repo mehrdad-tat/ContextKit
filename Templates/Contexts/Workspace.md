@@ -1,6 +1,6 @@
 # Workspace Context Template
 
-<!-- Template Version: 2 | ContextKit: 0.2.8 | Updated: 2025-10-02 -->
+<!-- Template Version: 2 | ContextKit: 0.2.9 | Updated: 2025-10-02 -->
 
 ## Description
 

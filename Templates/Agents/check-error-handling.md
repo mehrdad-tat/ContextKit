@@ -1,5 +1,5 @@
 ---
-meta: "Template Version: 6 | ContextKit: 0.2.8 | Updated: 2025-10-02"
+meta: "Template Version: 6 | ContextKit: 0.2.9 | Updated: 2025-10-02"
 name: check-error-handling
 description: [INCOMPLETE] Validate and fix error handling compliance - needs rework for read-only reporting
 tools: Read, Edit, MultiEdit, Grep, Glob, Task

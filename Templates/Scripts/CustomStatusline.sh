@@ -1,5 +1,5 @@
 #!/bin/bash
-# Template Version: 3 | ContextKit: 0.2.8 | Updated: 2025-10-21
+# Template Version: 3 | ContextKit: 0.2.9 | Updated: 2025-10-21
 
 # Custom Claude Code statusline with beautiful colored progress bars
 # Format: ⏱ 5h: ▓▓▓▓▓▓░░░░ 61% (2.3h left) | 🧠 Chat: ▓▓▓▓░░░░░░ 44% (87k/200k)

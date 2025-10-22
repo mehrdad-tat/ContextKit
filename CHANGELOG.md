@@ -1,6 +1,6 @@
 # ContextKit Changelog
 
-<!-- ContextKit: 0.2.8 | Updated: 2025-10-22 -->
+<!-- ContextKit: 0.2.9 | Updated: 2025-10-22 -->
 
 Maintains accurate changelog following [Keep a Changelog](https://keepachangelog.com/) format.
 Used by `/ctxk:proj:migrate` command to track file changes and preserve user customizations.
@@ -97,41 +97,38 @@ N/A
 
 N/A
 
+## [0.2.9] - 2025-10-22
+
+### Fixed - CRITICAL BUG FIXES
+
+**🚨 Migration System Completely Broken - Now Fixed:**
+
+- `[M] Templates/Scripts/VersionStatus.sh` v8→v9 (a63ed8b) - **CRITICAL**: Fixed version parsing from line 2→line 3. All template files have version on line 3 (after title + blank line), but script read line 2 (blank). This caused ALL version comparisons to fail, making migration never detect outdated files!
+
+- `[M] Templates/Commands/proj/migrate.md` v18→v19 (89b12e4) - **CRITICAL**: Fixed global commands update to include ALL categories (plan/, impl/, bckl/), not just proj/. Users running /ctxk:impl:start-working were getting OLD v17 template instead of NEW v23 because global impl commands were never updated!
+
+**🔄 Continuous Execution Workflow - 6 Iterative Fixes:**
+
+- `[M] Templates/Commands/impl/start-working.md` v17→v23 (f61a24a, b397bee, 5352128, 68d7fea, 8316cc1, 9d2d08e) - Radical redesign to enforce continuous task execution without user prompts:
+  - v17→v18: Added explicit "NEVER ASK TO CONTINUE" warnings in Step 10
+  - v18→v19: Added "FORBIDDEN BEHAVIORS" section prohibiting summaries and questions
+  - v19→v20: Prohibited "(Y/n)" confirmation questions before task execution
+  - v20→v21: Implemented XML `<continuous_execution_loop>` structure for clarity
+  - v21→v22: Added warnings INSIDE task details box template
+  - v22→v23: **RADICAL FIX** - Removed task details box entirely, implemented silent execution mode (DO NOT display box, just execute tools immediately)
+
+### Impact
+
+These fixes resolve complete migration system failure where:
+1. `/ctxk:proj:migrate` never detected outdated files (version parsing bug)
+2. Global commands stayed on old versions even after migration (missing impl/plan/bckl update)
+3. `/ctxk:impl:start-working` continuously asked "(Y/n)" between tasks despite 6 template improvements
+
+Users must run: `curl -fsSL https://raw.githubusercontent.com/mehrdad-tat/ContextKit/main/install.sh | sh` followed by `/ctxk:proj:migrate` to receive these critical fixes.
+
+
+
 ## [0.2.8] - 2025-10-22
-
-### Added
-
-- `VERSION` file (44b9578) - Simple text file containing current version for quick comparison
-- `Templates/Scripts/check-version.sh` (44b9578) - Fast version checker with colored output
-
-### Changed
-
-- `install.sh` - Copy VERSION file (44b9578) during installation
-- `[M] Templates/Commands/proj/migrate.md` - Copy VERSION file (44b9578) during migration
-
-### Added
-
-N/A
-
-### Changed
-
-N/A
-
-### Deprecated
-
-N/A
-
-### Removed
-
-N/A
-
-### Fixed
-
-N/A
-
-### Security
-
-N/A
 
 ## [0.2.8] - 2025-10-22
 

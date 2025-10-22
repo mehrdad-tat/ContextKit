@@ -1,6 +1,6 @@
 # Triage Bugs with Severity-Based Prioritization
 
-<!-- Template Version: 4 | ContextKit: 0.2.8 | Updated: 2025-10-18 -->
+<!-- Template Version: 4 | ContextKit: 0.2.9 | Updated: 2025-10-18 -->
 
 > [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
