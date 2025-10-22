@@ -1,6 +1,6 @@
 # ContextKit Changelog
 
-<!-- ContextKit: 0.2.7 | Updated: 2025-10-22 -->
+<!-- ContextKit: 0.2.8 | Updated: 2025-10-22 -->
 
 Maintains accurate changelog following [Keep a Changelog](https://keepachangelog.com/) format.
 Used by `/ctxk:proj:migrate` command to track file changes and preserve user customizations.
@@ -97,7 +97,7 @@ N/A
 
 N/A
 
-## [0.2.7] - 2025-10-22
+## [0.2.8] - 2025-10-22
 
 ### Added
 
@@ -133,7 +133,7 @@ N/A
 
 N/A
 
-## [0.2.7] - 2025-10-22
+## [0.2.8] - 2025-10-22
 
 ### Fixed
 
@@ -166,7 +166,7 @@ N/A
 
 N/A
 
-## [0.2.7] - 2025-10-22
+## [0.2.8] - 2025-10-22
 
 ### Added
 
@@ -202,7 +202,7 @@ N/A
 
 N/A
 
-## [0.2.7] - 2025-10-22
+## [0.2.8] - 2025-10-22
 
 ### Fixed
 
@@ -233,14 +233,14 @@ N/A
 
 N/A
 
-## [0.2.7] - 2025-10-22
+## [0.2.8] - 2025-10-22
 
 ### Fixed
 
 - `[M] Templates/Commands/version.md` - Moved from proj/ to root for correct /ctxk:version command path (72ab0c6)
 - `install.sh` - Updated to copy version.md to root of ctxk commands directory (72ab0c6)
 
-## [0.2.7] - 2025-10-22
+## [0.2.8] - 2025-10-22
 
 ### Added
 
@@ -255,20 +255,20 @@ N/A
 - `[M] Templates/Commands/impl/release-app.md` - Auto-select version bump and auto-generate release notes for faster app releases (f3314f1)
 - `[M] Templates/Commands/impl/release-package.md` - Auto-select version bump and auto-generate release notes for faster package releases (f3314f1)
 
-## [0.2.7] - 2025-10-21
+## [0.2.8] - 2025-10-21
 
 ### Changed
 
 - `[M] Templates/Scripts/CustomStatusline.sh` - Enhanced with 256-color gradient, better formatting, icons, and improved code structure (1e64d9c)
 
-## [0.2.7] - 2025-10-21
+## [0.2.8] - 2025-10-21
 
 ### Fixed
 
 - `[M] Templates/Commands/proj/init.md` - Replace hanging user prompts with AskUserQuestion tool for interactive buttons (a78a46f)
 - `install.sh` - Auto-detect and update repository remote URL to ensure users always pull from correct repository (da4cbb4)
 
-## [0.2.7] - 2025-10-17
+## [0.2.8] - 2025-10-17
 
 ### Added
 

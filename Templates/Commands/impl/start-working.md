@@ -1,6 +1,6 @@
 # Begin Development with Context
 
-<!-- Template Version: 17 | ContextKit: 0.2.7 | Updated: 2025-10-21 -->
+<!-- Template Version: 18 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
 
 > [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
@@ -160,6 +160,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
    - Find the **first uncompleted task** in S001, S002, S003... sequence from Steps.md
    - **ABSOLUTE REQUIREMENT**: Do NOT skip tasks, do NOT choose "easier" tasks, do NOT take shortcuts
    - **ABSOLUTE REQUIREMENT**: Do NOT assume tasks are complete - follow the plan exactly
+   - **ABSOLUTE REQUIREMENT**: Do NOT stop between tasks to ask user - continue automatically
    - Check dependencies are satisfied:
      - Extract "Dependencies: S001, S002" from task description in Steps.md
      - Verify all dependency tasks are completed (checked boxes in Steps.md)
@@ -167,6 +168,7 @@ Begin systematic development with context-aware setup, task analysis, and guided
    - **CRITICAL RULE**: Steps.md is the master plan - follow it religiously, never deviate
    - **NEVER SPEED UP**: Do NOT execute multiple steps at once - handle ONE task at a time
    - **NEVER ASSUME**: Do NOT assume tasks are simple or can be batched - follow each step individually
+   - **NEVER STOP TO ASK**: Do NOT pause between tasks asking "Should I continue?" - just continue
    - **NEVER AUTOMATE THE PROCESS**: Each step requires individual attention and execution
    - If no valid next task available: Display completion status and guide user to next phase
    - **Steps.md drives everything** - it's not just a reference, it's the execution plan
@@ -262,6 +264,8 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
 ### Phase 4: Task Execution with Steps.md as Central Progress Tracker
 
+**🚨 CRITICAL EXECUTION MODE**: This phase runs **continuously and automatically** until all tasks in Steps.md are complete. Do NOT stop between tasks, do NOT ask for user confirmation, do NOT wait for approval. Execute each task, update Steps.md, and immediately proceed to the next task.
+
 8. **Execute Task Implementation with Complete Context**
 
    - **For Manual Tasks**: User delegation complete, immediately mark as done in Steps.md
@@ -293,21 +297,25 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
     - **IMMEDIATELY after updating Steps.md**: Check for next sequential task
     - **Do NOT exit** - continue with next task in sequence according to Steps.md
+    - **🚨 CRITICAL - NEVER ASK USER TO CONTINUE**: Do NOT ask "Would you like me to continue?" or "Should I proceed?" - just continue automatically
+    - **🚨 CRITICAL - NEVER WAIT FOR CONFIRMATION**: Do NOT pause between tasks - execute the next task immediately
+    - **🚨 CRITICAL - NEVER STOP BETWEEN TASKS**: The workflow is designed to run continuously until completion
     - Display progress update based on Steps.md status:
 
     ```
     ✅ Task [TaskNumber] completed and marked in Steps.md!
 
     📊 Progress: [completed_tasks+1]/[total_tasks] tasks done per Steps.md
-    🔄 Loading next task from Steps.md...
+    🔄 Continuing with implementation...
     ```
 
-    - Return to Phase 3, Step 6 to determine next task from Steps.md
+    - **IMMEDIATELY** proceed to Phase 3, Step 6 to load and execute next task from Steps.md
     - **Only exit when**:
       - ALL Steps.md tasks completed (all checkboxes checked)
       - Dependency blocking prevents any task execution
-      - User explicitly requests to stop
-    - **The goal**: Complete the entire Steps.md task list systematically
+      - Manual task encountered (marked ⚠️ MANUAL REQUIRED in Steps.md)
+      - User explicitly requests to stop with a message
+    - **The goal**: Complete the entire Steps.md task list systematically without any interruptions
 
 11. **Quality Assurance Integration with Primary Agents**
 

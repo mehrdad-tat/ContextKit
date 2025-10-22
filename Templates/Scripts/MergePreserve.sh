@@ -1,5 +1,5 @@
 #!/bin/bash
-# Template Version: 8 | ContextKit: 0.2.7 | Updated: 2025-09-16
+# Template Version: 8 | ContextKit: 0.2.8 | Updated: 2025-09-16
 
 # MergePreserve.sh - Intelligent template merging with customization preservation
 # Automatically merges template updates while preserving user customizations

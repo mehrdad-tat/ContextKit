@@ -1,6 +1,6 @@
 # Feature Specification Template
 
-<!-- Template Version: 6 | ContextKit: 0.2.7 | Updated: 2025-10-17 -->
+<!-- Template Version: 6 | ContextKit: 0.2.8 | Updated: 2025-10-17 -->
 
 ## Description
 

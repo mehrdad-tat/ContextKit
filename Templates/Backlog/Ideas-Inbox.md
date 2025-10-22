@@ -1,6 +1,6 @@
 # Ideas Inbox
 
-<!-- Template Version: 1 | ContextKit: 0.2.7 | Updated: 2025-09-15 -->
+<!-- Template Version: 1 | ContextKit: 0.2.8 | Updated: 2025-09-15 -->
 
 > [!NOTE] > **✅ USER-EDITABLE FILE**: This file is completely yours to edit!
 >

@@ -161,7 +161,7 @@ install_global_commands() {
       fi
    fi
 
-   # Clean up old version.md from proj/ (migration from v0.2.7)
+   # Clean up old version.md from proj/ (migration from v0.2.8)
    if [[ -f "$ctxk_commands_dir/proj/version.md" ]]; then
       rm -f "$ctxk_commands_dir/proj/version.md"
    fi

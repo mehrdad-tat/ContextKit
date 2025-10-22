@@ -1,5 +1,5 @@
 ---
-meta: "Template Version: 5 | ContextKit: 0.2.7 | Updated: 2025-10-02"
+meta: "Template Version: 5 | ContextKit: 0.2.8 | Updated: 2025-10-02"
 name: commit-changes
 description: Intelligent git analysis, commit message generation, and commit execution with comprehensive format validation
 tools: Read, Bash, Grep, Glob
