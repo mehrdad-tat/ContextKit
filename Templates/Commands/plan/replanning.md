@@ -1,5 +1,5 @@
 # Re-Plan or Update Existing Feature
-<!-- Template Version: 0 | ContextKit: 0.2.5 | Updated: 2025-10-21 -->
+<!-- Template Version: 0 | ContextKit: 0.2.6 | Updated: 2025-10-21 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
