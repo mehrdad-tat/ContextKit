@@ -1,6 +1,6 @@
 # Begin Development with Context
 
-<!-- Template Version: 21 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
+<!-- Template Version: 22 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
 
 > [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
@@ -288,10 +288,16 @@ and does NOT create summaries. It executes task after task automatically.
 
      Starting implementation now...
      ═══════════════════════════════════════════════════
+
+     🚨 DO NOT ADD ANY TEXT AFTER THIS BOX 🚨
+     🚨 DO NOT ASK "Ready to execute?" 🚨
+     🚨 DO NOT ASK "(Y/n)" 🚨
+     🚨 START EXECUTION IMMEDIATELY 🚨
      ```
 
    - **IMMEDIATELY start executing** - no pauses, no questions, no confirmations
    - The box above is informational only - execution starts right after displaying it
+   - **CRITICAL**: Do NOT output ANY text after the box - go straight to implementation
 
    **IMPORTANT**:
 
