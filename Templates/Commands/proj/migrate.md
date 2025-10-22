@@ -1,5 +1,5 @@
 # Upgrade to Latest
-<!-- Template Version: 17 | ContextKit: 0.2.5 | Updated: 2025-10-18 -->
+<!-- Template Version: 18 | ContextKit: 0.2.6 | Updated: 2025-10-18 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -69,6 +69,9 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
 
      # Copy version.md to root
      cp ~/.ContextKit/Templates/Commands/version.md ~/.claude/commands/ctxk/ 2>/dev/null || true
+
+     # Copy VERSION file for quick version checking
+     cp ~/.ContextKit/VERSION ~/.claude/commands/ctxk/ 2>/dev/null || true
 
      # Clean up old version.md from proj/ if exists
      rm -f ~/.claude/commands/ctxk/proj/version.md 2>/dev/null || true
