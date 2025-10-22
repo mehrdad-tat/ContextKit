@@ -116,7 +116,7 @@ N/A
 ### Security
 N/A
 
-## [0.2.5] - 2025-10-22
+## [0.2.6] - 2025-10-22
 
 ### Fixed
 - `[M] Templates/Commands/proj/migrate.md` - Added Phase 1.5 to explicitly update global commands during migration (92040b3)
@@ -168,7 +168,7 @@ N/A
 ### Security
 N/A
 
-## [0.2.5] - 2025-10-22
+## [0.2.6] - 2025-10-22
 
 ### Fixed
 - `[M] Templates/Commands/proj/migrate.md` - Added Phase 1.5 to explicitly update global commands during migration (92040b3)
@@ -191,13 +191,13 @@ N/A
 ### Security
 N/A
 
-## [0.2.5] - 2025-10-22
+## [0.2.6] - 2025-10-22
 
 ### Fixed
 - `[M] Templates/Commands/version.md` - Moved from proj/ to root for correct /ctxk:version command path (72ab0c6)
 - `install.sh` - Updated to copy version.md to root of ctxk commands directory (72ab0c6)
 
-## [0.2.5] - 2025-10-22
+## [0.2.6] - 2025-10-22
 
 ### Added
 - `Templates/Commands/proj/version.md` - New command to display ContextKit version with GitHub update checking (f3314f1)
@@ -210,18 +210,18 @@ N/A
 - `[M] Templates/Commands/impl/release-app.md` - Auto-select version bump and auto-generate release notes for faster app releases (f3314f1)
 - `[M] Templates/Commands/impl/release-package.md` - Auto-select version bump and auto-generate release notes for faster package releases (f3314f1)
 
-## [0.2.5] - 2025-10-21
+## [0.2.6] - 2025-10-21
 
 ### Changed
 - `[M] Templates/Scripts/CustomStatusline.sh` - Enhanced with 256-color gradient, better formatting, icons, and improved code structure (1e64d9c)
 
-## [0.2.5] - 2025-10-21
+## [0.2.6] - 2025-10-21
 
 ### Fixed
 - `[M] Templates/Commands/proj/init.md` - Replace hanging user prompts with AskUserQuestion tool for interactive buttons (a78a46f)
 - `install.sh` - Auto-detect and update repository remote URL to ensure users always pull from correct repository (da4cbb4)
 
-## [0.2.5] - 2025-10-17
+## [0.2.6] - 2025-10-17
 
 ### Added
 - Quick planning workflow for smaller tasks (`/ctxk:plan:quick`)
