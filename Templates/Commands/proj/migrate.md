@@ -1,6 +1,6 @@
 # Upgrade to Latest
 
-<!-- Template Version: 18 | ContextKit: 0.2.8 | Updated: 2025-10-18 -->
+<!-- Template Version: 19 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
 
 > [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
@@ -68,11 +68,14 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
 
 4. **Ensure Global Commands Are Up-to-Date**
 
-   - Use Bash tool to copy global commands from ContextKit to ~/.claude/commands/ctxk/:
+   - Use Bash tool to copy ALL global commands from ContextKit to ~/.claude/commands/ctxk/:
 
      ```bash
-     # Copy all proj commands
+     # Copy all command categories to global location
      cp -R ~/.ContextKit/Templates/Commands/proj/*.md ~/.claude/commands/ctxk/proj/ 2>/dev/null || true
+     cp -R ~/.ContextKit/Templates/Commands/plan/*.md ~/.claude/commands/ctxk/plan/ 2>/dev/null || true
+     cp -R ~/.ContextKit/Templates/Commands/impl/*.md ~/.claude/commands/ctxk/impl/ 2>/dev/null || true
+     cp -R ~/.ContextKit/Templates/Commands/bckl/*.md ~/.claude/commands/ctxk/bckl/ 2>/dev/null || true
 
      # Copy version.md to root
      cp ~/.ContextKit/Templates/Commands/version.md ~/.claude/commands/ctxk/ 2>/dev/null || true
@@ -83,11 +86,13 @@ All updates preserve user customizations in "👩‍💻 DEVELOPER CUSTOMIZATION
      # Clean up old version.md from proj/ if exists
      rm -f ~/.claude/commands/ctxk/proj/version.md 2>/dev/null || true
 
-     echo "✅ Global commands updated"
+     echo "✅ Global commands updated (proj, plan, impl, bckl)"
      ```
 
-   - This ensures users always have the latest `/ctxk:proj:*` and `/ctxk:version` commands
+   - This ensures users always have the latest `/ctxk:*` commands from ALL categories
+   - **Why critical**: Commands like `/ctxk:impl:start-working` are run from `~/.claude/commands/ctxk/impl/`, NOT from project directory
    - **Why needed**: Global commands in ~/.claude/commands/ctxk/ don't auto-update like local project templates
+   - **What gets updated**: proj commands, plan commands, impl commands, bckl commands, version.md, VERSION file
 
 ### Phase 2: Manual LLM Processing (Complex Cases Only) - SKIP IF NO UPDATES FOUND
 
