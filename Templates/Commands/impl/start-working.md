@@ -1,6 +1,6 @@
 # Begin Development with Context
 
-<!-- Template Version: 19 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
+<!-- Template Version: 20 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
 
 > [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
@@ -221,9 +221,12 @@ Begin systematic development with context-aware setup, task analysis, and guided
 
    **For AUTOMATED Tasks** (no manual markers in Steps.md):
 
-   **CRITICAL**: Execute exactly as specified in Steps.md - no shortcuts or assumptions
+   **🚨 CRITICAL - NO QUESTIONS EVER**: Execute exactly as specified in Steps.md - no shortcuts, no assumptions, NO QUESTIONS
 
-   - Display automated task details in chat:
+   - **🚨 DO NOT ASK "Ready to execute?"** - just execute immediately
+   - **🚨 DO NOT ASK "(Y/n)"** - just execute immediately
+   - **🚨 DO NOT WAIT FOR CONFIRMATION** - just execute immediately
+   - Display task details and START EXECUTION:
 
      ```
      ═══════════════════════════════════════════════════
@@ -254,13 +257,15 @@ Begin systematic development with context-aware setup, task analysis, and guided
      ═══════════════════════════════════════════════════
      ```
 
-   - Auto-execute immediately (no user prompt)
+   - **IMMEDIATELY start executing** - no pauses, no questions, no confirmations
+   - The box above is informational only - execution starts right after displaying it
 
    **IMPORTANT**:
 
    - Task details come DIRECTLY from Steps.md - never modify or interpret
    - Use complete context from Spec.md and Tech.md (which contains research + architecture) for implementation
    - Do NOT skip steps or take shortcuts - follow Steps.md exactly
+   - **DO NOT ASK ANY QUESTIONS** - just execute the task immediately after showing the box
 
 ### Phase 4: Task Execution with Steps.md as Central Progress Tracker
 
