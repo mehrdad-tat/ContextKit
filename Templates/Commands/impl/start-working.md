@@ -1,6 +1,6 @@
 # Begin Development with Context
 
-<!-- Template Version: 22 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
+<!-- Template Version: 23 | ContextKit: 0.2.8 | Updated: 2025-10-22 -->
 
 > [!WARNING] > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
 >
@@ -254,57 +254,36 @@ and does NOT create summaries. It executes task after task automatically.
 
    **For AUTOMATED Tasks** (no manual markers in Steps.md):
 
-   **🚨 CRITICAL - NO QUESTIONS EVER**: Execute exactly as specified in Steps.md - no shortcuts, no assumptions, NO QUESTIONS
+   **🚨 CRITICAL - SILENT EXECUTION MODE**: Execute immediately without ANY output except the actual implementation
 
-   - **🚨 DO NOT ASK "Ready to execute?"** - just execute immediately
-   - **🚨 DO NOT ASK "(Y/n)"** - just execute immediately
-   - **🚨 DO NOT WAIT FOR CONFIRMATION** - just execute immediately
-   - Display task details and START EXECUTION:
+   <silent_task_execution>
+   **EXECUTION PROTOCOL**:
+   1. Parse task details from Steps.md (description, files, criteria)
+   2. **DO NOT display task details box** - skip directly to implementation
+   3. **DO NOT output explanatory text** - just start coding/creating files
+   4. **DO NOT ask questions** - no "(Y/n)", no "Ready to execute?", NOTHING
+   5. Begin implementation using Read/Write/Edit/Bash tools immediately
 
-     ```
-     ═══════════════════════════════════════════════════
-     🚀 AUTO-EXECUTING TASK - [TaskNumber from Steps.md]
-     ═══════════════════════════════════════════════════
+   **WHAT TO DO**:
+   - Read relevant context if needed (Spec.md, Tech.md, existing files)
+   - Create/modify files as specified in Steps.md
+   - Apply acceptance criteria from Steps.md
+   - Work silently - let the tool usage speak for itself
 
-     📋 TASK FROM STEPS.md:
-     [Exact task description from Steps.md]
+   **WHAT NOT TO DO**:
+   - ❌ NO task detail boxes
+   - ❌ NO "implementation approach" explanations
+   - ❌ NO "starting implementation now" messages
+   - ❌ NO questions of any kind
+   - ❌ NO waiting for confirmation
 
-     📂 FILES TO MODIFY:
-     [Exact file paths from Steps.md]
+   **EXECUTION STARTS IMMEDIATELY** - first tool use should be Read/Write/Edit/Bash for the actual task
+   </silent_task_execution>
 
-     🎯 ACCEPTANCE CRITERIA:
-     [Criteria from Steps.md]
-
-     🔗 DEPENDENCIES:
-     [Dependencies listed in Steps.md]
-
-     📝 FULL CONTEXT FOR IMPLEMENTATION:
-     • Feature specification: [Complete understanding from Spec.md]
-     • Technical planning: [Research and architecture from Tech.md]
-     • Current progress: [completed_tasks]/[total_tasks] tasks done in Steps.md
-
-     🔧 IMPLEMENTATION APPROACH:
-     [How this will be implemented based on complete context understanding]
-
-     Starting implementation now...
-     ═══════════════════════════════════════════════════
-
-     🚨 DO NOT ADD ANY TEXT AFTER THIS BOX 🚨
-     🚨 DO NOT ASK "Ready to execute?" 🚨
-     🚨 DO NOT ASK "(Y/n)" 🚨
-     🚨 START EXECUTION IMMEDIATELY 🚨
-     ```
-
-   - **IMMEDIATELY start executing** - no pauses, no questions, no confirmations
-   - The box above is informational only - execution starts right after displaying it
-   - **CRITICAL**: Do NOT output ANY text after the box - go straight to implementation
-
-   **IMPORTANT**:
-
-   - Task details come DIRECTLY from Steps.md - never modify or interpret
-   - Use complete context from Spec.md and Tech.md (which contains research + architecture) for implementation
-   - Do NOT skip steps or take shortcuts - follow Steps.md exactly
-   - **DO NOT ASK ANY QUESTIONS** - just execute the task immediately after showing the box
+   **Example of correct behavior**:
+   - Task: Create Models/Foo.cs
+   - ✅ CORRECT: Immediately use Write tool to create Models/Foo.cs
+   - ❌ WRONG: Display box, explain approach, ask "(Y/n)"
 
 ### Phase 4: Task Execution with Steps.md as Central Progress Tracker
 
