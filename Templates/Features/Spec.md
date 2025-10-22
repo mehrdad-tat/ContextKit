@@ -1,5 +1,5 @@
 # Feature Specification Template
-<!-- Template Version: 6 | ContextKit: 0.2.2 | Updated: 2025-10-17 -->
+<!-- Template Version: 6 | ContextKit: 0.2.5 | Updated: 2025-10-17 -->
 
 ## Description
 Feature specification template providing systematic business requirements generation with progress tracking and quality validation.

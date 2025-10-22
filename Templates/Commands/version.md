@@ -1,5 +1,5 @@
 # Display ContextKit Version
-<!-- Template Version: 0 | ContextKit: 0.2.4 | Updated: 2025-10-22 -->
+<!-- Template Version: 0 | ContextKit: 0.2.5 | Updated: 2025-10-22 -->
 
 > [!WARNING]
 > **👩‍💻 FOR DEVELOPERS**: Do not edit the content above the developer customization section - changes will be overwritten during ContextKit updates.
@@ -132,8 +132,8 @@ Display current ContextKit version installed in this project and available updat
 ```
 🎉 ContextKit Version Information
 
-✅ Global ContextKit: v0.2.3
-📦 Project ContextKit: v0.2.3
+✅ Global ContextKit: v0.2.5
+📦 Project ContextKit: v0.2.5
 
 ✅ ContextKit is up to date!
 
@@ -147,8 +147,8 @@ Display current ContextKit version installed in this project and available updat
 ```
 🎉 ContextKit Version Information
 
-✅ Global ContextKit: v0.2.3
-📦 Project ContextKit: v0.2.2
+✅ Global ContextKit: v0.2.5
+📦 Project ContextKit: v0.2.5
 
 ════════════════════════════════════════════════════════════════
 🔄 UPDATE AVAILABLE
@@ -156,8 +156,8 @@ Display current ContextKit version installed in this project and available updat
 
 Your project is using an older ContextKit version.
 
-Project Version:  v0.2.2
-Latest Available: v0.2.3
+Project Version:  v0.2.5
+Latest Available: v0.2.5
 
 Run /ctxk:proj:migrate to update your project templates.
 

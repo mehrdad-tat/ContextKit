@@ -1,5 +1,5 @@
 # Bugs Inbox
-<!-- Template Version: 1 | ContextKit: 0.2.2 | Updated: 2025-09-15 -->
+<!-- Template Version: 1 | ContextKit: 0.2.5 | Updated: 2025-09-15 -->
 
 > [!NOTE]
 > **✅ USER-EDITABLE FILE**: This file is completely yours to edit!

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Template Version: 8 | ContextKit: 0.2.2 | Updated: 2025-09-24
+# Template Version: 8 | ContextKit: 0.2.5 | Updated: 2025-09-24
 
 # version-status.sh - ContextKit version management and project status
 # Called by SessionStart hook when Claude Code starts a new session

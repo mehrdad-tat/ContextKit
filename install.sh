@@ -149,7 +149,7 @@ install_global_commands() {
 
    # Copy version.md to root of ctxk commands (for /ctxk:version)
 
-   # Clean up old version.md from proj/ (migration from v0.2.3)
+   # Clean up old version.md from proj/ (migration from v0.2.5)
    if [[ -f "$ctxk_commands_dir/proj/version.md" ]]; then
       rm -f "$ctxk_commands_dir/proj/version.md"
    fi
