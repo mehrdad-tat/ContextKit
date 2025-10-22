@@ -148,6 +148,11 @@ install_global_commands() {
    fi
 
    # Copy version.md to root of ctxk commands (for /ctxk:version)
+
+   # Clean up old version.md from proj/ (migration from v0.2.3)
+   if [[ -f "$ctxk_commands_dir/proj/version.md" ]]; then
+      rm -f "$ctxk_commands_dir/proj/version.md"
+   fi
    if [[ -f "$commands_dir/version.md" ]]; then
       if ! cp "$commands_dir/version.md" "$ctxk_commands_dir"/; then
          print_warning "Failed to copy version.md"
